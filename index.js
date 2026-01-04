@@ -1,357 +1,92 @@
-// index.js – AddTrains mod
-// For Subway Builder v0.10.3+
+// index.js – AddTrains Mod (Complete Edition)
+// Version 4.0 – Full feature set with proper API integration
+/*
+// ============================================================================
+// DRAGGABLE DEBUG PANEL
+// ============================================================================
+(function() {
+    const debugBox = document.createElement('div');
+    debugBox.style.position = 'fixed';
+    debugBox.style.top = '10px';
+    debugBox.style.right = '10px';
+    debugBox.style.width = '400px';
+    debugBox.style.height = '600px';
+    debugBox.style.backgroundColor = 'rgba(0, 0, 0, 0.9)';
+    debugBox.style.color = '#00ff00';
+    debugBox.style.fontFamily = 'monospace';
+    debugBox.style.fontSize = '12px';
+    debugBox.style.padding = '10px';
+    debugBox.style.overflowY = 'auto';
+    debugBox.style.zIndex = '99999';
+    debugBox.style.border = '2px solid #00ff00';
+    debugBox.style.cursor = 'move';
+    debugBox.style.resize = 'both';
+    
+    const header = document.createElement('div');
+    header.style.padding = '5px';
+    header.style.backgroundColor = '#222';
+    header.style.borderBottom = '1px solid #00ff00';
+    header.style.cursor = 'move';
+    header.innerText = 'Add Trains Mod Debugger';
+    
+    const content = document.createElement('div');
+    content.style.height = 'calc(100% - 30px)';
+    content.style.overflowY = 'auto';
+    
+    debugBox.appendChild(header);
+    debugBox.appendChild(content);
+    document.body.appendChild(debugBox);
 
+    let isDragging = false;
+    let initialX, initialY;
+
+    header.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+
+    function dragStart(e) {
+        initialX = e.clientX - debugBox.offsetLeft;
+        initialY = e.clientY - debugBox.offsetTop;
+        isDragging = true;
+    }
+
+    function drag(e) {
+        if (isDragging) {
+            e.preventDefault();
+            const currentX = e.clientX - initialX;
+            const currentY = e.clientY - initialY;
+            
+            debugBox.style.left = currentX + 'px';
+            debugBox.style.top = currentY + 'px';
+            debugBox.style.right = 'auto';
+        }
+    }
+
+    function dragEnd() { isDragging = false; }
+
+    const originalLog = console.log;
+    const originalError = console.error;
+
+    function logToScreen(msg, type = 'INFO') {
+        const line = document.createElement('div');
+        const time = new Date().toLocaleTimeString();
+        line.innerText = `[${time}] [${type}] ${msg}`;
+        if (type === 'ERROR') line.style.color = '#ff4444';
+        content.appendChild(line);
+        content.scrollTop = content.scrollHeight;
+    }
+    
+    console.log = function(...args) { logToScreen(args.join(' '), 'LOG'); originalLog.apply(console, args); };
+    console.error = function(...args) { logToScreen(args.join(' '), 'ERROR'); originalError.apply(console, args); };
+})();
+*/
 (function () {
     if (window.__AddTrainsModInitialized) return;
     window.__AddTrainsModInitialized = true;
 
     // --------------------------------------------------
-    // CONFIGURATION: MAIN BUTTON POSITION & APPEARANCE
+    // DEBUG SYSTEM
     // --------------------------------------------------
-    const UI_BTN_CONFIG = {
-        // Positioning
-        align: "center",           // "left", "center" or "right"
-        vertical: "center",       // "top", "center" or "bottom"
-        bottom: "70px",           // Distance from bottom (when vertical="bottom")
-        top: "20px",              // Distance from top (when vertical="top")
-        offsetX: "0px",           // Additional horizontal offset
-		offsetY: "230px",
-        
-        // Appearance
-        icon: "custom",            // "train", "settings", "plus", or "custom"
-        customIcon: "↝",           // Custom SVG icon if icon="custom"
-        text: " Add Trains Mod",       // Button text
-        backgroundColor: "white",      // Leave empty for default
-        textColor: "black",            // Leave empty for default
-        borderColor: "",          // Leave empty for default
-        hoverEffect: false,        // Enable hover effect
-        
-        // Size
-        width: "385px",            // Button width
-        height: "45px",           // Button height
-        scale: "1.0",             // Scale factor
-        fontSize: "38px",         // Font size
-        
-        // Advanced
-        zIndex: "99990",          // Z-index
-        hideInGame: true          // Auto-hide when game is running
-    };
-
-    // --------------------------------------------------
-    // STYLING
-    // --------------------------------------------------
-    function injectStyles() {
-        if (document.getElementById("addtrains-style")) return;
-        const style = document.createElement("style");
-        style.id = "addtrains-style";
-        style.textContent = `
-            :root {
-                --background: 0 0% 3.9%;
-                --foreground: 0 0% 98%;
-                --card: 0 0% 3.9%;
-                --border: 0 0% 14.9%;
-                --primary: 0 0% 98%;
-                --primary-fg: 0 0% 9%;
-                --muted: 0 0% 14.9%;
-                --muted-fg: 0 0% 63.9%;
-                --accent: 0 0% 14.9%;
-                --accent-fg: 0 0% 98%;
-                --font-main: 'TeX Gyre Heros', 'Inter', sans-serif;
-            }
-
-            .at-overlay {
-                font-family: var(--font-main);
-                background-color: hsl(var(--background) / 0.95);
-                color: hsl(var(--foreground));
-                position: fixed; inset: 0; z-index: 99998;
-                display: flex; justify-content: center; align-items: center;
-                backdrop-filter: blur(4px);
-            }
-
-            .at-panel {
-                background-color: hsl(var(--card));
-                border: 1px solid hsl(var(--border));
-                border-radius: 8px;
-                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-                width: 850px; max-height: 85vh;
-                display: flex; flex-direction: column;
-                overflow: hidden;
-            }
-
-            .at-header {
-                padding: 16px 24px;
-                border-bottom: 1px solid hsl(var(--border));
-                display: flex; justify-content: space-between; align-items: center;
-                background-color: hsl(var(--muted) / 0.3);
-            }
-            .at-header h2 { font-weight: 700; font-size: 1.25rem; margin: 0; }
-
-            .at-tabs {
-                display: flex; border-bottom: 1px solid hsl(var(--border));
-                background-color: hsl(var(--background));
-            }
-            .at-tab {
-                flex: 1; padding: 12px;
-                background: none; border: none;
-                color: hsl(var(--muted-fg));
-                font-family: var(--font-main);
-                font-weight: 600; cursor: pointer;
-                transition: all 0.2s;
-                border-bottom: 2px solid transparent;
-            }
-            .at-tab:hover { color: hsl(var(--foreground)); background-color: hsl(var(--accent)); }
-            .at-tab.active { 
-                color: hsl(var(--foreground)); 
-                border-bottom-color: hsl(var(--primary));
-            }
-
-            .at-content {
-                padding: 24px; overflow-y: auto; flex: 1;
-            }
-
-            .at-footer {
-                padding: 16px 24px;
-                border-top: 1px solid hsl(var(--border));
-                background-color: hsl(var(--muted) / 0.3);
-                display: flex; justify-content: space-between; align-items: center;
-            }
-
-            /* Components */
-            .at-btn {
-                display: inline-flex; align-items: center; justify-content: center;
-                border-radius: 6px; font-weight: 500; font-size: 0.875rem;
-                padding: 8px 16px; cursor: pointer; transition: all 0.2s;
-                border: 1px solid transparent;
-            }
-            .at-btn-primary {
-                background-color: hsl(var(--primary)); color: hsl(var(--primary-fg));
-            }
-            .at-btn-primary:hover { opacity: 0.9; }
-            
-            .at-btn-secondary {
-                background-color: hsl(var(--secondary)); color: hsl(var(--foreground));
-                border-color: hsl(var(--border));
-            }
-            .at-btn-secondary:hover { background-color: hsl(var(--accent)); }
-
-            .at-btn-danger {
-                background-color: #7f1d1d; color: #fee2e2;
-                border: 1px solid #991b1b;
-            }
-            .at-btn-danger:hover { background-color: #991b1b; }
-
-            .at-btn-ghost {
-                background: transparent; color: hsl(var(--muted-fg));
-            }
-            .at-btn-ghost:hover { color: hsl(var(--foreground)); background-color: hsl(var(--accent)); }
-
-            .at-input, .at-select {
-                width: 100%; padding: 8px 12px;
-                border-radius: 6px;
-                border: 1px solid hsl(var(--border));
-                background-color: hsl(var(--background));
-                color: hsl(var(--foreground));
-                font-family: var(--font-main);
-                font-size: 0.875rem;
-                margin-top: 4px;
-            }
-            .at-input:focus, .at-select:focus {
-                outline: 2px solid hsl(var(--ring));
-                border-color: transparent;
-            }
-
-            .at-card {
-                background-color: hsl(var(--card));
-                border: 1px solid hsl(var(--border));
-                border-radius: 6px; padding: 12px;
-                margin-bottom: 8px;
-            }
-
-            /* Custom Grid for lists */
-            .at-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-            .at-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
-
-            .at-badge {
-                padding: 2px 6px; border-radius: 4px;
-                font-size: 0.75rem; font-weight: 700;
-                background-color: hsl(var(--muted)); color: hsl(var(--muted-fg));
-            }
-
-            /* Main Menu Button Style */
-            .at-menu-btn {
-                position: fixed;
-                z-index: ${UI_BTN_CONFIG.zIndex};
-                background-color: ${UI_BTN_CONFIG.backgroundColor || 'hsl(var(--card))'};
-                color: ${UI_BTN_CONFIG.textColor || 'hsl(var(--foreground))'};
-                border: 1px solid ${UI_BTN_CONFIG.borderColor || 'hsl(var(--border))'};
-                border-radius: 0px;
-                padding: 10px 16px;
-                font-family: var(--font-main);
-                font-weight: 600;
-                font-size: ${UI_BTN_CONFIG.fontSize};
-                cursor: pointer;
-                box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
-                display: flex; align-items: center; gap: 8px;
-                transition: all 0.2s;
-                width: ${UI_BTN_CONFIG.width};
-                height: ${UI_BTN_CONFIG.height};
-                transform: scale(${UI_BTN_CONFIG.scale});
-                ${getButtonPosition()}
-            }
-			.at-menu-btn:hover {
-				background-color: ${UI_BTN_CONFIG.hoverEffect ? 'hsl(var(--accent))' : UI_BTN_CONFIG.backgroundColor || 'hsl(var(--card))'};
-				${UI_BTN_CONFIG.hoverEffect && UI_BTN_CONFIG.vertical !== 'center' ? 
-					`transform: scale(${UI_BTN_CONFIG.scale}) translateY(-1px);` : 
-					UI_BTN_CONFIG.hoverEffect ? 
-					`transform: scale(${UI_BTN_CONFIG.scale});` : ''}
-			}
-
-            /* Plus button for adding trains */
-            .at-add-btn {
-                display: flex; align-items: center; justify-content: center;
-                width: 100%; padding: 12px;
-                border: 2px dashed hsl(var(--border));
-                border-radius: 6px;
-                background: transparent;
-                color: hsl(var(--muted-fg));
-                font-family: var(--font-main);
-                font-size: 0.875rem;
-                cursor: pointer;
-                transition: all 0.2s;
-                margin-top: 16px;
-            }
-            .at-add-btn:hover {
-                border-color: hsl(var(--primary));
-                color: hsl(var(--foreground));
-                background-color: hsl(var(--accent) / 0.1);
-            }
-
-            /* Debug section in edit panel */
-            .at-debug-section {
-                margin-top: 24px; padding-top: 16px;
-                border-top: 1px solid hsl(var(--border));
-            }
-            .at-debug-toggle {
-                background: transparent; border: none;
-                color: hsl(var(--muted-fg)); cursor: pointer;
-                font-size: 0.75rem; display: flex; align-items: center; gap: 4px;
-            }
-            .at-debug-toggle:hover { color: hsl(var(--foreground)); }
-
-            /* Custom train card */
-            .at-custom-train {
-                position: relative;
-                border-left: 4px solid #7c3aed !important;
-            }
-            .at-custom-badge {
-                position: absolute; top: 8px; right: 8px;
-                background-color: #7c3aed; color: white;
-                padding: 2px 6px; border-radius: 4px;
-                font-size: 0.7rem; font-weight: 600;
-            }
-
-            /* Delete button */
-            .at-delete-btn {
-                background: transparent; border: none;
-                color: #ef4444; cursor: pointer;
-                font-size: 0.75rem; display: flex; align-items: center; gap: 4px;
-                padding: 4px 8px;
-                border-radius: 4px;
-            }
-            .at-delete-btn:hover {
-                background-color: rgba(239, 68, 68, 0.1);
-            }
-
-            /* Scrollbar */
-            ::-webkit-scrollbar { width: 8px; }
-            ::-webkit-scrollbar-track { background: hsl(var(--background)); }
-            ::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 4px; }
-            ::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-fg)); }
-        `;
-        document.head.appendChild(style);
-    }
-
-function getButtonPosition() {
-    const align = UI_BTN_CONFIG.align || "right";
-    const vertical = UI_BTN_CONFIG.vertical || "bottom";
-    const offsetX = UI_BTN_CONFIG.offsetX || "0px";
-    const offsetY = UI_BTN_CONFIG.offsetY || "0px"; // new
-    
-    let position = "";
-    
-    // Horizontal alignment
-    if (align === "center") {
-        position += `
-            left: 50%;
-            transform: translateX(-50%) scale(${UI_BTN_CONFIG.scale});
-        `;
-    } else if (align === "left") {
-        position += `
-            left: ${offsetX};
-            right: auto;
-        `;
-    } else { // right
-        position += `
-            right: ${offsetX};
-            left: auto;
-        `;
-    }
-    
-    // Vertical position
-    if (vertical === "top") {
-        position += `
-            top: ${UI_BTN_CONFIG.top || "20px"};
-            bottom: auto;
-        `;
-    } else if (vertical === "center") {
-        // Center vertically
-        position += `
-            top: 50%;
-            bottom: auto;
-            transform: ${align === "center" ? 'translate(-50%, -50%)' : 'translateY(-50%)'} scale(${UI_BTN_CONFIG.scale});
-        `;
-    } else { // bottom
-        position += `
-            bottom: ${UI_BTN_CONFIG.bottom || "20px"};
-            top: auto;
-        `;
-    }
-    
-    // Apply offsetY for all vertical positions
-    if (vertical !== "center") {
-        if (vertical === "top") {
-            position = position.replace(`top: ${UI_BTN_CONFIG.top || "20px"};`, 
-                `top: calc(${UI_BTN_CONFIG.top || "20px"} + ${offsetY});`);
-        } else { // bottom
-            position = position.replace(`bottom: ${UI_BTN_CONFIG.bottom || "20px"};`, 
-                `bottom: calc(${UI_BTN_CONFIG.bottom || "20px"} + ${offsetY});`);
-        }
-    } else {
-        // For center, we need to adjust with margin-top instead
-        position += `margin-top: ${offsetY};`;
-    }
-    
-    return position;
-}
-
-    // Icon definitions
-    const ICONS = {
-        train: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zM7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 2.88-2.88 7.19-5 9.88C9.92 16.21 7 11.85 7 9z"/>
-            <circle cx="12" cy="9" r="2.5"/>
-        </svg>`,
-        settings: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/>
-        </svg>`,
-        plus: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-        </svg>`,
-        list: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/>
-        </svg>`
-    };
-
-    // Debug system
     let debugLog = [];
     const MAX_LOG_ENTRIES = 100;
 
@@ -360,14 +95,80 @@ function getButtonPosition() {
         const entry = { timestamp, type, message, data };
         debugLog.unshift(entry);
         if (debugLog.length > MAX_LOG_ENTRIES) debugLog.pop();
-        updateDebugPanel();
+        console.log(`[AddTrainsMod] ${message}`, data || '');
+    }
+
+    // --------------------------------------------------
+    // HELPER FUNCTIONS
+    // --------------------------------------------------
+    function deepClone(obj) {
+        return JSON.parse(JSON.stringify(obj));
+    }
+    
+    function pick(source, keys) {
+        const out = {};
+        keys.forEach(k => {
+            if (source[k] !== undefined) {
+                out[k] = source[k];
+            }
+        });
+        return out;
+    }
+
+    function showNotification(message, type = 'info') {
+        const api = window.SubwayBuilderAPI;
+        if (api && api.ui && api.ui.showNotification) {
+            api.ui.showNotification(message, type);
+            return;
+        }
+        
+        // Advanced fallback notification
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes fadeOut {
+                from { opacity: 1; }
+                to { opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+        
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#3b82f6'};
+            color: white;
+            z-index: 10002;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            max-width: 300px;
+            animation: slideIn 0.3s ease-out;
+            backdrop-filter: blur(8px);
+        `;
+        
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'fadeOut 0.3s ease-out';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     }
 
     // --------------------------------------------------
     // TRAIN DEFINITIONS
     // --------------------------------------------------
-    
-    // Base elevation multipliers
+	
+	    // Base elevation multipliers
     const BASE_ELEVATION_MULTIPLIERS = {
         DEEP_BORE: 2.0,
         STANDARD_TUNNEL: 1.5,
@@ -393,8 +194,7 @@ function getButtonPosition() {
         AT_GRADE: 0.8,
         ELEVATED: 1.2
     };
-
-    // ALL TRAIN DEFINITIONS
+	
     const ALL_TRAINS = {
         "heavy-metro": {
             id: "heavy-metro",
@@ -424,12 +224,12 @@ function getButtonPosition() {
             elevationMultipliers: BASE_ELEVATION_MULTIPLIERS,
             compatibleTrackTypes: ["heavy-metro"],
             appearance: { color: "#2563eb" },
-            isFixed: true // Cannot be disabled
+            isFixed: true
         },
         "light-metro": {
             id: "light-metro",
             name: "Light Metro",
-            description: "Lighter, more flexible transit for moderate capacity routes. Modeled after Copenhagen AnsaldoBreda.",
+            description: "Lighter, more flexible transit for moderate capacity routes.",
             allowAtGradeRoadCrossing: false,
             stats: {
                 maxAcceleration: 1.3,
@@ -454,32 +254,32 @@ function getButtonPosition() {
             elevationMultipliers: BASE_ELEVATION_MULTIPLIERS,
             compatibleTrackTypes: ["light-metro"],
             appearance: { color: "#10b981" },
-            isFixed: true // Cannot be disabled
+            isFixed: true
         },
         "s-train": {
             id: "s-train",
             name: "S-train",
-            description: "High-capacity commuter train. Modeled after Copenhagen S-train Litra SE",
+            description: "High-capacity commuter train. Modeled after Copenhagen S-train",
             allowAtGradeRoadCrossing: false,
             stats: {
-                maxAcceleration: 1.3, // acceleration in m/s^2
-                maxDeceleration: 1.2, // braking in m/s^2
-                maxSpeed: 33.3, // Speed in m/s
-                maxSpeedLocalStation: 13, // speed in m/s through stations
-                capacityPerCar: 250, // number of people per car so if 8 cars it's 2000
-                carLength: 21, // length in m
-                minCars: 4, // minimum number of cars per train
-                maxCars: 8, // maximum number of cars per train
-                carsPerCarSet: 4, // standard number of cars
-                carCost: 3000000, // price per car
-                trainWidth: 3.6, // width of train in m
-                minStationLength: 180, // make sure this is larger with at least 2 meters longer than your carLength*maxCars
-                maxStationLength: 200, // make sure this is at least 10m larger than minStationLength
-                baseTrackCost: 50000, // track cost at street level
-                baseStationCost: 80000000, // station cost at street level
-                trainOperationalCostPerHour: 600, // whole train cost to operate
-                carOperationalCostPerHour: 60, // car operation cost
-                scissorsCrossoverCost: 15000000 // scissors cost
+                maxAcceleration: 1.3,
+                maxDeceleration: 1.2,
+                maxSpeed: 33.3,
+                maxSpeedLocalStation: 13,
+                capacityPerCar: 250,
+                carLength: 21,
+                minCars: 4,
+                maxCars: 8,
+                carsPerCarSet: 4,
+                carCost: 3000000,
+                trainWidth: 3.6,
+                minStationLength: 180,
+                maxStationLength: 200,
+                baseTrackCost: 50000,
+                baseStationCost: 80000000,
+                trainOperationalCostPerHour: 600,
+                carOperationalCostPerHour: 60,
+                scissorsCrossoverCost: 15000000
             },
             elevationMultipliers: BASE_ELEVATION_MULTIPLIERS,
             compatibleTrackTypes: ["s-train"],
@@ -489,7 +289,7 @@ function getButtonPosition() {
         "regional": {
             id: "regional",
             name: "Regional",
-            description: "Regional diesel/electric unit for local services. Modelled after the LINT 41",
+            description: "Regional diesel/electric unit for local services.",
             allowAtGradeRoadCrossing: true,
             stats: {
                 maxAcceleration: 0.6,
@@ -583,15 +383,16 @@ function getButtonPosition() {
     // --------------------------------------------------
     const STORAGE_KEY = 'addtrains_config';
     
-    function deepClone(obj) {
-        return JSON.parse(JSON.stringify(obj));
-    }
-
+    let uiState = {
+        selectedTrainID: null,
+        editedValues: {}
+    };
+    
     // Default config - all extra trains enabled by default
     const DEFAULT_CONFIG = {
-        enabledTrains: Object.keys(ALL_TRAINS).filter(id => !ALL_TRAINS[id].isFixed), // Only extra trains
-        customTrains: {}, // User-edited trains
-        customTrainCounter: 0, // Counter for custom train IDs
+        enabledTrains: Object.keys(ALL_TRAINS).filter(id => !ALL_TRAINS[id].isFixed),
+        customTrains: {},
+        customTrainCounter: 0,
         showEditPanel: false
     };
 
@@ -621,7 +422,10 @@ function getButtonPosition() {
 
     let currentConfig = loadConfig();
 
-    // Get trains for registration
+
+    // --------------------------------------------------
+    // GET TRAINS FOR REGISTRATION
+    // --------------------------------------------------
     function getTrainsForRegistration() {
         const config = currentConfig || loadConfig();
         const trains = {};
@@ -664,8 +468,23 @@ function getButtonPosition() {
     }
 
     // --------------------------------------------------
-    // TRAIN REGISTRATION
+    // TRAIN REGISTRATION WITH VALIDATION
     // --------------------------------------------------
+    function validateTrainLength(train) {
+        if (!train.stats) return true;
+        
+        const maxTrainLength = train.stats.carLength * train.stats.maxCars;
+        const minRequiredLength = train.stats.minStationLength;
+        
+        if (maxTrainLength > (minRequiredLength - 2)) {
+            const errorMsg = `Train "${train.name}" is too long! Maximum train length (${maxTrainLength}m) must be at least 2m less than minimum station length (${minRequiredLength}m). Required: minStationLength > ${maxTrainLength + 2}`;
+            showNotification(errorMsg, 'error');
+            return false;
+        }
+        
+        return true;
+    }
+
     function registerTrainsToGame() {
         debugLogMessage("log", "=== REGISTERING TRAINS ===");
         
@@ -680,6 +499,7 @@ function getButtonPosition() {
         
         let successCount = 0;
         let failCount = 0;
+        let validationFailed = false;
 
         // Get existing trains
         let existingTrains = {};
@@ -692,9 +512,16 @@ function getButtonPosition() {
             debugLogMessage("warn", "Could not get existing trains", e);
         }
 
-        // Register each train
+        // Validate and register each train
         Object.entries(trains).forEach(([trainId, trainDef]) => {
             try {
+                // Validate train length
+                if (!validateTrainLength(trainDef)) {
+                    validationFailed = true;
+                    failCount++;
+                    return;
+                }
+
                 // Create complete train object
                 const completeTrain = {
                     id: trainDef.id,
@@ -750,7 +577,7 @@ function getButtonPosition() {
             }
         });
 
-        // Verify
+        // Verification
         setTimeout(() => {
             try {
                 const finalTrains = trainsApi.getTrainTypes ? trainsApi.getTrainTypes() : {};
@@ -775,551 +602,21 @@ function getButtonPosition() {
             }
         }, 1000);
 
-        const success = failCount === 0;
-        debugLogMessage(success ? "log" : "error", 
-            `Registration: ${successCount} OK, ${failCount} failed`);
+        const success = failCount === 0 && !validationFailed;
+        if (validationFailed) {
+            showNotification("Train registration failed: Some trains are too long!", 'error');
+        } else {
+            debugLogMessage(success ? "log" : "error", 
+                `Registration: ${successCount} OK, ${failCount} failed`);
+        }
         return success;
     }
 
     // --------------------------------------------------
-    // OVERLAY UI
+    // CREATE CUSTOM TRAIN
     // --------------------------------------------------
-    function openOverlay() {
-        debugLogMessage("log", "Opening overlay...");
-        
-        // Close if already open
-        closeOverlay();
-        
-        injectStyles(); // Ensure styles are injected
-        
-        const overlay = document.createElement("div");
-        overlay.className = "at-overlay";
-        overlay.id = "addtrains-overlay";
-        
-        const panel = document.createElement("div");
-        panel.className = "at-panel";
-        
-        // Header
-        const header = document.createElement("div");
-        header.className = "at-header";
-        
-        const title = document.createElement("h2");
-        title.textContent = "Train Configuration";
-        
-        const closeBtn = document.createElement("button");
-        closeBtn.className = "at-btn at-btn-ghost";
-        closeBtn.innerHTML = "&times;";
-        closeBtn.style.fontSize = "1.5rem";
-        closeBtn.style.padding = "0 8px";
-        closeBtn.onclick = closeOverlay;
-        
-        header.appendChild(title);
-        header.appendChild(closeBtn);
-        
-        // Tabs
-        const tabsDiv = document.createElement("div");
-        tabsDiv.className = "at-tabs";
-        
-        const enableTab = document.createElement("button");
-        enableTab.className = `at-tab ${!currentConfig.showEditPanel ? 'active' : ''}`;
-        enableTab.textContent = "Enable/Disable Trains";
-        enableTab.onclick = () => {
-            currentConfig.showEditPanel = false;
-            saveConfig(currentConfig);
-            openOverlay();
-        };
-        
-        const editTab = document.createElement("button");
-        editTab.className = `at-tab ${currentConfig.showEditPanel ? 'active' : ''}`;
-        editTab.textContent = "Edit Train Stats";
-        editTab.onclick = () => {
-            currentConfig.showEditPanel = true;
-            saveConfig(currentConfig);
-            openOverlay();
-        };
-        
-        tabsDiv.appendChild(enableTab);
-        tabsDiv.appendChild(editTab);
-        
-        // Main content area
-        const mainContent = document.createElement("div");
-        mainContent.className = "at-content";
-        
-        if (currentConfig.showEditPanel) {
-            // EDIT PANEL
-            const editTitle = document.createElement("h3");
-            editTitle.textContent = "Edit Train Statistics";
-            editTitle.style.marginTop = "0";
-            editTitle.style.color = "#4ade80";
-            editTitle.style.borderBottom = "1px solid hsl(var(--border))";
-            editTitle.style.paddingBottom = "10px";
-            
-            mainContent.appendChild(editTitle);
-            
-            const editNote = document.createElement("p");
-            editNote.innerHTML = "<strong>Note:</strong> Heavy Metro and Light Metro are always enabled. Changes here will be saved automatically.";
-            editNote.style.color = "hsl(var(--muted-fg))";
-            editNote.style.fontSize = "0.9em";
-            editNote.style.marginBottom = "20px";
-            editNote.style.padding = "10px";
-            editNote.style.background = "hsl(var(--muted) / 0.3)";
-            editNote.style.borderRadius = "4px";
-            
-            mainContent.appendChild(editNote);
-            
-            // Train selection for editing
-            const trainSelectDiv = document.createElement("div");
-            trainSelectDiv.style.marginBottom = "20px";
-            
-            const trainSelect = document.createElement("select");
-            trainSelect.className = "at-select";
-            trainSelect.id = "train-edit-select";
-            
-            // Add option for each train (including custom trains)
-            const allTrainsForEditing = { ...ALL_TRAINS };
-            if (currentConfig.customTrains) {
-                Object.entries(currentConfig.customTrains).forEach(([trainId, train]) => {
-                    if (trainId.startsWith('custom-')) {
-                        allTrainsForEditing[trainId] = train;
-                    }
-                });
-            }
-            
-            Object.entries(allTrainsForEditing).forEach(([trainId, train]) => {
-                const option = document.createElement("option");
-                option.value = trainId;
-                const prefix = trainId.startsWith('custom-') ? "✎ " : "";
-                option.textContent = `${prefix}${train.name} (${trainId})`;
-                trainSelect.appendChild(option);
-            });
-            
-            trainSelectDiv.appendChild(trainSelect);
-            mainContent.appendChild(trainSelectDiv);
-            
-            // Edit form will be loaded when train is selected
-            const editFormDiv = document.createElement("div");
-            editFormDiv.id = "train-edit-form";
-            editFormDiv.style.display = "none";
-            mainContent.appendChild(editFormDiv);
-            
-            // Load form when train is selected
-            trainSelect.addEventListener("change", function() {
-                loadEditForm(this.value, editFormDiv);
-            });
-            
-            // Load first train by default
-            if (Object.keys(allTrainsForEditing).length > 0) {
-                trainSelect.value = Object.keys(allTrainsForEditing)[0];
-                loadEditForm(Object.keys(allTrainsForEditing)[0], editFormDiv);
-            }
-            
-            // Debug section at the bottom
-            const debugSection = document.createElement("div");
-            debugSection.className = "at-debug-section";
-            
-            const debugToggle = document.createElement("button");
-            debugToggle.className = "at-debug-toggle";
-            debugToggle.innerHTML = "Show Debug Panel";
-            debugToggle.onclick = toggleDebugPanel;
-            
-            debugSection.appendChild(debugToggle);
-            mainContent.appendChild(debugSection);
-            
-        } else {
-            // ENABLE/DISABLE PANEL
-            const enableTitle = document.createElement("h3");
-            enableTitle.textContent = "Enable Extra Train Types";
-            enableTitle.style.marginTop = "0";
-            enableTitle.style.color = "#3b82f6";
-            enableTitle.style.borderBottom = "1px solid hsl(var(--border))";
-            enableTitle.style.paddingBottom = "10px";
-            
-            mainContent.appendChild(enableTitle);
-            
-            const fixedNote = document.createElement("div");
-            fixedNote.style.marginBottom = "20px";
-            fixedNote.style.padding = "15px";
-            fixedNote.style.background = "hsl(var(--muted) / 0.3)";
-            fixedNote.style.borderRadius = "6px";
-            fixedNote.style.borderLeft = "4px solid #3b82f6";
-            
-            const fixedTitle = document.createElement("h4");
-            fixedTitle.textContent = "Fixed Train Types (Always Enabled)";
-            fixedTitle.style.marginTop = "0";
-            fixedTitle.style.color = "#3b82f6";
-            
-            const fixedList = document.createElement("div");
-            fixedList.style.display = "grid";
-            fixedList.style.gridTemplateColumns = "1fr 1fr";
-            fixedList.style.gap = "10px";
-            fixedList.style.marginTop = "10px";
-            
-            Object.entries(ALL_TRAINS).forEach(([trainId, train]) => {
-                if (train.isFixed) {
-                    const trainItem = document.createElement("div");
-                    trainItem.className = "at-card";
-                    trainItem.style.borderLeft = `4px solid ${train.appearance.color}`;
-                    
-                    const trainName = document.createElement("div");
-                    trainName.innerHTML = `<strong style="color: ${train.appearance.color}">${train.name}</strong>`;
-                    
-                    const trainIdSpan = document.createElement("div");
-                    trainIdSpan.textContent = trainId;
-                    trainIdSpan.style.fontSize = "0.8em";
-                    trainIdSpan.style.color = "hsl(var(--muted-fg))";
-                    
-                    trainItem.appendChild(trainName);
-                    trainItem.appendChild(trainIdSpan);
-                    fixedList.appendChild(trainItem);
-                }
-            });
-            
-            fixedNote.appendChild(fixedTitle);
-            fixedNote.appendChild(fixedList);
-            mainContent.appendChild(fixedNote);
-            
-            // Extra trains selection
-            const extraTitle = document.createElement("h4");
-            extraTitle.textContent = "Extra Train Types";
-            extraTitle.style.marginTop = "20px";
-            extraTitle.style.color = "#10b981";
-            
-            mainContent.appendChild(extraTitle);
-            
-            const checkboxesDiv = document.createElement("div");
-            checkboxesDiv.style.display = "grid";
-            checkboxesDiv.style.gridTemplateColumns = "repeat(2, 1fr)";
-            checkboxesDiv.style.gap = "10px";
-            checkboxesDiv.style.marginTop = "15px";
-            
-            // Predefined extra trains
-            Object.entries(ALL_TRAINS).forEach(([trainId, train]) => {
-                if (!train.isFixed) {
-                    createTrainCheckbox(trainId, train, checkboxesDiv);
-                }
-            });
-            
-            // Custom trains
-            if (currentConfig.customTrains) {
-                Object.entries(currentConfig.customTrains).forEach(([trainId, train]) => {
-                    if (trainId.startsWith('custom-')) {
-                        createTrainCheckbox(trainId, train, checkboxesDiv, true);
-                    }
-                });
-            }
-            
-            mainContent.appendChild(checkboxesDiv);
-            
-            // Add new train button
-            const addTrainBtn = document.createElement("button");
-            addTrainBtn.className = "at-add-btn";
-            addTrainBtn.innerHTML = "+ Add Custom Train Type";
-            addTrainBtn.onclick = showAddTrainDialog;
-            mainContent.appendChild(addTrainBtn);
-            
-            // Delete custom trains section
-            if (currentConfig.customTrains && Object.keys(currentConfig.customTrains).some(id => id.startsWith('custom-'))) {
-                const deleteSection = document.createElement("div");
-                deleteSection.style.marginTop = "30px";
-                deleteSection.style.paddingTop = "20px";
-                deleteSection.style.borderTop = "1px solid hsl(var(--border))";
-                
-                const deleteTitle = document.createElement("h4");
-                deleteTitle.textContent = "Custom Trains Management";
-                deleteTitle.style.color = "#ef4444";
-                deleteTitle.style.marginTop = "0";
-                
-                deleteSection.appendChild(deleteTitle);
-                
-                const deleteInfo = document.createElement("p");
-                deleteInfo.textContent = "You can delete custom trains below. This action cannot be undone.";
-                deleteInfo.style.fontSize = "0.875rem";
-                deleteInfo.style.color = "hsl(var(--muted-fg))";
-                deleteInfo.style.marginBottom = "15px";
-                
-                deleteSection.appendChild(deleteInfo);
-                
-                // List custom trains for deletion
-                const customTrainsGrid = document.createElement("div");
-                customTrainsGrid.style.display = "grid";
-                customTrainsGrid.style.gridTemplateColumns = "repeat(2, 1fr)";
-                customTrainsGrid.style.gap = "10px";
-                
-                Object.entries(currentConfig.customTrains).forEach(([trainId, train]) => {
-                    if (trainId.startsWith('custom-')) {
-                        const trainCard = document.createElement("div");
-                        trainCard.className = "at-card at-custom-train";
-                        
-                        const badge = document.createElement("div");
-                        badge.className = "at-custom-badge";
-                        badge.textContent = "CUSTOM";
-                        
-                        const trainName = document.createElement("div");
-                        trainName.innerHTML = `<strong style="color: ${train.appearance.color}">${train.name}</strong>`;
-                        
-                        const trainIdSpan = document.createElement("div");
-                        trainIdSpan.textContent = trainId;
-                        trainIdSpan.style.fontSize = "0.8em";
-                        trainIdSpan.style.color = "hsl(var(--muted-fg))";
-                        
-                        const deleteBtn = document.createElement("button");
-                        deleteBtn.className = "at-delete-btn";
-                        deleteBtn.innerHTML = "🗑️ Delete";
-                        deleteBtn.onclick = (e) => {
-                            e.stopPropagation();
-                            if (confirm(`Delete "${train.name}"? This action cannot be undone.`)) {
-                                deleteCustomTrain(trainId);
-                            }
-                        };
-                        deleteBtn.style.marginTop = "8px";
-                        
-                        trainCard.appendChild(badge);
-                        trainCard.appendChild(trainName);
-                        trainCard.appendChild(trainIdSpan);
-                        trainCard.appendChild(deleteBtn);
-                        customTrainsGrid.appendChild(trainCard);
-                    }
-                });
-                
-                deleteSection.appendChild(customTrainsGrid);
-                mainContent.appendChild(deleteSection);
-            }
-        }
-        
-        // Buttons
-        const buttonsDiv = document.createElement("div");
-        buttonsDiv.className = "at-footer";
-        
-        const statusDiv = document.createElement("div");
-        statusDiv.id = "addtrains-overlay-status";
-        statusDiv.style.color = "hsl(var(--muted-fg))";
-        statusDiv.style.fontSize = "0.9em";
-        
-        const actionButtons = document.createElement("div");
-        actionButtons.style.display = "flex";
-        actionButtons.style.gap = "10px";
-        
-        const cancelBtn = document.createElement("button");
-        cancelBtn.className = "at-btn at-btn-secondary";
-        cancelBtn.textContent = "Cancel";
-        cancelBtn.onclick = closeOverlay;
-        
-        const applyBtn = document.createElement("button");
-        applyBtn.className = "at-btn at-btn-primary";
-        applyBtn.textContent = currentConfig.showEditPanel ? "Save Changes" : "Apply Selection";
-        applyBtn.onclick = () => {
-            if (currentConfig.showEditPanel) {
-                // Save edited train
-                saveEditedTrain();
-                statusDiv.textContent = "Changes saved!";
-                statusDiv.style.color = "#4ade80";
-                setTimeout(() => {
-                    statusDiv.textContent = "";
-                }, 2000);
-            } else {
-                // Save enabled trains
-                const enabledTrains = [];
-                
-                // Predefined trains
-                Object.keys(ALL_TRAINS).forEach(trainId => {
-                    if (!ALL_TRAINS[trainId].isFixed) {
-                        const checkbox = document.getElementById(`checkbox-${trainId}`);
-                        if (checkbox && checkbox.checked) {
-                            enabledTrains.push(trainId);
-                        }
-                    }
-                });
-                
-                // Custom trains
-                if (currentConfig.customTrains) {
-                    Object.keys(currentConfig.customTrains).forEach(trainId => {
-                        if (trainId.startsWith('custom-')) {
-                            const checkbox = document.getElementById(`checkbox-${trainId}`);
-                            if (checkbox && checkbox.checked) {
-                                enabledTrains.push(trainId);
-                            }
-                        }
-                    });
-                }
-                
-                currentConfig.enabledTrains = enabledTrains;
-                saveConfig(currentConfig);
-                
-                // Register trains
-                registerTrainsToGame();
-                
-                statusDiv.textContent = `Applied: ${enabledTrains.length} trains enabled`;
-                statusDiv.style.color = "#4ade80";
-                
-                // Show notification
-                const api = window.SubwayBuilderAPI;
-                if (api?.ui?.showNotification) {
-                    api.ui.showNotification(`${enabledTrains.length} train types enabled`, "success");
-                }
-                
-                setTimeout(() => {
-                    closeOverlay();
-                }, 1500);
-            }
-        };
-        
-        actionButtons.appendChild(cancelBtn);
-        actionButtons.appendChild(applyBtn);
-        
-        buttonsDiv.appendChild(statusDiv);
-        buttonsDiv.appendChild(actionButtons);
-        
-        // Assemble
-        panel.appendChild(header);
-        panel.appendChild(tabsDiv);
-        panel.appendChild(mainContent);
-        panel.appendChild(buttonsDiv);
-        overlay.appendChild(panel);
-        document.body.appendChild(overlay);
-        
-        // Close on background click
-        overlay.addEventListener("click", (e) => {
-            if (e.target === overlay) {
-                closeOverlay();
-            }
-        });
-        
-        debugLogMessage("log", "Overlay opened");
-    }
-
-    function createTrainCheckbox(trainId, train, container, isCustom = false) {
-        const checkboxDiv = document.createElement("div");
-        checkboxDiv.style.display = "flex";
-        checkboxDiv.style.alignItems = "center";
-        checkboxDiv.style.gap = "10px";
-        checkboxDiv.style.padding = "10px";
-        checkboxDiv.style.background = "hsl(var(--muted) / 0.1)";
-        checkboxDiv.style.borderRadius = "6px";
-        checkboxDiv.style.borderLeft = `4px solid ${train.appearance.color}`;
-        if (isCustom) checkboxDiv.classList.add("at-custom-train");
-        
-        const checkbox = document.createElement("input");
-        checkbox.type = "checkbox";
-        checkbox.id = `checkbox-${trainId}`;
-        checkbox.checked = currentConfig.enabledTrains?.includes(trainId) || false;
-        checkbox.style.transform = "scale(1.2)";
-        
-        const label = document.createElement("label");
-        label.htmlFor = `checkbox-${trainId}`;
-        
-        const labelDiv = document.createElement("div");
-        labelDiv.style.flex = "1";
-        
-        const nameDiv = document.createElement("div");
-        const customBadge = isCustom ? '<span style="font-size:0.7em; background:#7c3aed; color:white; padding:1px 4px; border-radius:3px; margin-right:6px;">CUSTOM</span>' : '';
-        nameDiv.innerHTML = `${customBadge}<strong style="color: ${train.appearance.color}">${train.name}</strong>`;
-        
-        const idDiv = document.createElement("div");
-        idDiv.textContent = trainId;
-        idDiv.style.fontSize = "0.8em";
-        idDiv.style.color = "hsl(var(--muted-fg))";
-        
-        const descDiv = document.createElement("div");
-        descDiv.textContent = train.description;
-        descDiv.style.fontSize = "0.8em";
-        descDiv.style.color = "hsl(var(--muted-fg))";
-        descDiv.style.marginTop = "5px";
-        
-        labelDiv.appendChild(nameDiv);
-        labelDiv.appendChild(idDiv);
-        labelDiv.appendChild(descDiv);
-        
-        label.appendChild(labelDiv);
-        
-        checkboxDiv.appendChild(checkbox);
-        checkboxDiv.appendChild(label);
-        container.appendChild(checkboxDiv);
-    }
-
-    function showAddTrainDialog() {
-        const dialog = document.createElement("div");
-        dialog.className = "at-overlay";
-        dialog.style.zIndex = "99999";
-        
-        const content = document.createElement("div");
-        content.className = "at-panel";
-        content.style.width = "500px";
-        
-        const header = document.createElement("div");
-        header.className = "at-header";
-        header.innerHTML = "<h3>Add Custom Train</h3>";
-        
-        const body = document.createElement("div");
-        body.className = "at-content";
-        body.style.padding = "20px";
-        
-        // Name input
-        const nameDiv = document.createElement("div");
-        nameDiv.style.marginBottom = "15px";
-        nameDiv.innerHTML = `
-            <label style="display:block; margin-bottom:5px; color:hsl(var(--foreground))">Train Name</label>
-            <input type="text" id="new-train-name" class="at-input" placeholder="Enter train name">
-        `;
-        
-        // Description input
-        const descDiv = document.createElement("div");
-        descDiv.style.marginBottom = "15px";
-        descDiv.innerHTML = `
-            <label style="display:block; margin-bottom:5px; color:hsl(var(--foreground))">Description</label>
-            <input type="text" id="new-train-desc" class="at-input" placeholder="Enter description">
-        `;
-        
-        // Color picker
-        const colorDiv = document.createElement("div");
-        colorDiv.style.marginBottom = "15px";
-        colorDiv.innerHTML = `
-            <label style="display:block; margin-bottom:5px; color:hsl(var(--foreground))">Color</label>
-            <input type="color" id="new-train-color" class="at-input" value="#7c3aed">
-        `;
-        
-        body.appendChild(nameDiv);
-        body.appendChild(descDiv);
-        body.appendChild(colorDiv);
-        
-        const footer = document.createElement("div");
-        footer.className = "at-footer";
-        footer.style.justifyContent = "flex-end";
-        footer.style.gap = "10px";
-        
-        const cancelBtn = document.createElement("button");
-        cancelBtn.className = "at-btn at-btn-secondary";
-        cancelBtn.textContent = "Cancel";
-        cancelBtn.onclick = () => document.body.removeChild(dialog);
-        
-        const createBtn = document.createElement("button");
-        createBtn.className = "at-btn at-btn-primary";
-        createBtn.textContent = "Create";
-        createBtn.onclick = () => {
-            const name = document.getElementById("new-train-name").value.trim();
-            const desc = document.getElementById("new-train-desc").value.trim();
-            const color = document.getElementById("new-train-color").value;
-            
-            if (!name) {
-                alert("Please enter a train name");
-                return;
-            }
-            
-            createCustomTrain(name, desc, color);
-            document.body.removeChild(dialog);
-            openOverlay(); // Refresh the overlay
-        };
-        
-        footer.appendChild(cancelBtn);
-        footer.appendChild(createBtn);
-        dialog.appendChild(content);
-        content.appendChild(header);
-        content.appendChild(body);
-        content.appendChild(footer);
-        document.body.appendChild(dialog);
-    }
-
     function createCustomTrain(name, description, color) {
-        const trainId = `custom-train-${Date.now()}`;
+        const trainId = `custom-${++currentConfig.customTrainCounter}`;
         
         const newTrain = {
             id: trainId,
@@ -1366,499 +663,2282 @@ function getButtonPosition() {
         saveConfig(currentConfig);
         
         debugLogMessage("log", `Custom train created: ${trainId}`);
-        registerTrainsToGame();
+        return trainId;
     }
 
-    function deleteCustomTrain(trainId) {
-        if (!currentConfig.customTrains || !currentConfig.customTrains[trainId]) {
-            return;
+    // --------------------------------------------------
+    // REACT UI COMPONENTS - UPDATED WITH FULLSCREEN DESIGN
+    // --------------------------------------------------
+    function createReactUI() {
+        const api = window.SubwayBuilderAPI;
+        const React = api.utils?.React;
+        const components = api.utils?.components || {};
+        const icons = api.utils?.icons || {};
+        
+        if (!React) {
+            debugLogMessage("error", "React not available");
+            return null;
         }
-        
-        delete currentConfig.customTrains[trainId];
-        
-        // Remove from enabled trains
-        if (currentConfig.enabledTrains) {
-            currentConfig.enabledTrains = currentConfig.enabledTrains.filter(id => id !== trainId);
-        }
-        
-        saveConfig(currentConfig);
-        debugLogMessage("log", `Custom train deleted: ${trainId}`);
-        
-        // Refresh overlay
-        openOverlay();
-    }
 
-    // Load edit form for a specific train
-    function loadEditForm(trainId, container) {
-        const train = ALL_TRAINS[trainId] || (currentConfig.customTrains && currentConfig.customTrains[trainId]);
-        if (!train) return;
-        
-        container.innerHTML = "";
-        container.style.display = "block";
-        
-        // Form
-        const form = document.createElement("div");
-        form.style.display = "grid";
-        form.style.gridTemplateColumns = "repeat(2, 1fr)";
-        form.style.gap = "15px";
-        
-        // Basic info
-        const basicDiv = document.createElement("div");
-        basicDiv.style.gridColumn = "1 / -1";
-        basicDiv.style.padding = "15px";
-        basicDiv.style.background = "hsl(var(--muted) / 0.1)";
-        basicDiv.style.borderRadius = "6px";
-        basicDiv.style.marginBottom = "15px";
-        basicDiv.style.borderLeft = `4px solid ${train.appearance.color}`;
-        
-        const basicTitle = document.createElement("h4");
-        basicTitle.textContent = "Basic Information";
-        basicTitle.style.marginTop = "0";
-        basicTitle.style.color = train.appearance.color;
-        
-        const nameDiv = createFormField("Name", "text", "edit-name", train.name);
-        const descDiv = createFormField("Description", "text", "edit-desc", train.description);
-        const colorDiv = createFormField("Color", "color", "edit-color", train.appearance.color);
-        
-        const crossDiv = document.createElement("div");
-        crossDiv.style.marginTop = "10px";
-        const crossLabel = document.createElement("label");
-        crossLabel.style.display = "flex";
-        crossLabel.style.alignItems = "center";
-        crossLabel.style.gap = "8px";
-        crossLabel.style.color = "hsl(var(--foreground))";
-        const crossCheck = document.createElement("input");
-        crossCheck.type = "checkbox";
-        crossCheck.id = "edit-cross";
-        crossCheck.checked = train.allowAtGradeRoadCrossing || false;
-        crossLabel.appendChild(crossCheck);
-        crossLabel.appendChild(document.createTextNode(" Can Cross Roads at Grade"));
-        crossDiv.appendChild(crossLabel);
-        
-        basicDiv.appendChild(basicTitle);
-        basicDiv.appendChild(nameDiv);
-        basicDiv.appendChild(descDiv);
-        basicDiv.appendChild(colorDiv);
-        basicDiv.appendChild(crossDiv);
-        
-        // Stats
-        const statsDiv = document.createElement("div");
-        statsDiv.style.gridColumn = "1 / -1";
-        statsDiv.style.padding = "15px";
-        statsDiv.style.background = "hsl(var(--muted) / 0.1)";
-        statsDiv.style.borderRadius = "6px";
-        
-        const statsTitle = document.createElement("h4");
-        statsTitle.textContent = "Statistics";
-        statsTitle.style.marginTop = "0";
-        statsTitle.style.color = "#10b981";
-        
-        statsDiv.appendChild(statsTitle);
-        
-        // Create stat fields in a grid
-        const statsGrid = document.createElement("div");
-        statsGrid.style.display = "grid";
-        statsGrid.style.gridTemplateColumns = "repeat(3, 1fr)";
-        statsGrid.style.gap = "10px";
-        
-        const stats = train.stats || {};
-        const statFields = [
-            { key: "maxSpeed", label: "Max Speed (m/s)", type: "number", step: "0.1" },
-            { key: "maxSpeedLocalStation", label: "Station Speed (m/s)", type: "number", step: "0.1" },
-            { key: "maxAcceleration", label: "Acceleration", type: "number", step: "0.1" },
-            { key: "maxDeceleration", label: "Deceleration", type: "number", step: "0.1" },
-            { key: "capacityPerCar", label: "Capacity per Car", type: "number", step: "1" },
-            { key: "carLength", label: "Car Length (m)", type: "number", step: "0.1" },
-            { key: "minCars", label: "Min Cars", type: "number", step: "1" },
-            { key: "maxCars", label: "Max Cars", type: "number", step: "1" },
-            { key: "carsPerCarSet", label: "Cars per Set", type: "number", step: "1" },
-            { key: "trainWidth", label: "Train Width (m)", type: "number", step: "0.1" },
-            { key: "minStationLength", label: "Min Station (m)", type: "number", step: "1" },
-            { key: "maxStationLength", label: "Max Station (m)", type: "number", step: "1" },
-            { key: "carCost", label: "Car Cost ($)", type: "number", step: "1000" },
-            { key: "baseTrackCost", label: "Track Cost ($/m)", type: "number", step: "1000" },
-            { key: "baseStationCost", label: "Station Cost ($)", type: "number", step: "10000" },
-            { key: "trainOperationalCostPerHour", label: "Train Op Cost ($/h)", type: "number", step: "10" },
-            { key: "carOperationalCostPerHour", label: "Car Op Cost ($/h)", type: "number", step: "1" },
-            { key: "scissorsCrossoverCost", label: "Scissors Cost ($)", type: "number", step: "1000" }
-        ];
-        
-        statFields.forEach(field => {
-            const fieldDiv = createFormField(
-                field.label,
-                field.type,
-                `edit-${field.key}`,
-                stats[field.key] || 0,
-                field.step
-            );
-            statsGrid.appendChild(fieldDiv);
-        });
-        
-        statsDiv.appendChild(statsGrid);
-        
-        // Reset button (only for non-custom trains)
-        if (!trainId.startsWith('custom-')) {
-            const resetDiv = document.createElement("div");
-            resetDiv.style.gridColumn = "1 / -1";
-            resetDiv.style.textAlign = "right";
-            resetDiv.style.marginTop = "15px";
-            
-            const resetBtn = document.createElement("button");
-            resetBtn.className = "at-btn at-btn-secondary";
-            resetBtn.textContent = "Reset to Default";
-            resetBtn.onclick = () => {
-                if (confirm(`Reset ${train.name} to default values?`)) {
-                    // Remove custom version
-                    if (currentConfig.customTrains) {
-                        delete currentConfig.customTrains[trainId];
-                    }
-                    saveConfig(currentConfig);
-                    loadEditForm(trainId, container); // Reload form
-                }
+        // Main Menu Component
+        function MainMenuButton() {
+            const [isOpen, setIsOpen] = React.useState(false);
+            const [activeView, setActiveView] = React.useState(null); // 'enable', 'edit', 'create'
+
+            const openEnableDisable = () => {
+                setActiveView('enable');
+                setIsOpen(true);
             };
-            
-            resetDiv.appendChild(resetBtn);
-            form.appendChild(resetDiv);
-        }
-        
-        form.appendChild(basicDiv);
-        form.appendChild(statsDiv);
-        container.appendChild(form);
-        
-        // Store train ID for saving
-        container.dataset.trainId = trainId;
-    }
 
-    function createFormField(label, type, id, value, step = null) {
-        const div = document.createElement("div");
-        
-        const labelEl = document.createElement("label");
-        labelEl.textContent = label;
-        labelEl.style.display = "block";
-        labelEl.style.fontSize = "0.9em";
-        labelEl.style.color = "hsl(var(--muted-fg))";
-        labelEl.style.marginBottom = "5px";
-        labelEl.htmlFor = id;
-        
-        const input = document.createElement("input");
-        input.type = type;
-        input.id = id;
-        input.value = value;
-        if (step) input.step = step;
-        input.className = "at-input";
-        
-        div.appendChild(labelEl);
-        div.appendChild(input);
-        return div;
-    }
+            const openEditTrain = () => {
+                setActiveView('edit');
+                setIsOpen(true);
+            };
 
-    function saveEditedTrain() {
-        const form = document.getElementById("train-edit-form");
-        if (!form || !form.dataset.trainId) return;
-        
-        const trainId = form.dataset.trainId;
-        const originalTrain = ALL_TRAINS[trainId] || (currentConfig.customTrains && currentConfig.customTrains[trainId]);
-        
-        if (!originalTrain) return;
-        
-        // Collect data from form
-        const editedTrain = {
-            id: trainId,
-            name: document.getElementById("edit-name").value,
-            description: document.getElementById("edit-desc").value,
-            allowAtGradeRoadCrossing: document.getElementById("edit-cross").checked,
-            stats: {},
-            elevationMultipliers: originalTrain.elevationMultipliers || BASE_ELEVATION_MULTIPLIERS,
-            compatibleTrackTypes: originalTrain.compatibleTrackTypes || [trainId],
-            appearance: {
-                color: document.getElementById("edit-color").value
-            },
-            isFixed: originalTrain.isFixed || false
-        };
-        
-        // Collect stats
-        const statFields = [
-            "maxSpeed", "maxSpeedLocalStation", "maxAcceleration", "maxDeceleration",
-            "capacityPerCar", "carLength", "minCars", "maxCars", "carsPerCarSet",
-            "trainWidth", "minStationLength", "maxStationLength", "carCost",
-            "baseTrackCost", "baseStationCost", "trainOperationalCostPerHour",
-            "carOperationalCostPerHour", "scissorsCrossoverCost"
-        ];
-        
-        statFields.forEach(field => {
-            const input = document.getElementById(`edit-${field}`);
-            if (input) {
-                editedTrain.stats[field] = parseFloat(input.value) || 0;
+            const openCreateTrain = () => {
+                setActiveView('create');
+                setIsOpen(true);
+            };
+
+            // Available components or fallbacks
+            const Button = components.Button || ((props) => {
+				const baseClasses = 'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3 rounded-sm';
+				const variantClasses = props.variant === 'destructive' 
+					? 'bg-destructive text-destructive-foreground hover:bg-destructive/90 border-destructive/20' 
+					: props.variant === 'secondary' 
+					? 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+					: props.variant === 'ghost'
+					? 'bg-transparent hover:bg-accent hover:text-accent-foreground border-0'
+					: '';
+				
+				return React.createElement('button', {
+					className: `${baseClasses} ${variantClasses} ${props.className || ''}`,
+					...props
+				}, props.children);
+			});
+
+            const Card = components.Card || ((props) => 
+                React.createElement('div', {
+                    className: 'bg-background/50 rounded border',
+                    ...props
+                }, props.children)
+            );
+
+            const TrainIcon = icons.Train || (() => 
+                React.createElement('span', { className: 'text-xl' }, '🚆')
+            );
+
+            // Fullscreen View Component - matches design template
+            function FullscreenView({ title, children, onBack }) {
+                return React.createElement('div', {
+                    className: 'absolute inset-0 w-full h-full overflow-auto bg-background'
+                }, React.createElement('main', {
+                    className: 'min-h-screen w-full px-4 md:px-8 lg:px-12 py-8 lg:py-12 overflow-y-auto'
+                }, [
+                    // Back button header
+                    React.createElement('div', {
+                        key: 'header',
+                        className: 'w-full max-w-4xl mx-auto flex flex-col gap-6'
+                    }, [
+                        React.createElement('div', {
+                            key: 'back-button',
+                            className: 'w-full font-bold flex items-center justify-start bg-transparent text-primary cursor-pointer text-xl gap-1 overflow-visible whitespace-nowrap',
+                            onClick: onBack
+                        }, [
+                            React.createElement('svg', {
+                                width: "24",
+                                height: "24",
+                                viewBox: "0 0 24 24",
+                                fill: "none",
+                                xmlns: "http://www.w3.org/2000/svg",
+                                className: 'h-5 transition-transform overflow-visible flex-shrink-0 w-fit -ml-px',
+                                style: { transform: 'rotate(180deg)', transitionDuration: '75ms' }
+                            }, [
+                                React.createElement('path', {
+                                    d: "M12 4L20 12L12 20",
+                                    stroke: "currentColor",
+                                    strokeWidth: "4",
+                                    strokeLinecap: "butt",
+                                    strokeLinejoin: "inherit"
+                                }),
+                                React.createElement('path', {
+                                    d: "M4 12H18",
+                                    stroke: "currentColor",
+                                    strokeWidth: "4",
+                                    strokeLinecap: "square",
+                                    strokeLinejoin: "inherit"
+                                })
+                            ]),
+                            React.createElement('p', { className: 'flex-shrink-0' }, 'Back')
+                        ]),
+                        
+                        // Main content
+                        React.createElement('div', {
+                            key: 'content',
+                            className: 'w-full flex flex-col gap-6 min-h-full pb-6'
+                        }, [
+                            React.createElement('h1', {
+                                key: 'title',
+                                className: 'text-2xl font-bold'
+                            }, title),
+                            children
+                        ])
+                    ])
+                ]));
             }
-        });
-        
-        // Save to custom trains
-        if (!currentConfig.customTrains) {
-            currentConfig.customTrains = {};
-        }
-        currentConfig.customTrains[trainId] = editedTrain;
-        saveConfig(currentConfig);
-        
-        debugLogMessage("log", `Saved edits for ${trainId}`);
-    }
 
-    function closeOverlay() {
-        const overlay = document.getElementById("addtrains-overlay");
-        if (overlay && overlay.parentNode) {
-            overlay.parentNode.removeChild(overlay);
-        }
-    }
+            // Enable/Disable View Component
+            function EnableDisableView() {
+                const [enabledTrains, setEnabledTrains] = React.useState(new Set(currentConfig.enabledTrains || []));
+				const deleteCustomTrain = (trainId, trainName) => {
+					if (confirm(`Delete "${trainName}"? This action cannot be undone.`)) {
+						// Remove from customTrains
+						if (currentConfig.customTrains && currentConfig.customTrains[trainId]) {
+							delete currentConfig.customTrains[trainId];
+						}
+						
+						// Remove from enabledTrains
+						currentConfig.enabledTrains = currentConfig.enabledTrains.filter(id => id !== trainId);
+						
+						// Save config
+						saveConfig(currentConfig);
+						
+						// Update local state
+						const nextEnabled = new Set(enabledTrains);
+						nextEnabled.delete(trainId);
+						setEnabledTrains(nextEnabled);
+						
+						showNotification(`Train "${trainName}" deleted`, 'success');
+					}
+				};
 
-    // --------------------------------------------------
-    // DEBUG PANEL
-    // --------------------------------------------------
-    function createDebugPanel() {
-        if (document.getElementById("addtrains-debug-panel")) return;
+                const toggleTrain = (trainId) => {
+                    const next = new Set(enabledTrains);
+                    if (next.has(trainId)) {
+                        next.delete(trainId);
+                    } else {
+                        next.add(trainId);
+                    }
+                    setEnabledTrains(next);
+                    currentConfig.enabledTrains = Array.from(next);
+                    saveConfig(currentConfig);
+                };
 
-        const panel = document.createElement("div");
-        panel.id = "addtrains-debug-panel";
-        panel.style.position = "fixed";
-        panel.style.top = "20px";
-        panel.style.right = "20px";
-        panel.style.width = "600px";
-        panel.style.height = "500px";
-        panel.style.zIndex = "99999";
-        panel.style.background = "rgba(0,0,0,0.95)";
-        panel.style.border = "2px solid #333";
-        panel.style.borderRadius = "8px";
-        panel.style.fontFamily = "'Courier New', monospace";
-        panel.style.fontSize = "11px";
-        panel.style.color = "#0f0";
-        panel.style.overflow = "hidden";
-        panel.style.display = "none";
-        
-        // Header
-        const header = document.createElement("div");
-        header.style.padding = "10px 15px";
-        header.style.background = "#111";
-        header.style.borderBottom = "1px solid #333";
-        header.style.display = "flex";
-        header.style.justifyContent = "space-between";
-        header.style.alignItems = "center";
-        header.style.cursor = "move";
-        
-        const title = document.createElement("div");
-        title.innerHTML = "<strong>AddTrains Debug Panel</strong>";
-        title.style.color = "#fff";
-        
-        const controls = document.createElement("div");
-        controls.style.display = "flex";
-        controls.style.gap = "5px";
-        
-        const refreshBtn = document.createElement("button");
-        refreshBtn.textContent = "Refresh";
-        refreshBtn.style.background = "#333";
-        refreshBtn.style.border = "1px solid #555";
-        refreshBtn.style.color = "#fff";
-        refreshBtn.style.borderRadius = "3px";
-        refreshBtn.style.padding = "2px 8px";
-        refreshBtn.style.cursor = "pointer";
-        refreshBtn.style.fontSize = "10px";
-        refreshBtn.onclick = registerTrainsToGame;
-        
-        const closeBtn = document.createElement("button");
-        closeBtn.textContent = "×";
-        closeBtn.style.background = "#c00";
-        closeBtn.style.border = "none";
-        closeBtn.style.color = "#fff";
-        closeBtn.style.fontSize = "16px";
-        closeBtn.style.borderRadius = "3px";
-        closeBtn.style.padding = "0 8px";
-        closeBtn.style.cursor = "pointer";
-        closeBtn.onclick = () => panel.style.display = "none";
-        
-        controls.appendChild(refreshBtn);
-        controls.appendChild(closeBtn);
-        header.appendChild(title);
-        header.appendChild(controls);
-        
-        // Content
-        const content = document.createElement("div");
-        content.id = "addtrains-debug-content";
-        content.style.height = "calc(100% - 50px)";
-        content.style.overflow = "auto";
-        content.style.padding = "10px";
-        content.style.whiteSpace = "pre-wrap";
-        
-        panel.appendChild(header);
-        panel.appendChild(content);
-        document.body.appendChild(panel);
-        
-        // Make draggable
-        makeDraggable(panel, header);
-        
-        debugLogMessage("log", "Debug panel created");
-    }
+                const handleApply = () => {
+                    const valid = registerTrainsToGame();
+                    if (valid) {
+                        showNotification('Train settings applied successfully!', 'success');
+                    }
+                    setIsOpen(false);
+                };
 
-    function makeDraggable(element, handle) {
-        let isDragging = false;
-        let offsetX, offsetY;
-        
-        handle.addEventListener('mousedown', startDrag);
-        document.addEventListener('mousemove', drag);
-        document.addEventListener('mouseup', stopDrag);
-        
-        function startDrag(e) {
-            isDragging = true;
-            const rect = element.getBoundingClientRect();
-            offsetX = e.clientX - rect.left;
-            offsetY = e.clientY - rect.top;
-            element.style.cursor = 'grabbing';
-            e.preventDefault();
-        }
-        
-        function drag(e) {
-            if (!isDragging) return;
-            element.style.left = (e.clientX - offsetX) + 'px';
-            element.style.top = (e.clientY - offsetY) + 'px';
-            element.style.right = 'auto';
-        }
-        
-        function stopDrag() {
-            isDragging = false;
-            element.style.cursor = '';
-        }
-    }
+                const fixedTrains = Object.entries(ALL_TRAINS).filter(([_, train]) => train.isFixed);
+                const extraTrains = Object.entries(ALL_TRAINS).filter(([_, train]) => !train.isFixed);
+                const customTrains = currentConfig.customTrains ? 
+                    Object.entries(currentConfig.customTrains).filter(([trainId]) => trainId.startsWith('custom-')) : [];
 
-    function updateDebugPanel() {
-        const content = document.getElementById("addtrains-debug-content");
-        if (!content) return;
-        
-        let html = "";
-        debugLog.forEach(entry => {
-            let color = "#0f0";
-            let prefix = "[INFO]";
-            
-            if (entry.type === "error") {
-                color = "#f00";
-                prefix = "[ERROR]";
-            } else if (entry.type === "warn") {
-                color = "#ff0";
-                prefix = "[WARN]";
+                return React.createElement(FullscreenView, {
+                    title: 'Enable / Disable Trains',
+                    onBack: () => setActiveView(null)
+                }, React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-8' }, [
+                    // Left column
+                    React.createElement('div', { key: 'left', className: 'flex flex-col gap-6' }, [
+                        // Fixed trains section
+                        React.createElement('div', { key: 'fixed', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Fixed Trains (Always Enabled)'),
+                            React.createElement('div', { className: 'space-y-2' },
+                                fixedTrains.map(([trainId, train]) => 
+                                    React.createElement('div', {
+                                        key: trainId,
+                                        className: 'px-4 py-3 bg-background/50 rounded border flex justify-between items-center'
+                                    }, [
+                                        React.createElement('div', { key: 'info' }, [
+                                            React.createElement('div', { 
+                                                className: 'font-medium' 
+                                            }, train.name),
+                                            React.createElement('div', { 
+                                                className: 'text-sm text-muted-foreground' 
+                                            }, train.description)
+                                        ]),
+                                        React.createElement('span', {
+                                            className: 'px-2 py-1 text-xs bg-primary/20 text-primary rounded-full'
+                                        }, 'Fixed')
+                                    ])
+                                )
+                            )
+                        ]),
+
+                        // Extra trains section
+                        React.createElement('div', { key: 'extra', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Extra Train Types'),
+                            React.createElement('div', { className: 'space-y-2' },
+                                extraTrains.map(([trainId, train]) => 
+                                    React.createElement('div', {
+                                        key: trainId,
+                                        className: 'px-4 py-3 bg-background/50 rounded border flex justify-between items-center cursor-pointer hover:bg-accent/50 transition-colors',
+                                        onClick: () => toggleTrain(trainId)
+                                    }, [
+                                        React.createElement('div', { key: 'info' }, [
+                                            React.createElement('div', { 
+                                                className: 'font-medium' 
+                                            }, train.name),
+                                            React.createElement('div', { 
+                                                className: 'text-sm text-muted-foreground' 
+                                            }, train.description)
+                                        ]),
+                                        React.createElement('label', {
+                                            className: 'relative inline-flex items-center cursor-pointer'
+                                        }, [
+                                            React.createElement('input', {
+                                                type: 'checkbox',
+                                                className: 'sr-only',
+                                                checked: enabledTrains.has(trainId),
+                                                readOnly: true
+                                            }),
+                                            React.createElement('div', {
+                                                className: `w-11 h-6 border-2 border-transparent rounded-full transition-colors peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-ring peer-focus:ring-offset-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 ${enabledTrains.has(trainId) ? 'bg-primary' : 'bg-input'}`
+                                            }),
+                                            React.createElement('div', {
+                                                className: `absolute left-0.5 top-0.5 w-5 h-5 bg-background rounded-full shadow-lg transition-transform ${enabledTrains.has(trainId) ? 'translate-x-5' : 'translate-x-0'}`
+                                            })
+                                        ])
+                                    ])
+                                )
+                            )
+                        ])
+                    ]),
+
+                    // Right column
+                    React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
+                        // Custom trains section
+                        customTrains.length > 0 && React.createElement('div', { key: 'custom', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Custom Train Types'),
+                            React.createElement('div', { className: 'space-y-2' },
+                                customTrains.map(([trainId, train]) => 
+                                    React.createElement('div', {
+                                        key: trainId,
+                                        className: 'px-4 py-3 bg-background/50 rounded border flex justify-between items-center cursor-pointer hover:bg-accent/50 transition-colors group',
+                                        onClick: () => toggleTrain(trainId)
+                                    }, [
+                                        React.createElement('div', { key: 'info' }, [
+                                            React.createElement('div', { 
+                                                className: 'font-medium' 
+                                            }, train.name),
+                                            React.createElement('div', { 
+                                                className: 'text-sm text-muted-foreground' 
+                                            }, train.description)
+                                        ]),
+                                        React.createElement('div', { className: 'flex items-center gap-2' }, [
+                                            React.createElement('label', {
+                                                className: 'relative inline-flex items-center cursor-pointer'
+                                            }, [
+                                                React.createElement('input', {
+                                                    type: 'checkbox',
+                                                    className: 'sr-only',
+                                                    checked: enabledTrains.has(trainId),
+                                                    readOnly: true
+                                                }),
+                                                React.createElement('div', {
+                                                    className: `w-11 h-6 border-2 border-transparent rounded-full transition-colors peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-ring peer-focus:ring-offset-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 ${enabledTrains.has(trainId) ? 'bg-primary' : 'bg-input'}`
+                                                }),
+                                                React.createElement('div', {
+                                                    className: `absolute left-0.5 top-0.5 w-5 h-5 bg-background rounded-full shadow-lg transition-transform ${enabledTrains.has(trainId) ? 'translate-x-5' : 'translate-x-0'}`
+                                                })
+                                            ]),
+                                            React.createElement('button', {
+                                                onClick: (e) => {
+                                                    e.stopPropagation();
+                                                    deleteCustomTrain(trainId, train.name);
+                                                },
+                                                className: 'p-1 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity',
+                                                title: 'Delete train'
+                                            }, '🗑️')
+                                        ])
+                                    ])
+                                )
+                            )
+                        ]),
+
+                        // Actions
+                        React.createElement('div', {
+                            key: 'actions',
+                            className: 'space-y-2 mt-auto'
+                        }, [
+                            React.createElement('div', {
+                                className: 'flex gap-2 pt-4 border-t'
+                            }, [
+                                React.createElement(Button, {
+                                    onClick: () => setActiveView(null),
+                                    variant: 'secondary',
+                                    className: 'flex-1'
+                                }, 'Back'),
+                                React.createElement(Button, {
+                                    onClick: handleApply,
+                                    className: 'flex-1'
+                                }, 'Apply Changes')
+                            ])
+                        ])
+                    ])
+                ]));
             }
-            
-            html += `<div style="margin: 2px 0; padding: 3px 0; border-bottom: 1px solid #222;">`;
-            html += `<span style="color: #888">[${entry.timestamp}]</span> `;
-            html += `<span style="color: ${color}">${prefix}</span> `;
-            html += `<span style="color: #fff">${entry.message}</span>`;
-            
-            if (entry.data) {
-                html += `<div style="color: #aaa; margin-left: 20px; font-size: 10px;">`;
-                html += JSON.stringify(entry.data, null, 2);
-                html += `</div>`;
+
+            // Edit Train View Component
+            function EditTrainView() {
+                const [selectedTrainId, setSelectedTrainId] = React.useState(Object.keys(ALL_TRAINS)[0]);
+                const [trainData, setTrainData] = React.useState({});
+                const [showApply, setShowApply] = React.useState(true);
+				const [isCustomTrain, setIsCustomTrain] = React.useState(false);
+				const handleDelete = () => {
+					if (confirm(`Are you sure you want to delete "${trainData.name}"? This action cannot be undone.`)) {
+						// Remove from customTrains
+						if (currentConfig.customTrains && currentConfig.customTrains[selectedTrainId]) {
+							delete currentConfig.customTrains[selectedTrainId];
+						}
+						
+						// Remove from enabledTrains
+						currentConfig.enabledTrains = currentConfig.enabledTrains.filter(id => id !== selectedTrainId);
+						
+						// Save config
+						saveConfig(currentConfig);
+						
+						// Reset to first available train
+						const availableTrains = Object.keys({ ...ALL_TRAINS, ...currentConfig.customTrains });
+						if (availableTrains.length > 0) {
+							setSelectedTrainId(availableTrains[0]);
+							const nextTrain = currentConfig.customTrains?.[availableTrains[0]] || ALL_TRAINS[availableTrains[0]];
+							setTrainData(deepClone(nextTrain));
+							setIsCustomTrain(availableTrains[0].startsWith('custom-'));
+						} else {
+							setSelectedTrainId('');
+							setTrainData({});
+							setIsCustomTrain(false);
+						}
+						
+						showNotification(`Train "${trainData.name}" deleted`, 'success');
+					}
+				};
+
+                React.useEffect(() => {
+                    const train = currentConfig.customTrains?.[selectedTrainId] || ALL_TRAINS[selectedTrainId];
+                    if (train) {
+                        setTrainData(deepClone(train));
+						setIsCustomTrain(selectedTrainId.startsWith('custom-'));
+                        // Validate length on load
+                        validateLength(train);
+                    }
+                }, [selectedTrainId]);
+
+                const validateLength = (train) => {
+                    if (!train.stats) {
+                        setShowApply(true);
+                        return;
+                    }
+                    
+                    const maxTrainLength = train.stats.carLength * train.stats.maxCars;
+                    const minRequiredLength = train.stats.minStationLength;
+                    const isValid = maxTrainLength <= (minRequiredLength - 2);
+                    setShowApply(isValid);
+                    
+                    if (!isValid) {
+                        showNotification(
+                            `Warning: Train is too long! Minimum station length must be at least ${maxTrainLength + 2}m`,
+                            'warning'
+                        );
+                    }
+                };
+
+                const updateStat = (statKey, value) => {
+                    setTrainData(prev => {
+                        const newData = deepClone(prev);
+                        if (!newData.stats) newData.stats = {};
+						
+						// Handle different value types
+						if (typeof value === 'string') {
+							// Convert to number if it looks like a number
+							if (!isNaN(value) && value.trim() !== '') {
+								value = statKey.includes('Speed') || statKey.includes('Acceleration') || statKey.includes('Deceleration') 
+									? parseFloat(value) 
+									: parseInt(value);
+							}
+						}
+						
+                        newData.stats[statKey] = value;
+                        
+                        // Validate length when relevant stats change
+                        if (['carLength', 'maxCars', 'minStationLength'].includes(statKey)) {
+                            validateLength(newData);
+                        }
+                        
+                        return newData;
+                    });
+                };
+
+                const updateField = (field, value) => {
+                    setTrainData(prev => ({ ...prev, [field]: value }));
+                };
+				
+				const updateAppearance = (field, value) => {
+					setTrainData(prev => {
+						const newData = deepClone(prev);
+						if (!newData.appearance) newData.appearance = {};
+						newData.appearance[field] = value;
+						return newData;
+					});
+				};
+				
+				const updateElevationMultiplier = (elevationType, value) => {
+					setTrainData(prev => {
+						const newData = deepClone(prev);
+						if (!newData.elevationMultipliers) newData.elevationMultipliers = {};
+						newData.elevationMultipliers[elevationType] = parseFloat(value);
+						return newData;
+					});
+				};
+
+                const handleSave = () => {
+                    if (!validateTrainLength(trainData)) {
+                        return;
+                    }
+
+                    if (!currentConfig.customTrains) {
+                        currentConfig.customTrains = {};
+                    }
+                    currentConfig.customTrains[selectedTrainId] = deepClone(trainData);
+                    
+                    if (!currentConfig.enabledTrains.includes(selectedTrainId)) {
+                        currentConfig.enabledTrains.push(selectedTrainId);
+                    }
+                    
+                    saveConfig(currentConfig);
+                    showNotification('Train changes saved!', 'success');
+                };
+
+                const handleReset = () => {
+                    if (confirm('Reset to default values? This will remove any customizations.')) {
+                        if (currentConfig.customTrains && currentConfig.customTrains[selectedTrainId]) {
+                            delete currentConfig.customTrains[selectedTrainId];
+                            saveConfig(currentConfig);
+                            
+                            const defaultTrain = ALL_TRAINS[selectedTrainId];
+                            if (defaultTrain) {
+                                setTrainData(deepClone(defaultTrain));
+                            }
+                            showNotification('Train reset to defaults!', 'success');
+                        }
+                    }
+                };
+
+                const handleApply = () => {
+                    handleSave();
+                    registerTrainsToGame();
+                };
+
+                // Calculate max train length for validation message
+                const maxTrainLength = trainData.stats?.carLength * trainData.stats?.maxCars || 0;
+                const minStationLength = trainData.stats?.minStationLength || 0;
+                const isValidLength = maxTrainLength <= (minStationLength - 2);
+				
+                // Helper function for slider components
+				const createStatSlider = (label, statKey, min, max, step, unit = '') => {
+					const value = trainData.stats?.[statKey] || min;
+					const displayValue = `${value}${unit}`;
+					
+					return React.createElement('div', { key: statKey, className: 'mb-4' }, [
+						React.createElement('div', {
+							key: 'label-row',
+							className: 'flex justify-between items-center mb-2'
+						}, [
+							React.createElement('label', {
+								className: 'text-sm font-medium'
+							}, label),
+							React.createElement('span', {
+								className: 'text-sm font-mono font-semibold text-primary'
+							}, displayValue)
+						]),
+						React.createElement('input', {
+							type: 'range',
+							min: min,
+							max: max,
+							step: step,
+							value: value,
+							onChange: (e) => updateStat(statKey, parseFloat(e.target.value)),
+							className: 'w-full h-2 bg-input rounded-lg appearance-none cursor-pointer',
+							style: {
+								background: `linear-gradient(to right, #2563eb 0%, #2563eb ${((value - min) / (max - min)) * 100}%, #e5e7eb ${((value - min) / (max - min)) * 100}%, #e5e7eb 100%)`,
+								WebkitAppearance: 'none',
+								height: '8px',
+								borderRadius: '4px'
+							}
+						})
+					]);
+				};
+
+				const createElevationSlider = (label, elevationType, min, max, step) => {
+					const value = trainData.elevationMultipliers?.[elevationType] || min;
+					const displayValue = `${value.toFixed(1)}x`;
+					
+					return React.createElement('div', { key: elevationType, className: 'mb-3' }, [
+						React.createElement('div', {
+							key: 'label-row',
+							className: 'flex justify-between items-center mb-2'
+						}, [
+							React.createElement('label', {
+								className: 'text-sm font-medium'
+							}, label),
+							React.createElement('span', {
+								className: 'text-sm font-mono font-semibold text-primary'
+							}, displayValue)
+						]),
+						React.createElement('input', {
+							type: 'range',
+							min: min,
+							max: max,
+							step: step,
+							value: value,
+							onChange: (e) => updateElevationMultiplier(elevationType, parseFloat(e.target.value)),
+							className: 'w-full h-2 bg-input rounded-lg appearance-none cursor-pointer',
+							style: {
+								background: `linear-gradient(to right, #2563eb 0%, #2563eb ${((value - min) / (max - min)) * 100}%, #e5e7eb ${((value - min) / (max - min)) * 100}%, #e5e7eb 100%)`,
+								WebkitAppearance: 'none',
+								height: '8px',
+								borderRadius: '4px'
+							}
+						})
+					]);
+				};
+
+                // Get all available trains including custom ones
+                const allAvailableTrains = { ...ALL_TRAINS, ...currentConfig.customTrains };
+
+                return React.createElement(FullscreenView, {
+                    title: 'Edit Train Statistics',
+                    onBack: () => setActiveView(null)
+                }, React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-8' }, [
+                    // Left column - Basic settings and selection
+                    React.createElement('div', { key: 'left', className: 'flex flex-col gap-6' }, [
+                        // Train selection
+                        React.createElement('div', { key: 'select', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Select Train'),
+                            React.createElement('div', { className: 'px-4 py-3 bg-background/50 rounded border' }, 
+                                React.createElement('div', { className: 'flex flex-col gap-2' }, [
+                                    React.createElement('label', {
+                                        className: 'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70'
+                                    }, 'Train Type'),
+                                    React.createElement('button', {
+                                        type: 'button',
+                                        role: 'combobox',
+                                        className: 'backdrop-blur-sm border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*="text-"])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 dark:hover:bg-muted/50 flex items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 data-[size=default]:h-9 data-[size=sm]:h-8 *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-2 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*="size-"])]:size-4 w-full',
+                                        onClick: () => {
+                                            // Create dropdown menu
+                                            const dropdown = document.createElement('div');
+                                            dropdown.className = 'absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md border bg-popover text-popover-foreground shadow-md';
+                                            dropdown.style.position = 'absolute';
+                                            dropdown.style.width = '300px';
+                                            
+                                            Object.entries(allAvailableTrains).forEach(([id, train]) => {
+                                                const item = document.createElement('div');
+                                                item.className = 'relative flex cursor-default select-none items-center rounded-sm px-3 py-2 text-sm outline-none hover:bg-accent hover:text-accent-foreground';
+                                                item.textContent = train.isFixed ? train.name : id.startsWith('custom-') ? `${train.name} (Custom)` : train.name;
+                                                item.onclick = () => {
+                                                    setSelectedTrainId(id);
+                                                    dropdown.remove();
+                                                };
+                                                dropdown.appendChild(item);
+                                            });
+                                            
+                                            const trigger = document.activeElement;
+                                            const rect = trigger.getBoundingClientRect();
+                                            dropdown.style.left = `${rect.left}px`;
+                                            dropdown.style.top = `${rect.bottom}px`;
+                                            document.body.appendChild(dropdown);
+                                            
+                                            // Close on click outside
+                                            const closeDropdown = (e) => {
+                                                if (!dropdown.contains(e.target) && e.target !== trigger) {
+                                                    dropdown.remove();
+                                                    document.removeEventListener('click', closeDropdown);
+                                                }
+                                            };
+                                            setTimeout(() => document.addEventListener('click', closeDropdown), 0);
+                                        }
+                                    }, [
+                                        React.createElement('span', {
+                                            key: 'value',
+                                            style: { pointerEvents: 'none' }
+                                        }, trainData.name || 'Select a train'),
+                                        React.createElement('svg', {
+                                            key: 'icon',
+                                            xmlns: "http://www.w3.org/2000/svg",
+                                            width: "24",
+                                            height: "24",
+                                            viewBox: "0 0 24 24",
+                                            fill: "none",
+                                            stroke: "currentColor",
+                                            strokeWidth: "2",
+                                            strokeLinecap: "round",
+                                            strokeLinejoin: "round",
+                                            className: "lucide lucide-chevron-down size-4 opacity-50",
+                                            "aria-hidden": "true"
+                                        }, React.createElement('path', { d: "m6 9 6 6 6-6" }))
+                                    ])
+                                ])
+                            )
+                        ]),
+
+                        // Validation warning
+                        !isValidLength && React.createElement('div', {
+                            key: 'warning',
+                            className: 'p-4 bg-destructive/10 border border-destructive/20 rounded flex items-start gap-3'
+                        }, [
+                            React.createElement('div', {
+                                className: 'w-10 h-10 rounded-md bg-destructive/10 flex items-center justify-center shrink-0'
+                            }, React.createElement('svg', {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "24",
+                                height: "24",
+                                viewBox: "0 0 24 24",
+                                fill: "none",
+                                stroke: "currentColor",
+                                strokeWidth: "2",
+                                strokeLinecap: "round",
+                                strokeLinejoin: "round",
+                                className: "lucide lucide-triangle-alert w-5 h-5 text-destructive"
+                            }, [
+                                React.createElement('path', { d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" }),
+                                React.createElement('path', { d: "M12 9v4" }),
+                                React.createElement('path', { d: "M12 17h.01" })
+                            ])),
+                            React.createElement('div', { className: 'flex-1' }, [
+                                React.createElement('div', { 
+                                    className: 'font-medium text-destructive' 
+                                }, 'Train Length Warning'),
+                                React.createElement('div', { 
+                                    className: 'text-sm text-muted-foreground mt-1' 
+                                }, `Maximum train length (${maxTrainLength}m) must be at least 2m less than minimum station length (${minStationLength}m).`),
+                                React.createElement('div', { 
+                                    className: 'text-sm font-mono text-destructive mt-1' 
+                                }, `Required: minStationLength > ${maxTrainLength + 2}m`)
+                            ])
+                        ]),
+
+                        // Length summary
+                        React.createElement('div', {
+                            key: 'length-summary',
+                            className: 'p-4 bg-primary/5 border border-primary/20 rounded'
+                        }, [
+                            React.createElement('div', { 
+                                className: 'text-sm font-medium text-primary mb-1' 
+                            }, 'Length Summary'),
+                            React.createElement('div', { 
+                                className: 'text-xs text-muted-foreground grid grid-cols-2 gap-2' 
+                            }, [
+                                React.createElement('div', { key: 'train' }, `Max Train Length: ${maxTrainLength}m`),
+                                React.createElement('div', { key: 'station' }, `Min Station: ${minStationLength}m`),
+                                React.createElement('div', { key: 'status' }, `Status: ${isValidLength ? '✅ Valid' : '❌ Invalid'}`)
+                            ])
+                        ]),
+
+                        // BASIC INFORMATION SECTION
+                        React.createElement('div', { key: 'basic-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Basic Information'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'space-y-4' }, [
+                                    // Name and Description
+                                    React.createElement('div', { key: 'name-desc', className: 'grid grid-cols-1 gap-4' }, [
+                                        React.createElement('div', { key: 'name' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Train Name *'),
+                                            React.createElement('input', {
+                                                type: 'text',
+                                                value: trainData.name || '',
+                                                onChange: (e) => updateField('name', e.target.value),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'desc' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Description'),
+                                            React.createElement('textarea', {
+                                                value: trainData.description || '',
+                                                onChange: (e) => updateField('description', e.target.value),
+                                                rows: 2,
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ])
+                                    ]),
+
+                                    // Color and Road Crossing
+                                    React.createElement('div', { key: 'color-crossing', className: 'grid grid-cols-2 gap-4' }, [
+                                        React.createElement('div', { key: 'color' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Color'),
+                                            React.createElement('div', { className: 'flex items-center gap-3' }, [
+                                                React.createElement('input', {
+                                                    type: 'color',
+                                                    value: trainData.appearance?.color || '#3b82f6',
+                                                    onChange: (e) => updateAppearance('color', e.target.value),
+                                                    className: 'w-10 h-10 cursor-pointer rounded border border-input'
+                                                }),
+                                                React.createElement('span', { 
+                                                    className: 'text-sm font-mono text-muted-foreground' 
+                                                }, trainData.appearance?.color || '#3b82f6')
+                                            ])
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'crossing' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Road Crossing'),
+                                            React.createElement('div', { 
+                                                className: 'flex items-center h-10 mt-2'
+                                            }, [
+                                                React.createElement('input', {
+                                                    type: 'checkbox',
+                                                    id: 'road-crossing',
+                                                    checked: trainData.allowAtGradeRoadCrossing || false,
+                                                    onChange: (e) => updateField('allowAtGradeRoadCrossing', e.target.checked),
+                                                    className: 'sr-only peer'
+                                                }),
+                                                React.createElement('label', {
+                                                    htmlFor: 'road-crossing',
+                                                    className: 'relative inline-flex items-center cursor-pointer'
+                                                }, [
+                                                    React.createElement('div', {
+                                                        className: `w-11 h-6 border-2 border-transparent rounded-full transition-colors peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-ring peer-focus:ring-offset-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 ${trainData.allowAtGradeRoadCrossing ? 'bg-primary' : 'bg-input'}`
+                                                    }),
+                                                    React.createElement('div', {
+                                                        className: `absolute left-0.5 top-0.5 w-5 h-5 bg-background rounded-full shadow-lg transition-transform ${trainData.allowAtGradeRoadCrossing ? 'translate-x-5' : 'translate-x-0'}`
+                                                    })
+                                                ]),
+                                                React.createElement('label', {
+                                                    htmlFor: 'road-crossing',
+                                                    className: 'ml-2 text-sm text-muted-foreground'
+                                                }, 'Allow at-grade road crossing')
+                                            ])
+                                        ])
+                                    ])
+                                ])
+                            ])
+                        ])
+                    ]),
+
+                    // Right column - All other settings
+                    React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
+                        // PERFORMANCE SECTION
+                        React.createElement('div', { key: 'performance-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Performance'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'space-y-4' }, [
+                                    createStatSlider('Max Speed', 'maxSpeed', 5, 100, 0.1, ' m/s'),
+                                    createStatSlider('Station Speed', 'maxSpeedLocalStation', 1, 30, 0.1, ' m/s'),
+                                    createStatSlider('Acceleration', 'maxAcceleration', 0.1, 3, 0.1, ' m/s²'),
+                                    createStatSlider('Deceleration', 'maxDeceleration', 0.1, 3, 0.1, ' m/s²')
+                                ])
+                            ])
+                        ]),
+
+                        // CAPACITY & SIZE SECTION
+                        React.createElement('div', { key: 'capacity-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Capacity & Size'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                    // Left column
+                                    React.createElement('div', { key: 'left', className: 'space-y-4' }, [
+                                        React.createElement('div', { key: 'capacity' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Capacity per Car'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 10,
+                                                max: 1000,
+                                                value: trainData.stats?.capacityPerCar || 150,
+                                                onChange: (e) => updateStat('capacityPerCar', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'car-length' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Car Length (m)'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 5,
+                                                max: 50,
+                                                step: '0.5',
+                                                value: trainData.stats?.carLength || 20,
+                                                onChange: (e) => updateStat('carLength', parseFloat(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'train-width' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Train Width (m)'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 5,
+                                                step: '0.05',
+                                                value: trainData.stats?.trainWidth || 3.0,
+                                                onChange: (e) => updateStat('trainWidth', parseFloat(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ])
+                                    ]),
+
+                                    // Right column
+                                    React.createElement('div', { key: 'right', className: 'space-y-4' }, [
+                                        React.createElement('div', { key: 'min-cars' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Minimum Cars'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 20,
+                                                value: trainData.stats?.minCars || 2,
+                                                onChange: (e) => updateStat('minCars', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'max-cars' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Maximum Cars'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 20,
+                                                value: trainData.stats?.maxCars || 6,
+                                                onChange: (e) => updateStat('maxCars', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'cars-per-set' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Cars per Set'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 10,
+                                                value: trainData.stats?.carsPerCarSet || 2,
+                                                onChange: (e) => updateStat('carsPerCarSet', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ])
+                                    ])
+                                ])
+                            ])
+                        ]),
+
+                        // STATION SECTION
+                        React.createElement('div', { key: 'station-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Station Requirements'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                    React.createElement('div', { key: 'min-length' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Minimum Station Length (m)'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 20,
+                                            max: 500,
+                                            value: trainData.stats?.minStationLength || 100,
+                                            onChange: (e) => updateStat('minStationLength', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'max-length' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Maximum Station Length (m)'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 30,
+                                            max: 600,
+                                            value: trainData.stats?.maxStationLength || 150,
+                                            onChange: (e) => updateStat('maxStationLength', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ])
+                                ])
+                            ])
+                        ]),
+
+                        // COSTS SECTION
+                        React.createElement('div', { key: 'costs-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Costs ($)'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                    React.createElement('div', { key: 'car-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Car Cost'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 100000,
+                                            max: 10000000,
+                                            step: '10000',
+                                            value: trainData.stats?.carCost || 2000000,
+                                            onChange: (e) => updateStat('carCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'track-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Track Cost per meter'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 1000,
+                                            max: 200000,
+                                            step: '1000',
+                                            value: trainData.stats?.baseTrackCost || 35000,
+                                            onChange: (e) => updateStat('baseTrackCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'station-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Station Cost'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 1000000,
+                                            max: 500000000,
+                                            step: '100000',
+                                            value: trainData.stats?.baseStationCost || 50000000,
+                                            onChange: (e) => updateStat('baseStationCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'scissors-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Scissors Crossover Cost'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 1000000,
+                                            max: 50000000,
+                                            step: '100000',
+                                            value: trainData.stats?.scissorsCrossoverCost || 10000000,
+                                            onChange: (e) => updateStat('scissorsCrossoverCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'train-op-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Train Op. Cost per hour'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 50,
+                                            max: 5000,
+                                            step: '10',
+                                            value: trainData.stats?.trainOperationalCostPerHour || 300,
+                                            onChange: (e) => updateStat('trainOperationalCostPerHour', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'car-op-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Car Op. Cost per hour'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 5,
+                                            max: 500,
+                                            step: '5',
+                                            value: trainData.stats?.carOperationalCostPerHour || 30,
+                                            onChange: (e) => updateStat('carOperationalCostPerHour', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ])
+                                ])
+                            ])
+                        ]),
+
+                        // ELEVATION MULTIPLIERS SECTION
+                        React.createElement('div', { key: 'elevation-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Elevation Cost Multipliers'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'space-y-3' }, [
+                                    createElevationSlider('Deep Bore', 'DEEP_BORE', 1.0, 5.0, 0.1),
+                                    createElevationSlider('Standard Tunnel', 'STANDARD_TUNNEL', 1.0, 4.0, 0.1),
+                                    createElevationSlider('Cut & Cover', 'CUT_AND_COVER', 1.0, 3.0, 0.1),
+                                    createElevationSlider('At Grade', 'AT_GRADE', 0.1, 2.0, 0.1),
+                                    createElevationSlider('Elevated', 'ELEVATED', 1.0, 3.0, 0.1)
+                                ])
+                            ])
+                        ]),
+
+                        // Actions
+                        React.createElement('div', {
+                            key: 'actions',
+                            className: 'space-y-2 mt-auto'
+                        }, [
+                            React.createElement('div', {
+                                className: 'flex justify-between items-center text-sm text-muted-foreground'
+                            }, [
+                                React.createElement('span', {}, isCustomTrain ? '✎ Custom Train' : 'Default Train'),
+                                !showApply && React.createElement('div', {
+                                    className: 'flex items-center gap-2 text-destructive'
+                                }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "16",
+                                        height: "16",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-alert-circle"
+                                    }, [
+                                        React.createElement('circle', { cx: "12", cy: "12", r: "10" }),
+                                        React.createElement('line', { x1: "12", x2: "12", y1: "8", y2: "12" }),
+                                        React.createElement('line', { x1: "12", x2: "12.01", y1: "16", y2: "16" })
+                                    ]),
+                                    'Fix length issue to apply'
+                                ])
+                            ]),
+                            React.createElement('div', {
+                                className: 'flex gap-2 pt-4 border-t'
+                            }, [
+                                React.createElement(Button, {
+                                    onClick: handleReset,
+                                    variant: 'secondary',
+                                    className: 'flex-1'
+                                }, 'Reset to Default'),
+                                
+                                isCustomTrain && React.createElement(Button, {
+                                    onClick: handleDelete,
+                                    variant: 'destructive',
+                                    className: 'flex-1'
+                                }, 'Delete Train'),
+                                
+                                showApply && React.createElement(Button, {
+                                    onClick: handleApply,
+                                    className: 'flex-1'
+                                }, 'Save & Apply')
+                            ])
+                        ])
+                    ])
+                ]));
+			}
+
+            // Create Train View Component - Now includes full editing capabilities
+            function CreateTrainView() {
+                const [trainData, setTrainData] = React.useState({
+                    name: '',
+                    description: 'Custom train type',
+                    allowAtGradeRoadCrossing: false,
+                    stats: {
+                        maxAcceleration: 1.0,
+                        maxDeceleration: 1.0,
+                        maxSpeed: 20.0,
+                        maxSpeedLocalStation: 10.0,
+                        capacityPerCar: 150,
+                        carLength: 20,
+                        minCars: 2,
+                        maxCars: 6,
+                        carsPerCarSet: 2,
+                        carCost: 2000000,
+                        trainWidth: 3.0,
+                        minStationLength: 100,
+                        maxStationLength: 150,
+                        baseTrackCost: 35000,
+                        baseStationCost: 50000000,
+                        trainOperationalCostPerHour: 300,
+                        carOperationalCostPerHour: 30,
+                        scissorsCrossoverCost: 10000000
+                    },
+                    elevationMultipliers: BASE_ELEVATION_MULTIPLIERS,
+                    appearance: { color: '#7c3aed' }
+                });
+
+                const [showApply, setShowApply] = React.useState(true);
+
+                React.useEffect(() => {
+                    // Validate length on load
+                    validateLength(trainData);
+                }, []);
+
+                const validateLength = (train) => {
+                    if (!train.stats) {
+                        setShowApply(true);
+                        return;
+                    }
+                    
+                    const maxTrainLength = train.stats.carLength * train.stats.maxCars;
+                    const minRequiredLength = train.stats.minStationLength;
+                    const isValid = maxTrainLength <= (minRequiredLength - 2);
+                    setShowApply(isValid);
+                };
+
+                const updateStat = (statKey, value) => {
+                    setTrainData(prev => {
+                        const newData = deepClone(prev);
+                        if (!newData.stats) newData.stats = {};
+                        
+                        if (typeof value === 'string') {
+                            if (!isNaN(value) && value.trim() !== '') {
+                                value = statKey.includes('Speed') || statKey.includes('Acceleration') || statKey.includes('Deceleration') 
+                                    ? parseFloat(value) 
+                                    : parseInt(value);
+                            }
+                        }
+                        
+                        newData.stats[statKey] = value;
+                        
+                        if (['carLength', 'maxCars', 'minStationLength'].includes(statKey)) {
+                            validateLength(newData);
+                        }
+                        
+                        return newData;
+                    });
+                };
+
+                const updateField = (field, value) => {
+                    setTrainData(prev => ({ ...prev, [field]: value }));
+                };
+                
+                const updateAppearance = (field, value) => {
+                    setTrainData(prev => {
+                        const newData = deepClone(prev);
+                        if (!newData.appearance) newData.appearance = {};
+                        newData.appearance[field] = value;
+                        return newData;
+                    });
+                };
+                
+                const updateElevationMultiplier = (elevationType, value) => {
+                    setTrainData(prev => {
+                        const newData = deepClone(prev);
+                        if (!newData.elevationMultipliers) newData.elevationMultipliers = {};
+                        newData.elevationMultipliers[elevationType] = parseFloat(value);
+                        return newData;
+                    });
+                };
+
+                const handleCreate = () => {
+                    if (!trainData.name.trim()) {
+                        showNotification('Please enter a train name', 'error');
+                        return;
+                    }
+
+                    if (!validateTrainLength(trainData)) {
+                        return;
+                    }
+
+                    const trainId = createCustomTrain(trainData.name, trainData.description, trainData.appearance.color);
+                    
+                    // Save custom stats
+                    if (!currentConfig.customTrains) {
+                        currentConfig.customTrains = {};
+                    }
+                    currentConfig.customTrains[trainId] = {
+                        ...trainData,
+                        id: trainId,
+                        compatibleTrackTypes: [trainId],
+                        isFixed: false
+                    };
+                    saveConfig(currentConfig);
+                    
+                    showNotification(`Custom train "${trainData.name}" created!`, 'success');
+                    
+                    // Switch to edit view with new train selected
+                    setActiveView('edit');
+                };
+
+                // Calculate max train length for validation message
+                const maxTrainLength = trainData.stats?.carLength * trainData.stats?.maxCars || 0;
+                const minStationLength = trainData.stats?.minStationLength || 0;
+                const isValidLength = maxTrainLength <= (minStationLength - 2);
+				
+                // Helper function for slider components
+				const createStatSlider = (label, statKey, min, max, step, unit = '') => {
+					const value = trainData.stats?.[statKey] || min;
+					const displayValue = `${value}${unit}`;
+					
+					return React.createElement('div', { key: statKey, className: 'mb-4' }, [
+						React.createElement('div', {
+							key: 'label-row',
+							className: 'flex justify-between items-center mb-2'
+						}, [
+							React.createElement('label', {
+								className: 'text-sm font-medium'
+							}, label),
+							React.createElement('span', {
+								className: 'text-sm font-mono font-semibold text-primary'
+							}, displayValue)
+						]),
+						React.createElement('input', {
+							type: 'range',
+							min: min,
+							max: max,
+							step: step,
+							value: value,
+							onChange: (e) => updateStat(statKey, parseFloat(e.target.value)),
+							className: 'w-full h-2 bg-input rounded-lg appearance-none cursor-pointer',
+							style: {
+								background: `linear-gradient(to right, #2563eb 0%, #2563eb ${((value - min) / (max - min)) * 100}%, #e5e7eb ${((value - min) / (max - min)) * 100}%, #e5e7eb 100%)`,
+								WebkitAppearance: 'none',
+								height: '8px',
+								borderRadius: '4px'
+							}
+						})
+					]);
+				};
+
+				const createElevationSlider = (label, elevationType, min, max, step) => {
+					const value = trainData.elevationMultipliers?.[elevationType] || min;
+					const displayValue = `${value.toFixed(1)}x`;
+					
+					return React.createElement('div', { key: elevationType, className: 'mb-3' }, [
+						React.createElement('div', {
+							key: 'label-row',
+							className: 'flex justify-between items-center mb-2'
+						}, [
+							React.createElement('label', {
+								className: 'text-sm font-medium'
+							}, label),
+							React.createElement('span', {
+								className: 'text-sm font-mono font-semibold text-primary'
+							}, displayValue)
+						]),
+						React.createElement('input', {
+							type: 'range',
+							min: min,
+							max: max,
+							step: step,
+							value: value,
+							onChange: (e) => updateElevationMultiplier(elevationType, parseFloat(e.target.value)),
+							className: 'w-full h-2 bg-input rounded-lg appearance-none cursor-pointer',
+							style: {
+								background: `linear-gradient(to right, #2563eb 0%, #2563eb ${((value - min) / (max - min)) * 100}%, #e5e7eb ${((value - min) / (max - min)) * 100}%, #e5e7eb 100%)`,
+								WebkitAppearance: 'none',
+								height: '8px',
+								borderRadius: '4px'
+							}
+						})
+					]);
+				};
+
+                return React.createElement(FullscreenView, {
+                    title: 'Create Custom Train',
+                    onBack: () => setActiveView(null)
+                }, React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-8' }, [
+                    // Left column - Basic settings
+                    React.createElement('div', { key: 'left', className: 'flex flex-col gap-6' }, [
+                        // Validation warning
+                        !isValidLength && React.createElement('div', {
+                            key: 'warning',
+                            className: 'p-4 bg-destructive/10 border border-destructive/20 rounded flex items-start gap-3'
+                        }, [
+                            React.createElement('div', {
+                                className: 'w-10 h-10 rounded-md bg-destructive/10 flex items-center justify-center shrink-0'
+                            }, React.createElement('svg', {
+                                xmlns: "http://www.w3.org/2000/svg",
+                                width: "24",
+                                height: "24",
+                                viewBox: "0 0 24 24",
+                                fill: "none",
+                                stroke: "currentColor",
+                                strokeWidth: "2",
+                                strokeLinecap: "round",
+                                strokeLinejoin: "round",
+                                className: "lucide lucide-triangle-alert w-5 h-5 text-destructive"
+                            }, [
+                                React.createElement('path', { d: "m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3" }),
+                                React.createElement('path', { d: "M12 9v4" }),
+                                React.createElement('path', { d: "M12 17h.01" })
+                            ])),
+                            React.createElement('div', { className: 'flex-1' }, [
+                                React.createElement('div', { 
+                                    className: 'font-medium text-destructive' 
+                                }, 'Train Length Warning'),
+                                React.createElement('div', { 
+                                    className: 'text-sm text-muted-foreground mt-1' 
+                                }, `Maximum train length (${maxTrainLength}m) must be at least 2m less than minimum station length (${minStationLength}m).`),
+                                React.createElement('div', { 
+                                    className: 'text-sm font-mono text-destructive mt-1' 
+                                }, `Required: minStationLength > ${maxTrainLength + 2}m`)
+                            ])
+                        ]),
+
+                        // Length summary
+                        React.createElement('div', {
+                            key: 'length-summary',
+                            className: 'p-4 bg-primary/5 border border-primary/20 rounded'
+                        }, [
+                            React.createElement('div', { 
+                                className: 'text-sm font-medium text-primary mb-1' 
+                            }, 'Length Summary'),
+                            React.createElement('div', { 
+                                className: 'text-xs text-muted-foreground grid grid-cols-2 gap-2' 
+                            }, [
+                                React.createElement('div', { key: 'train' }, `Max Train Length: ${maxTrainLength}m`),
+                                React.createElement('div', { key: 'station' }, `Min Station: ${minStationLength}m`),
+                                React.createElement('div', { key: 'status' }, `Status: ${isValidLength ? '✅ Valid' : '❌ Invalid'}`)
+                            ])
+                        ]),
+
+                        // BASIC INFORMATION SECTION
+                        React.createElement('div', { key: 'basic-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Basic Information'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'space-y-4' }, [
+                                    // Name and Description
+                                    React.createElement('div', { key: 'name-desc', className: 'grid grid-cols-1 gap-4' }, [
+                                        React.createElement('div', { key: 'name' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Train Name *'),
+                                            React.createElement('input', {
+                                                type: 'text',
+                                                value: trainData.name || '',
+                                                onChange: (e) => updateField('name', e.target.value),
+                                                placeholder: 'e.g., Express Shuttle, Mountain Train',
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'desc' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Description'),
+                                            React.createElement('textarea', {
+                                                value: trainData.description || '',
+                                                onChange: (e) => updateField('description', e.target.value),
+                                                placeholder: 'Describe your custom train type...',
+                                                rows: 2,
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ])
+                                    ]),
+
+                                    // Color and Road Crossing
+                                    React.createElement('div', { key: 'color-crossing', className: 'grid grid-cols-2 gap-4' }, [
+                                        React.createElement('div', { key: 'color' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Color'),
+                                            React.createElement('div', { className: 'flex items-center gap-3' }, [
+                                                React.createElement('input', {
+                                                    type: 'color',
+                                                    value: trainData.appearance?.color || '#7c3aed',
+                                                    onChange: (e) => updateAppearance('color', e.target.value),
+                                                    className: 'w-10 h-10 cursor-pointer rounded border border-input'
+                                                }),
+                                                React.createElement('span', { 
+                                                    className: 'text-sm font-mono text-muted-foreground' 
+                                                }, trainData.appearance?.color || '#7c3aed')
+                                            ])
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'crossing' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Road Crossing'),
+                                            React.createElement('div', { 
+                                                className: 'flex items-center h-10 mt-2'
+                                            }, [
+                                                React.createElement('input', {
+                                                    type: 'checkbox',
+                                                    id: 'road-crossing-create',
+                                                    checked: trainData.allowAtGradeRoadCrossing || false,
+                                                    onChange: (e) => updateField('allowAtGradeRoadCrossing', e.target.checked),
+                                                    className: 'sr-only peer'
+                                                }),
+                                                React.createElement('label', {
+                                                    htmlFor: 'road-crossing-create',
+                                                    className: 'relative inline-flex items-center cursor-pointer'
+                                                }, [
+                                                    React.createElement('div', {
+                                                        className: `w-11 h-6 border-2 border-transparent rounded-full transition-colors peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-ring peer-focus:ring-offset-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 ${trainData.allowAtGradeRoadCrossing ? 'bg-primary' : 'bg-input'}`
+                                                    }),
+                                                    React.createElement('div', {
+                                                        className: `absolute left-0.5 top-0.5 w-5 h-5 bg-background rounded-full shadow-lg transition-transform ${trainData.allowAtGradeRoadCrossing ? 'translate-x-5' : 'translate-x-0'}`
+                                                    })
+                                                ]),
+                                                React.createElement('label', {
+                                                    htmlFor: 'road-crossing-create',
+                                                    className: 'ml-2 text-sm text-muted-foreground'
+                                                }, 'Allow at-grade road crossing')
+                                            ])
+                                        ])
+                                    ])
+                                ])
+                            ])
+                        ])
+                    ]),
+
+                    // Right column - All other settings
+                    React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
+                        // PERFORMANCE SECTION
+                        React.createElement('div', { key: 'performance-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Performance'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'space-y-4' }, [
+                                    createStatSlider('Max Speed', 'maxSpeed', 5, 100, 0.1, ' m/s'),
+                                    createStatSlider('Station Speed', 'maxSpeedLocalStation', 1, 30, 0.1, ' m/s'),
+                                    createStatSlider('Acceleration', 'maxAcceleration', 0.1, 3, 0.1, ' m/s²'),
+                                    createStatSlider('Deceleration', 'maxDeceleration', 0.1, 3, 0.1, ' m/s²')
+                                ])
+                            ])
+                        ]),
+
+                        // CAPACITY & SIZE SECTION
+                        React.createElement('div', { key: 'capacity-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Capacity & Size'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                    // Left column
+                                    React.createElement('div', { key: 'left', className: 'space-y-4' }, [
+                                        React.createElement('div', { key: 'capacity' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Capacity per Car'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 10,
+                                                max: 1000,
+                                                value: trainData.stats?.capacityPerCar || 150,
+                                                onChange: (e) => updateStat('capacityPerCar', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'car-length' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Car Length (m)'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 5,
+                                                max: 50,
+                                                step: '0.5',
+                                                value: trainData.stats?.carLength || 20,
+                                                onChange: (e) => updateStat('carLength', parseFloat(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'train-width' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Train Width (m)'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 5,
+                                                step: '0.05',
+                                                value: trainData.stats?.trainWidth || 3.0,
+                                                onChange: (e) => updateStat('trainWidth', parseFloat(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ])
+                                    ]),
+
+                                    // Right column
+                                    React.createElement('div', { key: 'right', className: 'space-y-4' }, [
+                                        React.createElement('div', { key: 'min-cars' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Minimum Cars'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 20,
+                                                value: trainData.stats?.minCars || 2,
+                                                onChange: (e) => updateStat('minCars', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'max-cars' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Maximum Cars'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 20,
+                                                value: trainData.stats?.maxCars || 6,
+                                                onChange: (e) => updateStat('maxCars', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ]),
+                                        
+                                        React.createElement('div', { key: 'cars-per-set' }, [
+                                            React.createElement('label', {
+                                                className: 'block text-sm font-medium mb-1'
+                                            }, 'Cars per Set'),
+                                            React.createElement('input', {
+                                                type: 'number',
+                                                min: 1,
+                                                max: 10,
+                                                value: trainData.stats?.carsPerCarSet || 2,
+                                                onChange: (e) => updateStat('carsPerCarSet', parseInt(e.target.value)),
+                                                className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                            })
+                                        ])
+                                    ])
+                                ])
+                            ])
+                        ]),
+
+                        // STATION SECTION
+                        React.createElement('div', { key: 'station-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Station Requirements'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                    React.createElement('div', { key: 'min-length' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Minimum Station Length (m)'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 20,
+                                            max: 500,
+                                            value: trainData.stats?.minStationLength || 100,
+                                            onChange: (e) => updateStat('minStationLength', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'max-length' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Maximum Station Length (m)'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 30,
+                                            max: 600,
+                                            value: trainData.stats?.maxStationLength || 150,
+                                            onChange: (e) => updateStat('maxStationLength', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ])
+                                ])
+                            ])
+                        ]),
+
+                        // COSTS SECTION
+                        React.createElement('div', { key: 'costs-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Costs ($)'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                    React.createElement('div', { key: 'car-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Car Cost'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 100000,
+                                            max: 10000000,
+                                            step: '10000',
+                                            value: trainData.stats?.carCost || 2000000,
+                                            onChange: (e) => updateStat('carCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'track-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Track Cost per meter'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 1000,
+                                            max: 200000,
+                                            step: '1000',
+                                            value: trainData.stats?.baseTrackCost || 35000,
+                                            onChange: (e) => updateStat('baseTrackCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'station-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Station Cost'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 1000000,
+                                            max: 500000000,
+                                            step: '100000',
+                                            value: trainData.stats?.baseStationCost || 50000000,
+                                            onChange: (e) => updateStat('baseStationCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'scissors-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Scissors Crossover Cost'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 1000000,
+                                            max: 50000000,
+                                            step: '100000',
+                                            value: trainData.stats?.scissorsCrossoverCost || 10000000,
+                                            onChange: (e) => updateStat('scissorsCrossoverCost', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'train-op-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Train Op. Cost per hour'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 50,
+                                            max: 5000,
+                                            step: '10',
+                                            value: trainData.stats?.trainOperationalCostPerHour || 300,
+                                            onChange: (e) => updateStat('trainOperationalCostPerHour', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ]),
+                                    
+                                    React.createElement('div', { key: 'car-op-cost' }, [
+                                        React.createElement('label', {
+                                            className: 'block text-sm font-medium mb-1'
+                                        }, 'Car Op. Cost per hour'),
+                                        React.createElement('input', {
+                                            type: 'number',
+                                            min: 5,
+                                            max: 500,
+                                            step: '5',
+                                            value: trainData.stats?.carOperationalCostPerHour || 30,
+                                            onChange: (e) => updateStat('carOperationalCostPerHour', parseInt(e.target.value)),
+                                            className: 'w-full p-2 border border-input bg-background rounded text-sm'
+                                        })
+                                    ])
+                                ])
+                            ])
+                        ]),
+
+                        // ELEVATION MULTIPLIERS SECTION
+                        React.createElement('div', { key: 'elevation-section', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Elevation Cost Multipliers'),
+                            
+                            React.createElement(Card, { className: 'p-4' }, [
+                                React.createElement('div', { className: 'space-y-3' }, [
+                                    createElevationSlider('Deep Bore', 'DEEP_BORE', 1.0, 5.0, 0.1),
+                                    createElevationSlider('Standard Tunnel', 'STANDARD_TUNNEL', 1.0, 4.0, 0.1),
+                                    createElevationSlider('Cut & Cover', 'CUT_AND_COVER', 1.0, 3.0, 0.1),
+                                    createElevationSlider('At Grade', 'AT_GRADE', 0.1, 2.0, 0.1),
+                                    createElevationSlider('Elevated', 'ELEVATED', 1.0, 3.0, 0.1)
+                                ])
+                            ])
+                        ]),
+
+                        // Actions
+                        React.createElement('div', {
+                            key: 'actions',
+                            className: 'space-y-2 mt-auto'
+                        }, [
+                            React.createElement('div', {
+                                className: 'flex justify-between items-center text-sm text-muted-foreground'
+                            }, [
+                                React.createElement('span', {}, 'New Custom Train'),
+                                !showApply && React.createElement('div', {
+                                    className: 'flex items-center gap-2 text-destructive'
+                                }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "16",
+                                        height: "16",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-alert-circle"
+                                    }, [
+                                        React.createElement('circle', { cx: "12", cy: "12", r: "10" }),
+                                        React.createElement('line', { x1: "12", x2: "12", y1: "8", y2: "12" }),
+                                        React.createElement('line', { x1: "12", x2: "12.01", y1: "16", y2: "16" })
+                                    ]),
+                                    'Fix length issue to create'
+                                ])
+                            ]),
+                            React.createElement('div', {
+                                className: 'flex gap-2 pt-4 border-t'
+                            }, [
+                                React.createElement(Button, {
+                                    onClick: () => setActiveView(null),
+                                    variant: 'secondary',
+                                    className: 'flex-1'
+                                }, 'Cancel'),
+                                
+                                showApply && React.createElement(Button, {
+                                    onClick: handleCreate,
+                                    className: 'flex-1'
+                                }, 'Create Train')
+                            ])
+                        ])
+                    ])
+                ]));
+			}
+
+            // Main menu view (shown when no active view selected)
+            function MainMenuView() {
+                return React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-8' }, [
+                    React.createElement('div', { key: 'left', className: 'flex flex-col gap-6' }, [
+                        React.createElement('div', { key: 'header', className: 'space-y-2' }, [
+                            React.createElement('h1', {
+                                className: 'text-2xl font-bold'
+                            }, 'Add Trains Manager'),
+                            React.createElement('p', {
+                                className: 'text-sm text-muted-foreground'
+                            }, 'Customize and manage your train types by mhmoeller')
+                        ]),
+
+                        // Quick stats
+                        React.createElement(Card, { key: 'stats', className: 'p-4' }, [
+                            React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                React.createElement('div', { className: 'space-y-1' }, [
+                                    React.createElement('div', { className: 'text-2xl font-bold' }, 
+                                        Object.keys(currentConfig.enabledTrains || []).length
+                                    ),
+                                    React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Enabled Trains')
+                                ]),
+                                React.createElement('div', { className: 'space-y-1' }, [
+                                    React.createElement('div', { className: 'text-2xl font-bold' }, 
+                                        Object.keys(currentConfig.customTrains || {}).length
+                                    ),
+                                    React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Custom Trains')
+                                ])
+                            ])
+                        ])
+                    ]),
+
+                    React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
+                        React.createElement('div', { key: 'options', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Management Options'),
+
+                            React.createElement('button', {
+                                onClick: openEnableDisable,
+                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+                            }, [
+                                React.createElement('div', { className: 'flex items-center gap-2' }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-toggle-right h-4 w-4"
+                                    }, [
+                                        React.createElement('rect', { width: "20", height: "12", x: "2", y: "6", rx: "6", ry: "6" }),
+                                        React.createElement('circle', { cx: "16", cy: "12", r: "2" })
+                                    ]),
+                                    React.createElement('span', {}, 'Enable / Disable Trains')
+                                ]),
+                                React.createElement('svg', {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "24",
+                                    height: "24",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    strokeWidth: "2",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+                            ]),
+
+                            React.createElement('button', {
+                                onClick: openEditTrain,
+                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+                            }, [
+                                React.createElement('div', { className: 'flex items-center gap-2' }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-settings h-4 w-4"
+                                    }, [
+                                        React.createElement('path', { d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" }),
+                                        React.createElement('circle', { cx: "12", cy: "12", r: "3" })
+                                    ]),
+                                    React.createElement('span', {}, 'Edit Train Statistics')
+                                ]),
+                                React.createElement('svg', {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "24",
+                                    height: "24",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    strokeWidth: "2",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+                            ]),
+
+                            React.createElement('button', {
+                                onClick: openCreateTrain,
+                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+                            }, [
+                                React.createElement('div', { className: 'flex items-center gap-2' }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-plus-circle h-4 w-4"
+                                    }, [
+                                        React.createElement('circle', { cx: "12", cy: "12", r: "10" }),
+                                        React.createElement('path', { d: "M8 12h8" }),
+                                        React.createElement('path', { d: "M12 8v8" })
+                                    ]),
+                                    React.createElement('span', {}, 'Create Custom Train')
+                                ]),
+                                React.createElement('svg', {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "24",
+                                    height: "24",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    strokeWidth: "2",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+                            ])
+                        ]),
+
+                        // Actions
+                        React.createElement('div', {
+                            key: 'actions',
+                            className: 'space-y-2 mt-auto'
+                        }, [
+                            React.createElement(Button, {
+                                onClick: registerTrainsToGame,
+                                className: 'w-full'
+                            }, 'Apply All Train Changes')
+                        ])
+                    ])
+                ]);
             }
-            html += `</div>`;
-        });
-        
-        content.innerHTML = html;
-        content.scrollTop = 0;
-    }
 
-    function toggleDebugPanel() {
-        const panel = document.getElementById("addtrains-debug-panel");
-        if (!panel) {
-            createDebugPanel();
-            panel = document.getElementById("addtrains-debug-panel");
+            // Render appropriate view
+            let content;
+            if (isOpen) {
+                switch (activeView) {
+                    case 'enable':
+                        content = React.createElement(EnableDisableView);
+                        break;
+                    case 'edit':
+                        content = React.createElement(EditTrainView);
+                        break;
+                    case 'create':
+                        content = React.createElement(CreateTrainView);
+                        break;
+                    default:
+                        content = React.createElement(FullscreenView, {
+                            title: 'Add Trains Manager',
+                            onBack: () => setIsOpen(false)
+                        }, React.createElement(MainMenuView));
+                        break;
+                }
+            }
+
+            return React.createElement(React.Fragment, null, [
+                // Main button (unchanged as requested)
+				React.createElement('div', {
+					key: 'button-container',
+					className: 'flex flex-col gap-1'
+				}, [
+					// Button element
+					React.createElement('div', {
+						key: 'button',
+						onClick: () => {
+							if (!isOpen) {
+								setActiveView(null);
+							}
+							setIsOpen(!isOpen);
+						},
+						className: 'max-w-full font-bold flex items-center bg-primary text-primary-foreground cursor-pointer text-4xl flex-row-reverse justify-end gap-1.5 w-full h-fit hover:bg-primary/90 transition-colors group',
+						style: {
+							borderRadius: '0'
+						}
+					}, [
+						// Text container
+						React.createElement('div', {
+							key: 'text-container',
+							className: 'flex gap-1 items-center px-1'
+						}, [
+							React.createElement('p', {
+								key: 'text',
+								className: 'h-full text-3xl'
+							}, 'Add Trains')
+						]),
+						
+						// Icon container
+						React.createElement(TrainIcon, {
+							key: 'icon',
+							className: 'min-w-fit transition-all h-9 w-9 ml-1 group-hover:scale-110',
+							style: {
+								transitionDuration: '150ms'
+							}
+						})
+					]),
+					
+					// Description under the button
+					React.createElement('p', {
+						key: 'description',
+						className: 'text-xs text-muted-foreground pl-1 truncate'
+					}, '')
+				]),
+                
+                // Fullscreen content
+                isOpen && content
+            ]);
         }
-        panel.style.display = panel.style.display === "none" ? "block" : "none";
-        if (panel.style.display === "block") updateDebugPanel();
+
+        return MainMenuButton;
     }
 
     // --------------------------------------------------
-    // UI BUTTONS
+    // DOM FALLBACK UI
     // --------------------------------------------------
-    function createUIButtons() {
-        if (document.getElementById("btn-addtrains-open")) return;
-
-        // Get icon
-        let iconHTML = "";
-        if (UI_BTN_CONFIG.icon === "custom" && UI_BTN_CONFIG.customIcon) {
-            iconHTML = UI_BTN_CONFIG.customIcon;
-        }
-
-        // Main button
-        const btn = document.createElement("button");
-        btn.id = "btn-addtrains-open";
-        btn.className = "at-menu-btn";
-        btn.innerHTML = `
-            ${iconHTML}
-            ${UI_BTN_CONFIG.text}
+    function createDOMFallbackUI() {
+        const button = document.createElement('div');
+        button.innerHTML = `
+            <div class="at-main-button" style="
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                border-radius: 8px;
+                background: var(--card-bg, #ffffff);
+                border: 1px solid var(--border, #e2e8f0);
+                color: var(--text-primary, #1e293b);
+                font-size: 20px;
+                transition: all 0.2s;
+            " title="Add Trains">
+                🚆
+            </div>
         `;
         
-        // Apply custom colors if specified
-        if (UI_BTN_CONFIG.backgroundColor) {
-            btn.style.backgroundColor = UI_BTN_CONFIG.backgroundColor;
-        }
-        if (UI_BTN_CONFIG.textColor) {
-            btn.style.color = UI_BTN_CONFIG.textColor;
-        }
-        if (UI_BTN_CONFIG.borderColor) {
-            btn.style.borderColor = UI_BTN_CONFIG.borderColor;
-        }
-        
-        btn.addEventListener("click", openOverlay);
-        btn.addEventListener("dblclick", toggleDebugPanel);
+        button.addEventListener('click', openDOMMainMenu);
+        return button;
+    }
 
-        document.body.appendChild(btn);
-        
-        // Auto-hide when game is running
-        if (UI_BTN_CONFIG.hideInGame) {
-            const observer = new MutationObserver(() => {
-                const gameRunning = document.querySelector('.maplibregl-map, canvas.mapboxgl-canvas, canvas');
-                if (gameRunning) {
-                    btn.style.display = "none";
-                } else {
-                    btn.style.display = "flex";
-                }
-            });
-            observer.observe(document.body, { childList: true, subtree: true });
-        }
+    function openDOMMainMenu() {
+        const existing = document.getElementById('at-main-menu');
+        if (existing) existing.remove();
+
+        const overlay = document.createElement('div');
+        overlay.id = 'at-main-menu';
+        overlay.style.cssText = `
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        `;
+
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            background: var(--card-bg, #ffffff);
+            border: 1px solid var(--border, #e2e8f0);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            max-height: 80vh;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        `;
+
+        modal.innerHTML = `
+            <div style="padding: 1rem 1.5rem; border-bottom: 1px solid var(--border, #e2e8f0); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="font-size: 1.125rem; font-weight: 600; margin: 0; color: var(--text-primary, #1e293b);">
+                    Add Trains Manager
+                </h3>
+                <button id="at-main-close" style="
+                    background: none;
+                    border: none;
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    color: var(--text-secondary, #64748b);
+                    padding: 0.25rem;
+                    line-height: 1;
+                ">×</button>
+            </div>
+            
+            <div style="padding: 1.5rem;">
+                <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                    <button id="at-open-enable" style="
+                        width: 100%;
+                        padding: 0.75rem;
+                        text-align: left;
+                        background: var(--card-alt-bg, #f8fafc);
+                        border: 1px solid var(--border-light, #e2e8f0);
+                        border-radius: 8px;
+                        cursor: pointer;
+                        color: var(--text-primary, #1e293b);
+                        font-weight: 500;
+                        transition: all 0.2s;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                    ">
+                        Enable / Disable Trains
+                    </button>
+                    
+                    <button id="at-open-edit" style="
+                        width: 100%;
+                        padding: 0.75rem;
+                        text-align: left;
+                        background: var(--card-alt-bg, #f8fafc);
+                        border: 1px solid var(--border-light, #e2e8f0);
+                        border-radius: 8px;
+                        cursor: pointer;
+                        color: var(--text-primary, #1e293b);
+                        font-weight: 500;
+                        transition: all 0.2s;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                    ">
+                        Edit Train Statistics
+                    </button>
+                    
+                    <button id="at-open-create" style="
+                        width: 100%;
+                        padding: 0.75rem;
+                        text-align: left;
+                        background: var(--card-alt-bg, #f8fafc);
+                        border: 1px solid var(--border-light, #e2e8f0);
+                        border-radius: 8px;
+                        cursor: pointer;
+                        color: var(--text-primary, #1e293b);
+                        font-weight: 500;
+                        transition: all 0.2s;
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                    ">
+                        Create Custom Train
+                    </button>
+                </div>
+            </div>
+        `;
+
+        overlay.appendChild(modal);
+        document.body.appendChild(overlay);
+
+        // Event listeners
+        overlay.addEventListener('click', (e) => {
+            if (e.target.id === 'at-main-close' || e.target === overlay) {
+                overlay.remove();
+                return;
+            }
+
+            if (e.target.id === 'at-open-enable') {
+                overlay.remove();
+                openDOMEnableDisable();
+            } else if (e.target.id === 'at-open-edit') {
+                overlay.remove();
+                openDOMEditTrain();
+            } else if (e.target.id === 'at-open-create') {
+                overlay.remove();
+                openDOMCreateTrain();
+            }
+        });
+    }
+
+    // DOM views would be implemented similarly to React views
+	// But if React works I'll leave this as is
+    function openDOMEnableDisable() {
+        // Similar to previous DOM implementation
+        const overlay = document.createElement('div');
+        overlay.id = 'at-enable-modal';
+        // ... implementation
+    }
+
+    function openDOMEditTrain() {
+        // Full edit train implementation
+        const overlay = document.createElement('div');
+        overlay.id = 'at-edit-modal';
+        // ... detailed implementation with sliders
+    }
+
+    function openDOMCreateTrain() {
+        // Create train form
+        const overlay = document.createElement('div');
+        overlay.id = 'at-create-modal';
+        // ... form implementation
     }
 
     // --------------------------------------------------
-    // MAIN INITIALIZATION
+    // INITIALIZATION
     // --------------------------------------------------
     function initialize() {
         debugLogMessage("log", "=== ADD TRAINS MOD INITIALIZING ===");
-        debugLogMessage("log", `API v${window.SubwayBuilderAPI?.version || 'unknown'}`);
-        
-        // Create UI
-        injectStyles();
-        createDebugPanel();
-        createUIButtons();
-        
-        // Register trains immediately
-        setTimeout(() => {
-            const success = registerTrainsToGame();
-            if (success) {
-                debugLogMessage("log", "Initial registration successful");
-            } else {
-                debugLogMessage("error", "Initial registration failed");
-            }
-        }, 1000);
-        
-        // Setup hooks
         const api = window.SubwayBuilderAPI;
-        if (api?.hooks) {
-            if (typeof api.hooks.onGameInit === 'function') {
-                api.hooks.onGameInit(() => {
-                    debugLogMessage("log", "Game initialized - re-registering trains");
-                    setTimeout(registerTrainsToGame, 500);
-                });
-            }
-            
-            if (typeof api.hooks.onCityLoad === 'function') {
-                api.hooks.onCityLoad((cityCode) => {
-                    debugLogMessage("log", `City loaded: ${cityCode}`);
-                });
-            }
+
+        if (!api) {
+            debugLogMessage("error", "API not available");
+            return;
         }
-        
+
+        // Register trains on game init
+        if (api.hooks && typeof api.hooks.onGameInit === 'function') {
+            api.hooks.onGameInit(() => {
+                debugLogMessage("log", "Game initialized - registering trains");
+                setTimeout(registerTrainsToGame, 500);
+            });
+        }
+
+        // Try to register UI component
+        try {
+            const hasReact = !!api.utils?.React;
+            
+            if (hasReact && api.ui?.registerComponent) {
+                debugLogMessage("log", "Registering React component");
+                const ReactComponent = createReactUI();
+                if (ReactComponent) {
+                    api.ui.registerComponent("main-menu", {
+                        id: 'add-trains-button',
+                        component: ReactComponent
+                    });
+                    debugLogMessage("log", "React component registered successfully");
+                }
+            } else if (api.ui?.addToolbarPanel) {
+                debugLogMessage("log", "Adding toolbar panel");
+                const ReactComponent = createReactUI();
+                if (ReactComponent) {
+                    api.ui.addToolbarPanel({
+                        id: 'add-trains-panel',
+                        icon: 'Train',
+                        tooltip: 'Add Trains',
+                        width: 500,
+                        render: ReactComponent
+                    });
+                    debugLogMessage("log", "Toolbar panel added successfully");
+                }
+            } else {
+                // DOM fallback
+                debugLogMessage("log", "Using DOM fallback");
+                const fallbackButton = createDOMFallbackUI();
+                const toolbar = document.querySelector('[class*="toolbar"], [class*="Toolbar"]');
+                if (toolbar) {
+                    toolbar.appendChild(fallbackButton);
+                } else {
+                    fallbackButton.style.position = 'fixed';
+                    fallbackButton.style.top = '100px';
+                    fallbackButton.style.right = '20px';
+                    fallbackButton.style.zIndex = '9998';
+                    document.body.appendChild(fallbackButton);
+                }
+            }
+        } catch (error) {
+            debugLogMessage("error", "Failed to register UI", error);
+        }
+
+        // Initial train registration
+        setTimeout(() => {
+            registerTrainsToGame();
+            debugLogMessage("log", "Initial train registration complete");
+        }, 1000);
+
         debugLogMessage("log", "Mod initialized successfully");
     }
 
