@@ -113,8 +113,8 @@
         ELEVATED: 1.2
     };
 	
-    // --------------------------------------------------
-    // TRAIN TYPES
+     // --------------------------------------------------
+    // TRAIN TYPES WITH LOCATION DATA
     // --------------------------------------------------
     const REAL_TRAINS = {
         // Heavy Metro Types (capacity over 700 at minCars)
@@ -148,7 +148,12 @@
             "appearance": {
                 "color": "#007EC6"
             },
-            "isFixed": true
+            "isFixed": true,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New York City"
+            }
         },
         "R188 (NYC)": {
             "id": "R188 (NYC)",
@@ -180,7 +185,12 @@
             "appearance": {
                 "color": "#AF378B"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New York City"
+            }
         },
         "Tube 2024 (LDN)": {
             "id": "Tube 2024 (LDN)",
@@ -212,7 +222,12 @@
             "appearance": {
                 "color": "#1B3F94"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "Europe",
+                "country": "UK",
+                "city": "London"
+            }
         },
         "R179 (NYC)": {
             "id": "R179 (NYC)",
@@ -244,7 +259,12 @@
             "appearance": {
                 "color": "#A7752A"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New York City"
+            }
         },
         "FE-10 (MXC)": {
             "id": "FE-10 (MXC)",
@@ -276,7 +296,12 @@
             "appearance": {
                 "color": "#B0A32A"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "Mexico",
+                "city": "Mexico City"
+            }
         },
         "NM-16 (MXC)": {
             "id": "NM-16 (MXC)",
@@ -308,7 +333,12 @@
             "appearance": {
                 "color": "#F04E98"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "Mexico",
+                "city": "Mexico City"
+            }
         },
         "Toronto Rocket": {
             "id": "Toronto Rocket",
@@ -340,7 +370,12 @@
             "appearance": {
                 "color": "#DA251D"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "Canada",
+                "city": "Toronto"
+            }
         },
         "Azur (MTL)": {
             "id": "Azur (MTL)",
@@ -372,7 +407,12 @@
             "appearance": {
                 "color": "#0085CA"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "Canada",
+                "city": "Montreal"
+            }
         },
         "7000 Series (WSH)": {
             "id": "7000 Series (WSH)",
@@ -404,7 +444,12 @@
             "appearance": {
                 "color": "#231F20"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "Washington DC"
+            }
         },
 
         // Light Metro Types (capacity under 700 at minCars)
@@ -438,7 +483,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": true
+            "isFixed": true,
+            "location": {
+                "continent": "North America",
+                "country": "Canada",
+                "city": "Montreal"
+            }
         },
         "AnsaldoBreda (CPH)": {
             "id": "AnsaldoBreda (CPH)",
@@ -470,7 +520,12 @@
             "appearance": {
                 "color": "#9E0817"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "Europe",
+                "country": "Denmark",
+                "city": "Copenhagen"
+            }
         },
         "Innovia Metro (VAN)": {
             "id": "Innovia Metro (VAN)",
@@ -502,7 +557,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "Canada",
+                "city": "Vancouver"
+            }
         },
         "VAL 208 (FRA)": {
             "id": "VAL 208 (FRA)",
@@ -534,7 +594,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "Europe",
+                "country": "France",
+                "city": "Lille"
+            }
         },
 
         // Tram Types (allowAtGradeRoadCrossing: true)
@@ -568,7 +633,12 @@
             "appearance": {
                 "color": "#008244"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "Minneapolis"
+            }
         },
         "Avenio (CPH)": {
             id: "Avenio (CPH)",
@@ -598,7 +668,12 @@
             elevationMultipliers: TRAM_ELEVATION_MULTIPLIERS,
             compatibleTrackTypes: ["Avenio (CPH)"],
             appearance: { color: "#62b54e" },
-            isFixed: false
+            isFixed: false,
+            location: {
+                "continent": "Europe",
+                "country": "Denmark",
+                "city": "Copenhagen"
+            }
         },
         "S70 (ATL)": {
             "id": "S70 (ATL)",
@@ -630,7 +705,12 @@
             "appearance": {
                 "color": "#01235E"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "Atlanta"
+            }
         },
         "P3010 LRV (LA)": {
             "id": "P3010 LRV (LA)",
@@ -662,7 +742,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "Los Angeles"
+            }
         },
         "S700-US (SD)": {
             "id": "S700-US (SD)",
@@ -694,7 +779,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "San Diego"
+            }
         },
         "S200-HF (CGY)": {
             "id": "S200-HF (CGY)",
@@ -726,7 +816,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "Canada",
+                "city": "Calgary"
+            }
         },
         "S200-HF (SF)": {
             "id": "S200-HF (SF)",
@@ -758,7 +853,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "San Francisco"
+            }
         },
         "GTW 2/6 (NJT)": {
             "id": "GTW 2/6 (NJT)",
@@ -790,7 +890,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New Jersey"
+            }
         },
         "NJT Electric LRV": {
             "id": "NJT Electric LRV",
@@ -822,7 +927,12 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New Jersey"
+            }
         },
 
         // Regional Types (description contains "regional" or "commuter rail")
@@ -856,7 +966,12 @@
             "appearance": {
                 "color": "#0039A6"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New York City"
+            }
         },
         "IR4 (CPH)": {
             id: "IR4 (CPH)",
@@ -886,9 +1001,14 @@
             elevationMultipliers: BASE_ELEVATION_MULTIPLIERS,
             compatibleTrackTypes: ["IR4 (CPH)"],
             appearance: { color: "#222222" },
-            isFixed: false
+            isFixed: false,
+            location: {
+                "continent": "Europe",
+                "country": "Denmark",
+                "city": "Copenhagen"
+            }
         },
-		"LINT 41 (CPH)": {
+        "LINT 41 (CPH)": {
             id: "LINT 41 (CPH)",
             name: "LINT 41 (CPH)",
             description: "Regional diesel/electric unit for local services. Modelled after the LINT 41",
@@ -916,7 +1036,12 @@
             elevationMultipliers: REGIONAL_ELEVATION_MULTIPLIERS,
             compatibleTrackTypes: ["LINT 41 (CPH)"],
             appearance: { color: "#ebd768" },
-            isFixed: false
+            isFixed: false,
+            location: {
+                "continent": "Europe",
+                "country": "Denmark",
+                "city": "Copenhagen"
+            }
         },
         "DM30-C3 (LIRR)": {
             "id": "DM30-C3 (LIRR)",
@@ -948,7 +1073,12 @@
             "appearance": {
                 "color": "#03B8A9"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New York City"
+            }
         },
         "Litra SA (CPH)": {
             "id": "Litra SA (CPH)",
@@ -980,7 +1110,12 @@
             "appearance": {
                 "color": "#BD2D3D"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "Europe",
+                "country": "Denmark",
+                "city": "Copenhagen"
+            }
         },
         "Desiro CJ (VIE)": {
             "id": "Desiro CJ (VIE)",
@@ -1012,7 +1147,12 @@
             "appearance": {
                 "color": "#0097D9"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "Europe",
+                "country": "Austria",
+                "city": "Vienna"
+            }
         },
         "DBAG 483 (BER)": {
             "id": "DBAG 483 (BER)",
@@ -1044,7 +1184,12 @@
             "appearance": {
                 "color": "#CE9D52"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "Europe",
+                "country": "Germany",
+                "city": "Berlin"
+            }
         },
         "R211A (NYC)": {
             "id": "R211A (NYC)",
@@ -1076,7 +1221,12 @@
             "appearance": {
                 "color": "#007EC6"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "New York City"
+            }
         },
         "S70 (ATL) (SA)": {
             "id": "S70 (ATL) (SA)",
@@ -1108,7 +1258,12 @@
             "appearance": {
                 "color": "#01235E"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "Atlanta"
+            }
         },
         "S700-US (SD) (SA)": {
             "id": "S700-US (SD) (SA)",
@@ -1140,91 +1295,89 @@
             "appearance": {
                 "color": "#000000"
             },
-            "isFixed": false
+            "isFixed": false,
+            "location": {
+                "continent": "North America",
+                "country": "US",
+                "city": "San Diego"
+            }
         }
     };
 
+
     // --------------------------------------------------
-    // CATEGORIZE TRAINS FOR ORGANIZED MENU
+    // HYBRID LOCATION + CATEGORY CATEGORIZATION
     // --------------------------------------------------
     function getTrainCategories() {
-        const categories = {
-            "Fixed Standard Trains": [],
-            "Heavy Metro Types": [],
-            "Light Metro Types": [],
-            "Tram Types": [],
-            "Regional Types": []
+        // Build hierarchical location tree
+        const locationTree = {};
+        
+        // Helper to get category for a train
+        function getTrainCategory(trainDef) {
+            const totalCapacityAtMinCars = trainDef.stats?.capacityPerCar * trainDef.stats?.minCars || 0;
+            const description = (trainDef.description || "").toLowerCase();
+            
+            if (trainDef.isFixed) {
+                return "Fixed Standard Trains";
+            } else if (trainDef.allowAtGradeRoadCrossing) {
+                if (!description.includes("regional") && 
+                    !description.includes("commuter") &&
+                    !description.includes("long-distance") &&
+                    !description.includes("s-bahn")) {
+                    return "Tram Types";
+                } else {
+                    return "Regional Types";
+                }
+            } else if (description.includes("regional") || 
+                       description.includes("commuter") ||
+                       description.includes("long-distance") ||
+                       description.includes("s-bahn")) {
+                return "Regional Types";
+            } else if (totalCapacityAtMinCars >= 700) {
+                return "Heavy Metro Types";
+            } else {
+                return "Light Metro Types";
+            }
+        }
+
+        // Process all trains (REAL_TRAINS + custom + datapack)
+        const allTrains = { 
+            ...REAL_TRAINS, 
+            ...(currentConfig.customTrains || {}), 
+            ...(currentConfig.dataPackTrains || {}) 
         };
+        
+        Object.entries(allTrains).forEach(([trainId, trainDef]) => {
+            // Get location from train data (auto-generated from your REAL_TRAINS objects)
+            const location = trainDef.location || {
+                continent: "Uncategorized",
+                country: "Unknown",
+                city: "Unknown"
+            };
+            
+            const category = getTrainCategory(trainDef);
+            
+            // Build hierarchy: continent → country → city → category → trains
+            if (!locationTree[location.continent]) locationTree[location.continent] = {};
+            if (!locationTree[location.continent][location.country]) locationTree[location.continent][location.country] = {};
+            if (!locationTree[location.continent][location.country][location.city]) {
+                locationTree[location.continent][location.country][location.city] = {};
+            }
+            if (!locationTree[location.continent][location.country][location.city][category]) {
+                locationTree[location.continent][location.country][location.city][category] = [];
+            }
+            
+            locationTree[location.continent][location.country][location.city][category].push([trainId, trainDef]);
+        });
 
-        // Categorize trains
-        Object.entries(REAL_TRAINS).forEach(([trainId, trainDef]) => {
-			const totalCapacityAtMinCars = trainDef.stats.capacityPerCar * trainDef.stats.minCars;
-			const description = trainDef.description.toLowerCase();
-			
-			if (trainDef.isFixed) {
-				categories["Fixed Standard Trains"].push([trainId, trainDef]);
-			} else if (trainDef.allowAtGradeRoadCrossing) {
-				// Check if it's NOT a regional/commuter type despite being able to cross roads
-				if (!description.includes("regional") && 
-					!description.includes("commuter") &&
-					!description.includes("long-distance") &&
-					!description.includes("s-bahn")) {
-					categories["Tram Types"].push([trainId, trainDef]);
-				} else {
-					// If it can cross roads BUT is regional/commuter, put it in Regional Types
-					categories["Regional Types"].push([trainId, trainDef]);
-				}
-			} else if (description.includes("regional") || 
-					   description.includes("commuter") ||
-					   description.includes("long-distance") ||
-					   description.includes("s-bahn")) {
-				categories["Regional Types"].push([trainId, trainDef]);
-			} else if (totalCapacityAtMinCars >= 700) {
-				categories["Heavy Metro Types"].push([trainId, trainDef]);
-			} else {
-				categories["Light Metro Types"].push([trainId, trainDef]);
-			}
-		});
-
-        // Add custom trains to appropriate categories
-        if (currentConfig.customTrains) {
-			Object.entries(currentConfig.customTrains).forEach(([trainId, trainDef]) => {
-				if (trainId.startsWith('custom-')) {
-					const totalCapacityAtMinCars = trainDef.stats?.capacityPerCar * trainDef.stats?.minCars || 0;
-					const description = (trainDef.description || "").toLowerCase();
-					
-					if (trainDef.allowAtGradeRoadCrossing) {
-						// Check if it's NOT a regional/commuter type despite being able to cross roads
-						if (!description.includes("regional") && 
-							!description.includes("commuter") &&
-							!description.includes("long-distance") &&
-							!description.includes("s-bahn")) {
-							categories["Tram Types"].push([trainId, trainDef]);
-						} else {
-							// If it can cross roads BUT is regional/commuter, put it in Regional Types
-							categories["Regional Types"].push([trainId, trainDef]);
-						}
-					} else if (description.includes("regional") || 
-							   description.includes("commuter") ||
-							   description.includes("long-distance") ||
-							   description.includes("s-bahn")) {
-						categories["Regional Types"].push([trainId, trainDef]);
-					} else if (totalCapacityAtMinCars >= 700) {
-						categories["Heavy Metro Types"].push([trainId, trainDef]);
-					} else {
-						categories["Light Metro Types"].push([trainId, trainDef]);
-					}
-				}
-			});
-		}
-
-        return categories;
+        return locationTree;
     }
 
     // --------------------------------------------------
     // CONFIG MANAGEMENT
     // --------------------------------------------------
     const STORAGE_KEY = 'addtrains_config';
+    const DATAPACK_STORAGE_KEY = 'datapacktrains_data';
     
     let uiState = {
         selectedTrainID: null,
@@ -1263,7 +1416,890 @@
         return defaultConfig;
     }
 
+    // Load data from DataPack mod if available
+    function loadDataFromDataPack() {
+        try {
+            const dataPackData = localStorage.getItem(DATAPACK_STORAGE_KEY);
+            if (dataPackData) {
+                debugLogMessage("log", "Found DataPack data");
+                const parsed = JSON.parse(dataPackData);
+                
+                // Merge DataPack trains into our config
+                if (parsed.trains && currentConfig) {
+                    if (!currentConfig.dataPackTrains) {
+                        currentConfig.dataPackTrains = {};
+                    }
+                    
+                    Object.entries(parsed.trains).forEach(([trainId, trainData]) => {
+                        // Ensure location data exists for DataPack trains
+                        if (!trainData.location) {
+                            // Try to extract location from ID or description
+                            if (trainId.includes('(NYC)') || trainId.includes('NYC')) {
+                                trainData.location = { continent: "North America", country: "US", city: "New York City" };
+                            } else if (trainId.includes('(LDN)') || trainId.includes('LDN')) {
+                                trainData.location = { continent: "Europe", country: "UK", city: "London" };
+                            } else if (trainId.includes('(CPH)')) {
+                                trainData.location = { continent: "Europe", country: "Denmark", city: "Copenhagen" };
+                            } else if (trainId.includes('(MXC)')) {
+                                trainData.location = { continent: "North America", country: "Mexico", city: "Mexico City" };
+                            } else if (trainId.includes('(TOR)')) {
+                                trainData.location = { continent: "North America", country: "Canada", city: "Toronto" };
+                            } else if (trainId.includes('(MTL)')) {
+                                trainData.location = { continent: "North America", country: "Canada", city: "Montreal" };
+                            } else if (trainId.includes('(WSH)')) {
+                                trainData.location = { continent: "North America", country: "US", city: "Washington DC" };
+                            } else if (trainId.includes('(LA)')) {
+                                trainData.location = { continent: "North America", country: "US", city: "Los Angeles" };
+                            } else if (trainId.includes('(SD)')) {
+                                trainData.location = { continent: "North America", country: "US", city: "San Diego" };
+                            } else if (trainId.includes('(MSP)')) {
+                                trainData.location = { continent: "North America", country: "US", city: "Minneapolis" };
+                            } else if (trainId.includes('(ATL)')) {
+                                trainData.location = { continent: "North America", country: "US", city: "Atlanta" };
+                            } else if (trainId.includes('(SF)')) {
+                                trainData.location = { continent: "North America", country: "US", city: "San Francisco" };
+                            } else if (trainId.includes('(CGY)')) {
+                                trainData.location = { continent: "North America", country: "Canada", city: "Calgary" };
+                            } else if (trainId.includes('(VIE)')) {
+                                trainData.location = { continent: "Europe", country: "Austria", city: "Vienna" };
+                            } else if (trainId.includes('(BER)')) {
+                                trainData.location = { continent: "Europe", country: "Germany", city: "Berlin" };
+                            } else if (trainId.includes('(FRA)')) {
+                                trainData.location = { continent: "Europe", country: "France", city: "Lille" };
+                            } else if (trainId.includes('(VAN)')) {
+                                trainData.location = { continent: "North America", country: "Canada", city: "Vancouver" };
+                            } else {
+                                trainData.location = { continent: "DataPack", country: "Imported", city: "From DataPack" };
+                            }
+                        }
+                        
+                        currentConfig.dataPackTrains[trainId] = trainData;
+                    });
+                    
+                    // Add DataPack trains to enabled list if not already
+                    Object.keys(currentConfig.dataPackTrains).forEach(trainId => {
+                        if (!currentConfig.enabledTrains.includes(trainId)) {
+                            currentConfig.enabledTrains.push(trainId);
+                        }
+                    });
+                    
+                    saveConfig(currentConfig);
+                    debugLogMessage("log", `Loaded ${Object.keys(currentConfig.dataPackTrains).length} trains from DataPack`);
+                }
+                return parsed;
+            }
+        } catch (e) {
+            debugLogMessage("error", "Could not load DataPack data", e);
+        }
+        return null;
+    }
+
     let currentConfig = loadConfig();
+    
+    // Try to load DataPack data on init
+    setTimeout(() => {
+        loadDataFromDataPack();
+    }, 500);
+
+    // --------------------------------------------------
+    // GET TRAINS FOR REGISTRATION
+    // --------------------------------------------------
+    function getTrainsForRegistration() {
+        const config = currentConfig || loadConfig();
+        const trains = {};
+        
+        // Always include fixed trains
+        Object.entries(REAL_TRAINS).forEach(([trainId, trainDef]) => {
+            if (trainDef.isFixed) {
+                // Use custom version if exists, otherwise default
+                if (config.customTrains && config.customTrains[trainId]) {
+                    trains[trainId] = deepClone(config.customTrains[trainId]);
+                } else {
+                    trains[trainId] = deepClone(trainDef);
+                }
+            }
+        });
+        
+        // Include enabled extra trains
+        (config.enabledTrains || []).forEach(trainId => {
+            if (REAL_TRAINS[trainId] && !REAL_TRAINS[trainId].isFixed) {
+                // Use custom version if exists, otherwise default
+                if (config.customTrains && config.customTrains[trainId]) {
+                    trains[trainId] = deepClone(config.customTrains[trainId]);
+                } else {
+                    trains[trainId] = deepClone(REAL_TRAINS[trainId]);
+                }
+            } else if (config.customTrains && config.customTrains[trainId]) {
+                // Custom trains
+                trains[trainId] = deepClone(config.customTrains[trainId]);
+            } else if (config.dataPackTrains && config.dataPackTrains[trainId]) {
+                // DataPack trains
+                trains[trainId] = deepClone(config.dataPackTrains[trainId]);
+            }
+        });
+        
+        debugLogMessage("log", `Preparing ${Object.keys(trains).length} trains for registration`);
+        return trains;
+    }
+
+    // --------------------------------------------------
+    // TRAIN REGISTRATION WITH VALIDATION
+    // --------------------------------------------------
+    function validateTrainLength(train) {
+        if (!train.stats) return true;
+        
+        const maxTrainLength = train.stats.carLength * train.stats.maxCars;
+        const minRequiredLength = train.stats.minStationLength;
+        
+        if (maxTrainLength > (minRequiredLength - 2)) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    function registerTrainsToGame() {
+        debugLogMessage("log", "=== REGISTERING TRAINS ===");
+        
+        const api = window.SubwayBuilderAPI;
+        if (!api || !api.trains) {
+            debugLogMessage("error", "API not available");
+            return false;
+        }
+
+        const trainsApi = api.trains;
+        const trains = getTrainsForRegistration();
+        
+        let successCount = 0;
+        let failCount = 0;
+        let validationFailed = false;
+
+        // Get existing trains
+        let existingTrains = {};
+        try {
+            if (typeof trainsApi.getTrainTypes === 'function') {
+                existingTrains = trainsApi.getTrainTypes() || {};
+                debugLogMessage("log", `Found ${Object.keys(existingTrains).length} existing trains`);
+            }
+        } catch (e) {
+            debugLogMessage("warn", "Could not get existing trains", e);
+        }
+
+        // Validate and register each train
+        Object.entries(trains).forEach(([trainId, trainDef]) => {
+            try {
+                // Validate train length
+                if (!validateTrainLength(trainDef)) {
+                    validationFailed = true;
+                    failCount++;
+                    return;
+                }
+
+                // Create complete train object (without location data for game registration)
+                const trainForRegistration = deepClone(trainDef);
+                
+                // Remove location data before registering to game (to prevent crashes)
+                delete trainForRegistration.location;
+                
+                debugLogMessage("log", `Registering: ${trainId}`);
+
+                // Check if exists
+                const exists = existingTrains[trainId];
+                
+                if (exists) {
+                    // Try to modify
+                    try {
+                        if (typeof trainsApi.modifyTrainType === 'function') {
+                            trainsApi.modifyTrainType(trainId, trainForRegistration);
+                            debugLogMessage("log", `Modified: ${trainId}`);
+                        } else {
+                            trainsApi.registerTrainType(trainForRegistration);
+                            debugLogMessage("log", `Registered (fallback): ${trainId}`);
+                        }
+                    } catch (modifyError) {
+                        // If modify fails, try register as new
+                        try {
+                            trainsApi.registerTrainType(trainForRegistration);
+                            debugLogMessage("log", `Registered (after modify failed): ${trainId}`);
+                        } catch (registerError) {
+                            throw registerError;
+                        }
+                    }
+                } else {
+                    // Register new
+                    trainsApi.registerTrainType(trainForRegistration);
+                    debugLogMessage("log", `Registered new: ${trainId}`);
+                }
+                
+                successCount++;
+                
+            } catch (error) {
+                debugLogMessage("error", `Failed: ${trainId}`, error);
+                failCount++;
+            }
+        });
+
+        // Verification
+        setTimeout(() => {
+            try {
+                const finalTrains = trainsApi.getTrainTypes ? trainsApi.getTrainTypes() : {};
+                debugLogMessage("log", "=== VERIFICATION ===");
+                debugLogMessage("log", `Total trains in game: ${Object.keys(finalTrains).length}`);
+                
+                Object.keys(trains).forEach(trainId => {
+                    if (finalTrains[trainId]) {
+                        debugLogMessage("log", `OK ${trainId}`);
+                    } else {
+                        debugLogMessage("error", `FAILED ${trainId} NOT FOUND`);
+                    }
+                });
+            } catch (e) {
+                debugLogMessage("error", "Verification failed", e);
+            }
+        }, 1000);
+
+        const success = failCount === 0 && !validationFailed;
+        if (validationFailed) {
+            showNotification("Train registration failed: Some trains are too long!", 'error');
+        } else {
+            debugLogMessage(success ? "log" : "error", 
+                `Registration: ${successCount} OK, ${failCount} failed`);
+        }
+        return success;
+    }
+
+    // --------------------------------------------------
+    // CREATE CUSTOM TRAIN
+    // --------------------------------------------------
+    function createCustomTrain(name, description, color) {
+        const trainId = `custom-${++currentConfig.customTrainCounter}`;
+        
+        const newTrain = {
+            id: trainId,
+            name: name,
+            description: description || "Custom train type",
+            allowAtGradeRoadCrossing: false,
+            stats: {
+                maxAcceleration: 1.0,
+                maxDeceleration: 1.0,
+                maxSpeed: 20.0,
+                maxSpeedLocalStation: 10.0,
+                capacityPerCar: 150,
+                carLength: 20,
+                minCars: 2,
+                maxCars: 6,
+                carsPerCarSet: 2,
+                carCost: 2000000,
+                trainWidth: 3.0,
+                minStationLength: 100,
+                maxStationLength: 150,
+                baseTrackCost: 35000,
+                baseStationCost: 50000000,
+                trainOperationalCostPerHour: 300,
+                carOperationalCostPerHour: 30,
+                scissorsCrossoverCost: 10000000
+            },
+            elevationMultipliers: BASE_ELEVATION_MULTIPLIERS,
+            compatibleTrackTypes: [trainId],
+            appearance: { color: color },
+            isFixed: false,
+            location: {
+                continent: "Custom",
+                country: "User Created",
+                city: "Custom Trains"
+            }
+        };
+        
+        if (!currentConfig.customTrains) {
+            currentConfig.customTrains = {};
+        }
+        
+        currentConfig.customTrains[trainId] = newTrain;
+        
+        if (!currentConfig.enabledTrains) {
+            currentConfig.enabledTrains = [];
+        }
+        
+        currentConfig.enabledTrains.push(trainId);
+        saveConfig(currentConfig);
+        
+        debugLogMessage("log", `Custom train created: ${trainId}`);
+        return trainId;
+    }
+
+    // --------------------------------------------------
+    // HYBRID TRAIN SELECTOR REACT COMPONENT
+    // --------------------------------------------------
+    function createHybridTrainSelector(React, components, icons) {
+        const { useState } = React;
+        
+        // Helper components
+        const Card = components.Card || ((props) => 
+            React.createElement('div', {
+                className: 'bg-background/50 rounded border',
+                ...props
+            }, props.children)
+        );
+
+        const Button = components.Button || ((props) => {
+            const baseClasses = 'inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 px-3 rounded-sm';
+            const variantClasses = props.variant === 'destructive' 
+                ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90 border-destructive/20' 
+                : props.variant === 'secondary' 
+                ? 'bg-secondary text-secondary-foreground hover:bg-secondary/80'
+                : props.variant === 'ghost'
+                ? 'bg-transparent hover:bg-accent hover:text-accent-foreground border-0'
+                : '';
+            
+            return React.createElement('button', {
+                className: `${baseClasses} ${variantClasses} ${props.className || ''}`,
+                ...props
+            }, props.children);
+        });
+
+        return function HybridTrainSelector({ onApply, initialEnabledTrains }) {
+            const [enabledTrains, setEnabledTrains] = useState(() => {
+                const enabledSet = new Set(initialEnabledTrains || []);
+                
+                // Always include fixed trains
+                Object.entries(REAL_TRAINS).forEach(([trainId, trainDef]) => {
+                    if (trainDef.isFixed) {
+                        enabledSet.add(trainId);
+                    }
+                });
+                
+                // Include DataPack trains if enabled
+                if (currentConfig.enabledTrains && currentConfig.dataPackTrains) {
+                    Object.keys(currentConfig.dataPackTrains).forEach(trainId => {
+                        if (currentConfig.enabledTrains.includes(trainId)) {
+                            enabledSet.add(trainId);
+                        }
+                    });
+                }
+                
+                return enabledSet;
+            });
+            
+            const [expandedNodes, setExpandedNodes] = useState({
+                'North America': true,
+                'Europe': false,
+                'Global': false,
+                'Custom': false,
+                'DataPack': false,
+                'Uncategorized': false
+            });
+            
+            const [searchQuery, setSearchQuery] = useState('');
+            const tree = getTrainCategories();
+            
+            // Helper functions
+            function getAllTrainsInNode(node) {
+                if (Array.isArray(node)) {
+                    return node.map(([trainId]) => trainId);
+                }
+                
+                const trains = [];
+                Object.values(node).forEach(child => {
+                    trains.push(...getAllTrainsInNode(child));
+                });
+                return trains;
+            }
+
+            function getNodeStats(node) {
+                if (Array.isArray(node)) {
+                    return `${node.length} train${node.length !== 1 ? 's' : ''}`;
+                }
+                
+                const totalTrains = getAllTrainsInNode(node).length;
+                return `${totalTrains} train${totalTrains !== 1 ? 's' : ''}`;
+            }
+
+            function getCountryDisplayName(countryCode) {
+                const countryNames = {
+                    'AT': 'Austria',
+                    'AU': 'Australia',
+                    'CA': 'Canada',
+                    'CH': 'Switzerland',
+                    'CN': 'China',
+                    'CZ': 'Czechia',
+                    'DE': 'Germany',
+                    'DK': 'Denmark',
+                    'ES': 'Spain',
+                    'FR': 'France',
+                    'Generic': 'Generic Types',
+                    'HU': 'Hungary',
+                    'IE': 'Ireland',
+                    'Imported': 'Imported',
+                    'IN': 'India',
+                    'IT': 'Italy',
+                    'MX': 'Mexico',
+                    'NL': 'Netherlands',
+                    'NZ': 'New Zealand',
+                    'TR': 'Turkey',
+                    'UA': 'Ukraine',
+                    'UK': 'United Kingdom',
+                    'Unknown': 'Unknown',
+                    'US': 'United States',
+                    'User Created': 'User Created'
+                };
+                return countryNames[countryCode] || countryCode;
+            }
+
+            // Search functionality
+            const handleSearch = (query) => {
+                setSearchQuery(query);
+            };
+
+            // Toggle expand/collapse
+            const toggleNode = (path) => {
+                const pathKey = path.join('/');
+                setExpandedNodes(prev => ({
+                    ...prev,
+                    [pathKey]: !prev[pathKey]
+                }));
+            };
+
+            // Check if all trains in a node are enabled
+            const isAllEnabled = (node, path) => {
+                if (Array.isArray(node)) {
+                    return node.every(([trainId]) => enabledTrains.has(trainId));
+                }
+                
+                const allTrains = getAllTrainsInNode(node);
+                return allTrains.length > 0 && allTrains.every(trainId => enabledTrains.has(trainId));
+            };
+
+            // Check if some (but not all) trains are enabled
+            const isPartialEnabled = (node, path) => {
+                if (Array.isArray(node)) {
+                    const someEnabled = node.some(([trainId]) => enabledTrains.has(trainId));
+                    const allEnabled = node.every(([trainId]) => enabledTrains.has(trainId));
+                    return someEnabled && !allEnabled;
+                }
+                
+                const allTrains = getAllTrainsInNode(node);
+                if (allTrains.length === 0) return false;
+                
+                const someEnabled = allTrains.some(trainId => enabledTrains.has(trainId));
+                const allEnabled = allTrains.every(trainId => enabledTrains.has(trainId));
+                return someEnabled && !allEnabled;
+            };
+
+            // Bulk toggle for nodes (continent, country, city, category)
+            const handleBulkToggle = (nodePath, enable) => {
+                const nextEnabled = new Set(enabledTrains);
+                
+                // Get the node from the tree
+                let currentNode = tree;
+                for (const segment of nodePath) {
+                    if (currentNode[segment]) {
+                        currentNode = currentNode[segment];
+                    } else {
+                        return;
+                    }
+                }
+                
+                const trains = getAllTrainsInNode(currentNode);
+                
+                trains.forEach(trainId => {
+                    const train = getTrainById(trainId);
+                    if (!train || !train.isFixed) {
+                        if (enable) {
+                            nextEnabled.add(trainId);
+                        } else {
+                            nextEnabled.delete(trainId);
+                        }
+                    }
+                });
+                
+                setEnabledTrains(nextEnabled);
+                updateConfig(nextEnabled);
+            };
+
+            // Toggle individual train
+            const toggleTrain = (trainId) => {
+                const train = getTrainById(trainId);
+                if (!train || train.isFixed) return;
+                
+                const next = new Set(enabledTrains);
+                if (next.has(trainId)) {
+                    next.delete(trainId);
+                } else {
+                    next.add(trainId);
+                }
+                setEnabledTrains(next);
+                updateConfig(next);
+            };
+
+            function getTrainById(trainId) {
+                return REAL_TRAINS[trainId] || 
+                       currentConfig.customTrains?.[trainId] || 
+                       currentConfig.dataPackTrains?.[trainId];
+            }
+
+            function updateConfig(enabledSet) {
+                currentConfig.enabledTrains = Array.from(enabledSet).filter(id => {
+                    const train = getTrainById(id);
+                    return !train || !train.isFixed;
+                });
+                saveConfig(currentConfig);
+            }
+
+            // Train item component (your existing style)
+            function TrainItem({ trainId, train, isEnabled, onToggle }) {
+                const totalCapacity = train.stats?.capacityPerCar * train.stats?.minCars || 0;
+                const isFixed = train.isFixed || false;
+                const isCustom = trainId.startsWith('custom-');
+                const isDataPack = currentConfig.dataPackTrains && currentConfig.dataPackTrains[trainId];
+                
+                return React.createElement('div', {
+                    className: `px-4 py-3 bg-background/50 rounded border flex justify-between items-center mb-1 ${isFixed ? 'cursor-not-allowed opacity-80' : 'cursor-pointer hover:bg-accent/30'} transition-colors`,
+                    onClick: isFixed ? undefined : () => onToggle(trainId)
+                }, [
+                    React.createElement('div', { key: 'info', className: 'flex-1' }, [
+                        React.createElement('div', { 
+                            className: 'font-medium flex items-center gap-2' 
+                        }, [
+                            React.createElement('div', {
+                                key: 'color-indicator',
+                                className: 'w-3 h-3 rounded-full',
+                                style: { backgroundColor: train.appearance?.color || '#3b82f6' }
+                            }),
+                            train.name,
+                            isFixed && React.createElement('span', {
+                                className: 'px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full'
+                            }, 'Fixed'),
+                            isCustom && !isFixed && React.createElement('span', {
+                                className: 'px-2 py-0.5 text-xs bg-purple-500/20 text-purple-500 rounded-full'
+                            }, 'Custom'),
+                            isDataPack && React.createElement('span', {
+                                className: 'px-2 py-0.5 text-xs bg-green-500/20 text-green-500 rounded-full'
+                            }, 'DataPack')
+                        ]),
+                        React.createElement('div', { 
+                            className: 'text-sm text-muted-foreground line-clamp-1 mt-1' 
+                        }, train.description),
+                        React.createElement('div', { 
+                            className: 'text-xs text-muted-foreground mt-1 flex gap-3' 
+                        }, [
+                            React.createElement('span', {}, `Capacity: ${totalCapacity}`),
+                            React.createElement('span', {}, `Speed: ${train.stats?.maxSpeed || 0} m/s`),
+                            React.createElement('span', {}, `Cars: ${train.stats?.minCars || 0}-${train.stats?.maxCars || 0}`)
+                        ])
+                    ]),
+                    React.createElement('div', { className: 'flex items-center gap-2' }, [
+                        React.createElement('label', {
+                            className: `relative inline-flex items-center ${isFixed ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`
+                        }, [
+                            React.createElement('input', {
+                                type: 'checkbox',
+                                className: 'sr-only',
+                                checked: isEnabled,
+                                readOnly: true,
+                                disabled: isFixed
+                            }),
+                            React.createElement('div', {
+                                className: `w-11 h-6 border-2 border-transparent rounded-full transition-colors peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-ring peer-focus:ring-offset-2 peer-disabled:cursor-not-allowed peer-disabled:opacity-50 ${isEnabled ? 'bg-primary' : 'bg-input'} ${isFixed ? 'cursor-not-allowed' : ''}`
+                            }),
+                            React.createElement('div', {
+                                className: `absolute left-0.5 top-0.5 w-5 h-5 bg-background rounded-full shadow-lg transition-transform ${isEnabled ? 'translate-x-5' : 'translate-x-0'} ${isFixed ? 'cursor-not-allowed' : ''}`
+                            })
+                        ])
+                    ])
+                ]);
+            }
+
+            // Tree node component (recursive)
+            function TreeNode({ node, nodeName, path = [], depth = 0 }) {
+                const isLeaf = Array.isArray(node);
+                const pathKey = path.join('/');
+                const isExpanded = expandedNodes[pathKey] !== false;
+                const nodeType = depth === 0 ? 'continent' : 
+                                depth === 1 ? 'country' : 
+                                depth === 2 ? 'city' : 
+                                depth === 3 ? 'category' : 'train-list';
+                
+                // Get display name
+                const displayName = depth === 1 ? getCountryDisplayName(nodeName) : nodeName;
+                
+                if (isLeaf) {
+                    // Render train list
+                    return React.createElement('div', { 
+                        key: pathKey,
+                        className: `train-list ${depth > 0 ? 'ml-8' : ''}`
+                    }, node.map(([trainId, train]) => (
+                        React.createElement(TrainItem, {
+                            key: trainId,
+                            trainId: trainId,
+                            train: train,
+                            isEnabled: enabledTrains.has(trainId),
+                            onToggle: toggleTrain
+                        })
+                    )));
+                }
+                
+                // For category nodes (depth 3)
+                if (nodeType === 'category') {
+                    const childEntries = Object.entries(node);
+                    if (childEntries.length === 0) return null;
+                    
+                    return React.createElement('div', { 
+                        key: pathKey,
+                        className: 'category-group mb-3'
+                    }, [
+                        // Category header
+                        React.createElement('div', {
+                            className: 'category-header px-4 py-2 bg-background/40 rounded-t border-t border-x flex items-center cursor-pointer hover:bg-accent/20',
+                            onClick: () => toggleNode(path)
+                        }, [
+                            childEntries.length > 0 && React.createElement('div', {
+                                className: 'expand-toggle mr-2 w-6 h-6 flex items-center justify-center'
+                            }, isExpanded ? '▼' : '▶'),
+                            
+                            React.createElement('h3', {
+                                className: 'font-semibold text-base'
+                            }, displayName),
+                            
+                            React.createElement('span', {
+                                className: 'ml-2 text-xs bg-muted px-2 py-0.5 rounded'
+                            }, getNodeStats(node))
+                        ]),
+                        
+                        // Category content
+                        isExpanded && childEntries.length > 0 && React.createElement('div', {
+                            className: 'category-content border-x border-b rounded-b px-2 pb-2'
+                        }, childEntries.map(([childName, childNode]) => (
+                            React.createElement(TreeNode, {
+                                key: childName,
+                                node: childNode,
+                                nodeName: childName,
+                                path: [...path, childName],
+                                depth: depth + 1
+                            })
+                        )))
+                    ]);
+                }
+                
+                // For continent/country/city nodes
+                const childEntries = Object.entries(node);
+                if (childEntries.length === 0) return null;
+                
+                const hasChildren = childEntries.length > 0;
+                
+                return React.createElement('div', { 
+                    key: pathKey,
+                    className: `tree-node ${nodeType} ${depth > 0 ? 'mb-1' : 'mb-3'}`
+                }, [
+                    // Node header
+                    React.createElement('div', {
+                        className: `node-header flex items-center px-4 py-3 ${nodeType === 'continent' ? 'bg-background/50' : 'bg-background/30'} rounded border cursor-pointer hover:bg-accent/20 transition-colors`,
+                        onClick: () => hasChildren && toggleNode(path)
+                    }, [
+                        hasChildren && React.createElement('div', {
+                            className: 'expand-toggle mr-2 w-6 h-6 flex items-center justify-center'
+                        }, isExpanded ? '▼' : '▶'),
+                        
+                        // Bulk checkbox
+                        React.createElement('input', {
+                            type: 'checkbox',
+                            className: 'bulk-checkbox mr-3 w-4 h-4',
+                            checked: isAllEnabled(node, path),
+                            ref: el => {
+                                if (el) el.indeterminate = isPartialEnabled(node, path);
+                            },
+                            onChange: (e) => handleBulkToggle(path, e.target.checked),
+                            onClick: (e) => e.stopPropagation()
+                        }),
+                        
+                        // Node content
+                        React.createElement('div', { className: 'node-content flex-1' }, [
+                            React.createElement('span', {
+                                className: `node-label ${nodeType === 'continent' ? 'text-lg font-semibold' : nodeType === 'country' ? 'font-medium' : ''}`
+                            }, displayName),
+                            React.createElement('span', {
+                                className: 'node-stats ml-2 text-sm text-muted-foreground'
+                            }, getNodeStats(node))
+                        ])
+                    ]),
+                    
+                    // Children
+                    isExpanded && hasChildren && React.createElement('div', {
+                        className: 'node-children ml-6 border-l border-border pl-4'
+                    }, childEntries.map(([childName, childNode]) => (
+                        React.createElement(TreeNode, {
+                            key: childName,
+                            node: childNode,
+                            nodeName: childName,
+                            path: [...path, childName],
+                            depth: depth + 1
+                        })
+                    )))
+                ]);
+            }
+
+            // Expand/collapse all
+            const toggleAll = (expand) => {
+                const newExpanded = {};
+                
+                function setExpansion(node, currentPath) {
+                    const pathKey = currentPath.join('/');
+                    newExpanded[pathKey] = expand;
+                    
+                    if (!Array.isArray(node)) {
+                        Object.entries(node).forEach(([key, child]) => {
+                            setExpansion(child, [...currentPath, key]);
+                        });
+                    }
+                }
+                
+                Object.entries(tree).forEach(([continent, countries]) => {
+                    setExpansion(countries, [continent]);
+                });
+                
+                setExpandedNodes(newExpanded);
+            };
+
+            // Select all/none
+            const selectAll = (select) => {
+                const nextEnabled = new Set(enabledTrains);
+                const allTrains = getAllTrainsInNode(tree);
+                
+                allTrains.forEach(trainId => {
+                    const train = getTrainById(trainId);
+                    if (!train || !train.isFixed) {
+                        if (select) {
+                            nextEnabled.add(trainId);
+                        } else {
+                            nextEnabled.delete(trainId);
+                        }
+                    }
+                });
+                
+                setEnabledTrains(nextEnabled);
+                updateConfig(nextEnabled);
+            };
+
+            // Apply changes
+            const handleApply = () => {
+                if (onApply) {
+                    onApply();
+                }
+                showNotification('Train settings applied successfully!', 'success');
+            };
+
+            // Main render
+            return React.createElement('div', { className: 'hybrid-selector w-full h-full flex flex-col' }, [
+                // Control Bar
+                React.createElement('div', {
+                    key: 'control-bar',
+                    className: 'control-bar p-4 border-b border-border bg-background/50 flex flex-wrap gap-3 items-center'
+                }, [
+                    React.createElement('div', {
+                        className: 'search-container flex-1 min-w-[300px]'
+                    }, [
+                        React.createElement('input', {
+                            type: 'text',
+                            placeholder: 'Search trains, cities, or categories...',
+                            value: searchQuery,
+                            onChange: (e) => handleSearch(e.target.value),
+                            className: 'w-full px-3 py-2 border border-input bg-background rounded text-sm'
+                        })
+                    ]),
+                    
+                    React.createElement('div', {
+                        className: 'bulk-actions flex gap-2'
+                    }, [
+                        React.createElement(Button, {
+                            onClick: () => toggleAll(!Object.values(expandedNodes).some(v => v)),
+                            variant: 'secondary',
+                            size: 'sm'
+                        }, Object.values(expandedNodes).some(v => v) ? 'Collapse All' : 'Expand All'),
+                        
+                        React.createElement(Button, {
+                            onClick: () => selectAll(true),
+                            variant: 'secondary',
+                            size: 'sm'
+                        }, 'Select All'),
+                        
+                        React.createElement(Button, {
+                            onClick: () => selectAll(false),
+                            variant: 'secondary',
+                            size: 'sm'
+                        }, 'Select None')
+                    ])
+                ]),
+                
+                // Tree View
+                React.createElement('div', {
+                    key: 'tree-container',
+                    className: 'tree-container flex-1 overflow-y-auto p-4'
+                }, Object.entries(tree).map(([continentName, continentNode]) => (
+                    React.createElement(TreeNode, {
+                        key: continentName,
+                        node: continentNode,
+                        nodeName: continentName,
+                        path: [continentName],
+                        depth: 0
+                    })
+                ))),
+                
+                // Summary Bar
+                React.createElement('div', {
+                    key: 'summary-bar',
+                    className: 'summary-bar p-4 border-t border-border bg-background/50 flex justify-between items-center'
+                }, [
+                    React.createElement('div', {
+                        className: 'summary-stats text-sm text-muted-foreground'
+                    }, [
+                        `${enabledTrains.size} trains enabled`,
+                        ' • ',
+                        `${getAllTrainsInNode(tree).length} total trains`
+                    ]),
+                    
+                    React.createElement(Button, {
+                        onClick: handleApply,
+                        className: 'bg-primary text-primary-foreground hover:bg-primary/90'
+                    }, 'Apply Changes')
+                ])
+            ]);
+        };
+    }
+
+    // --------------------------------------------------
+    // UPDATED ENABLE/DISABLE VIEW WITH HYBRID SELECTOR
+    // --------------------------------------------------
+    function createReactUI() {
+        const api = window.SubwayBuilderAPI;
+        const React = api.utils?.React;
+        const components = api.utils?.components || {};
+        const icons = api.utils?.icons || {};
+        
+        if (!React) {
+            debugLogMessage("error", "React not available");
+            return null;
+        }
+
+        // Create the hybrid selector
+        const HybridTrainSelector = createHybridTrainSelector(React, components, icons);
+
+        // Updated EnableDisableView using the hybrid selector
+        function EnableDisableView() {
+            const handleApply = () => {
+                const valid = registerTrainsToGame();
+                if (valid) {
+                    showNotification('Train settings applied successfully!', 'success');
+                }
+            };
+
+            return React.createElement(HybridTrainSelector, {
+                onApply: handleApply,
+                initialEnabledTrains: currentConfig.enabledTrains || []
+            });
+        }
+
+        // Return the component for integration
+        return EnableDisableView;
+    }
 
     // --------------------------------------------------
     // GET TRAINS FOR REGISTRATION
@@ -1650,12 +2686,149 @@
 					
 					return enabledSet;
 				});
-				const trainCategories = getTrainCategories();
+				
+				const [expandedCategories, setExpandedCategories] = React.useState({
+					"Fixed Standard Trains": true,
+					"Heavy Metro Types": true,
+					"Light Metro Types": true,
+					"Tram Types": true,
+					"Regional Types": true
+				});
+				
+				const [selectedLocation, setSelectedLocation] = React.useState({
+					continent: null,
+					country: null,
+					city: null
+				});
+				
 				const [hoveredTrain, setHoveredTrain] = React.useState(null);
 				const [hoverTimer, setHoverTimer] = React.useState(null);
 				const [popupPosition, setPopupPosition] = React.useState({ x: 0, y: 0 });
 				const popupRef = React.useRef(null);
 				const hoveredTrainRef = React.useRef(null);
+				
+				// Get location tree for the dropdowns
+				const locationTree = getTrainCategories();
+				
+				// Build list of all continents, countries, and cities
+				const continents = Object.keys(locationTree);
+				const countries = selectedLocation.continent ? 
+					Object.keys(locationTree[selectedLocation.continent] || {}) : [];
+				const cities = selectedLocation.continent && selectedLocation.country ? 
+					Object.keys(locationTree[selectedLocation.continent]?.[selectedLocation.country] || {}) : [];
+				
+				// Get country display name
+				const getCountryDisplayName = (countryCode) => {
+					const countryNames = {
+						'AT': 'Austria', 'AU': 'Australia', 'CA': 'Canada', 'CH': 'Switzerland',
+						'CN': 'China', 'CZ': 'Czechia', 'DE': 'Germany', 'DK': 'Denmark',
+						'ES': 'Spain', 'FR': 'France', 'Generic': 'Generic Types', 'HU': 'Hungary',
+						'IE': 'Ireland', 'Imported': 'Imported', 'IN': 'India', 'IT': 'Italy',
+						'MX': 'Mexico', 'NL': 'Netherlands', 'NZ': 'New Zealand', 'TR': 'Turkey',
+						'UA': 'Ukraine', 'UK': 'United Kingdom', 'Unknown': 'Unknown',
+						'US': 'United States', 'User Created': 'User Created'
+					};
+					return countryNames[countryCode] || countryCode;
+				};
+				
+				// Build categorized trains filtered by selected location
+				const categorizedTrains = {
+					"Fixed Standard Trains": [],
+					"Heavy Metro Types": [],
+					"Light Metro Types": [],
+					"Tram Types": [],
+					"Regional Types": []
+				};
+				
+				// Collect all trains for quick access
+				const allTrains = {};
+				
+				// Filter trains based on selected location
+				function filterTrainsByLocation() {
+					// Reset categories
+					Object.keys(categorizedTrains).forEach(key => {
+						categorizedTrains[key] = [];
+					});
+					
+					// Clear allTrains
+					Object.keys(allTrains).forEach(key => {
+						delete allTrains[key];
+					});
+					
+					// Helper function to traverse location tree
+					function traverseNode(node, currentLocation = {}) {
+						if (Array.isArray(node)) {
+							// This is a list of trains
+							node.forEach(([trainId, train]) => {
+								// Check if train matches selected location filter
+								const matchesContinent = !selectedLocation.continent || 
+									train.location?.continent === selectedLocation.continent;
+								const matchesCountry = !selectedLocation.country || 
+									train.location?.country === selectedLocation.country;
+								const matchesCity = !selectedLocation.city || 
+									train.location?.city === selectedLocation.city;
+								
+								if (matchesContinent && matchesCountry && matchesCity) {
+									// Add to allTrains for quick access
+									allTrains[trainId] = train;
+									
+									// Categorize the train
+									const totalCapacityAtMinCars = train.stats?.capacityPerCar * train.stats?.minCars || 0;
+									const description = (train.description || "").toLowerCase();
+									
+									let category = "Heavy Metro Types";
+									
+									if (train.isFixed) {
+										category = "Fixed Standard Trains";
+									} else if (train.allowAtGradeRoadCrossing) {
+										if (!description.includes("regional") && 
+											!description.includes("commuter") &&
+											!description.includes("long-distance") &&
+											!description.includes("s-bahn")) {
+											category = "Tram Types";
+										} else {
+											category = "Regional Types";
+										}
+									} else if (description.includes("regional") || 
+											   description.includes("commuter") ||
+											   description.includes("long-distance") ||
+											   description.includes("s-bahn")) {
+										category = "Regional Types";
+									} else if (totalCapacityAtMinCars >= 700) {
+										category = "Heavy Metro Types";
+									} else {
+										category = "Light Metro Types";
+									}
+									
+									categorizedTrains[category].push([trainId, train]);
+								}
+							});
+							return;
+						}
+						
+						// This is a location node (continent/country/city/category)
+						Object.entries(node).forEach(([key, child]) => {
+							// Update current location based on node type
+							const newLocation = { ...currentLocation };
+							if (!currentLocation.continent && continents.includes(key)) {
+								newLocation.continent = key;
+							} else if (!currentLocation.country && countries.includes(key)) {
+								newLocation.country = key;
+							} else if (!currentLocation.city && cities.includes(key)) {
+								newLocation.city = key;
+							}
+							
+							traverseNode(child, newLocation);
+						});
+					}
+					
+					// Start traversal from continents
+					Object.values(locationTree).forEach(continentNode => {
+						traverseNode(continentNode);
+					});
+				}
+				
+				filterTrainsByLocation();
 				
 				// Cleanup timer on unmount
 				React.useEffect(() => {
@@ -1666,24 +2839,50 @@
 					};
 				}, [hoverTimer]);
 				
+				// Re-filter when location changes
+				React.useEffect(() => {
+					filterTrainsByLocation();
+				}, [selectedLocation]);
+				
 				// Handle mouse enter on train item
 				const handleMouseEnter = (trainId, train, e) => {
-					// Clear any existing timer
 					if (hoverTimer) {
 						clearTimeout(hoverTimer);
 					}
 					
-					// Store which train we're hovering
 					hoveredTrainRef.current = { trainId, train };
 					
-					// Set position for popup (to the right of the train item)
-					const rect = e.currentTarget.getBoundingClientRect();
-					setPopupPosition({ 
-						x: rect.right - 400, 
-						y: rect.bottom 
-					});
+					// Get mouse position and viewport dimensions
+					const mouseX = e.clientX;
+					const mouseY = e.clientY;
+					const viewportWidth = window.innerWidth;
+					const viewportHeight = window.innerHeight;
 					
-					// Start 1 second timer to show popup
+					// Popup dimensions (estimeret)
+					const popupWidth = 360;
+					const popupHeight = 600; // Estimeret højde for stats popup
+					
+					// Calculate optimal position based on mouse position
+					let popupX, popupY;
+					
+					// Horizontal position: prefer right, but check if enough space
+					if (viewportWidth - mouseX > popupWidth + 20) {
+						// Enough space to the right
+						popupX = mouseX + 15;
+					} else {
+						// Not enough space to the right, show to the left
+						popupX = mouseX - popupWidth - 15;
+					}
+					
+					// Vertical position: center relative to mouse, but keep within viewport
+					popupY = mouseY - (popupHeight / 2);
+					
+					// Ensure popup stays within viewport boundaries
+					popupX = Math.max(10, Math.min(popupX, viewportWidth - popupWidth - 10));
+					popupY = Math.max(10, Math.min(popupY, viewportHeight - popupHeight - 10));
+					
+					setPopupPosition({ x: popupX, y: popupY });
+					
 					const timer = setTimeout(() => {
 						if (hoveredTrainRef.current) {
 							setHoveredTrain(hoveredTrainRef.current);
@@ -1695,16 +2894,13 @@
 				
 				// Handle mouse leave from train item
 				const handleMouseLeave = () => {
-					// Clear timer
 					if (hoverTimer) {
 						clearTimeout(hoverTimer);
 						setHoverTimer(null);
 					}
 					
-					// Clear hover reference
 					hoveredTrainRef.current = null;
 					
-					// Don't hide popup immediately if mouse is over popup
 					setTimeout(() => {
 						if (!popupRef.current || !popupRef.current.matches(':hover')) {
 							setHoveredTrain(null);
@@ -1714,7 +2910,6 @@
 				
 				// Handle mouse enter on popup
 				const handlePopupMouseEnter = () => {
-					// Clear any close timers
 					if (hoverTimer) {
 						clearTimeout(hoverTimer);
 						setHoverTimer(null);
@@ -1723,203 +2918,38 @@
 				
 				// Handle mouse leave from popup
 				const handlePopupMouseLeave = () => {
-					// Small delay before hiding to prevent flicker
 					const timer = setTimeout(() => {
 						setHoveredTrain(null);
 					}, 300);
 					
 					setHoverTimer(timer);
 				};
-							
+				
+				// Delete custom train
 				const deleteCustomTrain = (trainId, trainName) => {
 					if (confirm(`Delete "${trainName}"? This action cannot be undone.`)) {
-						// Remove from customTrains
 						if (currentConfig.customTrains && currentConfig.customTrains[trainId]) {
 							delete currentConfig.customTrains[trainId];
 						}
 						
-						// Remove from enabledTrains
 						currentConfig.enabledTrains = currentConfig.enabledTrains.filter(id => id !== trainId);
-						
-						// Save config
 						saveConfig(currentConfig);
 						
-						// Update local state
 						const nextEnabled = new Set(enabledTrains);
 						nextEnabled.delete(trainId);
 						setEnabledTrains(nextEnabled);
+						
+						// Re-filter to update UI
+						filterTrainsByLocation();
 						
 						showNotification(`Train "${trainName}" deleted`, 'success');
 					}
 				};
 				
-				// Train Stats Popup Component
-				function TrainStatsPopup() {
-					if (!hoveredTrain) return null;
-					
-					const { trainId, train } = hoveredTrain;
-					const isCustom = trainId.startsWith('custom-');
-					const isFixed = train.isFixed || false;
-					const maxTrainLength = train.stats.carLength * train.stats.maxCars;
-					
-					return React.createElement('div', {
-						ref: popupRef,
-						className: 'fixed z-50 bg-popover text-popover-foreground rounded-lg border shadow-lg backdrop-blur-sm',
-						style: {
-							left: `${popupPosition.x}px`,
-							top: `${popupPosition.y}px`,
-							width: '360px',
-							maxHeight: '80vh',
-							overflowY: 'auto'
-						},
-						onMouseEnter: handlePopupMouseEnter,
-						onMouseLeave: handlePopupMouseLeave
-					}, [
-						// Header with color and name
-						React.createElement('div', {
-							key: 'header',
-							className: 'p-4 border-b flex items-center gap-3'
-						}, [
-							React.createElement('div', {
-								className: 'w-8 h-8 rounded-full',
-								style: { backgroundColor: train.appearance?.color || '#3b82f6' }
-							}),
-							React.createElement('div', { className: 'flex-1' }, [
-								React.createElement('h3', { 
-									className: 'font-bold text-lg'
-								}, train.name),
-								React.createElement('div', { 
-									className: 'flex gap-2 mt-1'
-								}, [
-									isFixed && React.createElement('span', {
-										className: 'px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full'
-									}, 'Fixed'),
-									isCustom && !isFixed && React.createElement('span', {
-										className: 'px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full'
-									}, 'Custom'),
-									React.createElement('span', {
-										className: 'px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded-full'
-									}, train.allowAtGradeRoadCrossing ? 'Can Cross Roads' : 'No Road Crossing')
-								])
-							])
-						]),
-						
-						// Description
-						React.createElement('div', {
-							key: 'description',
-							className: 'p-4 border-b'
-						}, [
-							React.createElement('p', { 
-								className: 'text-sm text-muted-foreground'
-							}, train.description)
-						]),
-						
-						// Stats Grid
-						React.createElement('div', {
-							key: 'stats',
-							className: 'p-4 border-b'
-						}, [
-							React.createElement('h4', {
-								className: 'font-semibold mb-3 text-sm uppercase tracking-wider text-muted-foreground'
-							}, 'Performance Stats'),
-							
-							React.createElement('div', { className: 'grid grid-cols-2 gap-3' }, [
-								// Column 1
-								React.createElement('div', { key: 'col1', className: 'space-y-2' }, [
-									createStatItem('Max Speed', `${train.stats.maxSpeed} m/s`),
-									createStatItem('Station Speed', `${train.stats.maxSpeedLocalStation} m/s`),
-									createStatItem('Acceleration', `${train.stats.maxAcceleration} m/s²`),
-									createStatItem('Deceleration', `${train.stats.maxDeceleration} m/s²`),
-									createStatItem('Capacity per Car', train.stats.capacityPerCar),
-									createStatItem('Total Capacity', train.stats.capacityPerCar * train.stats.minCars)
-								]),
-								
-								// Column 2
-								React.createElement('div', { key: 'col2', className: 'space-y-2' }, [
-									createStatItem('Car Length', `${train.stats.carLength} m`),
-									createStatItem('Train Width', `${train.stats.trainWidth || 3.0} m`),
-									createStatItem('Max Train Length', `${maxTrainLength} m`),
-									createStatItem('Min Cars', train.stats.minCars),
-									createStatItem('Max Cars', train.stats.maxCars),
-									createStatItem('Cars per Set', train.stats.carsPerCarSet)
-								])
-							])
-						]),
-						
-						// Costs
-						React.createElement('div', {
-							key: 'costs',
-							className: 'p-4 border-b'
-						}, [
-							React.createElement('h4', {
-								className: 'font-semibold mb-3 text-sm uppercase tracking-wider text-muted-foreground'
-							}, 'Costs'),
-							
-							React.createElement('div', { className: 'grid grid-cols-2 gap-3' }, [
-								createStatItem('Car Cost', `$${train.stats.carCost.toLocaleString()}`),
-								createStatItem('Track Cost/m', `$${train.stats.baseTrackCost.toLocaleString()}`),
-								createStatItem('Station Cost', `$${train.stats.baseStationCost.toLocaleString()}`),
-								createStatItem('Scissors Crossover', `$${train.stats.scissorsCrossoverCost.toLocaleString()}`),
-								createStatItem('Train Op. Cost/hr', `$${train.stats.trainOperationalCostPerHour}`),
-								createStatItem('Car Op. Cost/hr', `$${train.stats.carOperationalCostPerHour}`)
-							])
-						]),
-						
-						// Elevation Multipliers
-						React.createElement('div', {
-							key: 'elevation',
-							className: 'p-4'
-						}, [
-							React.createElement('h4', {
-								className: 'font-semibold mb-3 text-sm uppercase tracking-wider text-muted-foreground'
-							}, 'Elevation Cost Multipliers'),
-							
-							React.createElement('div', { className: 'space-y-2' }, [
-								createMultiplierItem('Deep Bore', train.elevationMultipliers?.DEEP_BORE || 2.0),
-								createMultiplierItem('Standard Tunnel', train.elevationMultipliers?.STANDARD_TUNNEL || 1.5),
-								createMultiplierItem('Cut & Cover', train.elevationMultipliers?.CUT_AND_COVER || 1.2),
-								createMultiplierItem('At Grade', train.elevationMultipliers?.AT_GRADE || 1.0),
-								createMultiplierItem('Elevated', train.elevationMultipliers?.ELEVATED || 1.0)
-							])
-						])
-					]);
-					
-					// Helper function for stat items
-					function createStatItem(label, value) {
-						return React.createElement('div', { 
-							key: label,
-							className: 'flex justify-between items-center'
-						}, [
-							React.createElement('span', { 
-								className: 'text-sm text-muted-foreground'
-							}, label),
-							React.createElement('span', { 
-								className: 'text-sm font-medium font-mono'
-							}, value)
-						]);
-					}
-					
-					// Helper function for multiplier items
-					function createMultiplierItem(label, value) {
-						return React.createElement('div', { 
-							key: label,
-							className: 'flex justify-between items-center'
-						}, [
-							React.createElement('span', { 
-								className: 'text-sm text-muted-foreground'
-							}, label),
-							React.createElement('span', { 
-								className: 'text-sm font-medium font-mono bg-primary/10 text-primary px-2 py-1 rounded'
-							}, `${value.toFixed(1)}x`)
-						]);
-					}
-				}
-
+				// Toggle train enabled/disabled
 				const toggleTrain = (trainId) => {
-					// Check if train is fixed
-					const train = REAL_TRAINS[trainId] || (currentConfig.customTrains && currentConfig.customTrains[trainId]);
-					if (train && train.isFixed) {
-						// Fixed trains can not be toggled off
+					const train = allTrains[trainId];
+					if (!train || train.isFixed) {
 						return;
 					}
 					
@@ -1933,7 +2963,48 @@
 					currentConfig.enabledTrains = Array.from(next);
 					saveConfig(currentConfig);
 				};
-
+				
+				// Toggle category expand/collapse
+				const toggleCategory = (category) => {
+					setExpandedCategories(prev => ({
+						...prev,
+						[category]: !prev[category]
+					}));
+				};
+				
+				// Handle location selection
+				const handleContinentChange = (continent) => {
+					setSelectedLocation({
+						continent: continent || null,
+						country: null,
+						city: null
+					});
+				};
+				
+				const handleCountryChange = (country) => {
+					setSelectedLocation(prev => ({
+						...prev,
+						country: country || null,
+						city: null
+					}));
+				};
+				
+				const handleCityChange = (city) => {
+					setSelectedLocation(prev => ({
+						...prev,
+						city: city || null
+					}));
+				};
+				
+				const clearLocationFilter = () => {
+					setSelectedLocation({
+						continent: null,
+						country: null,
+						city: null
+					});
+				};
+				
+				// Handle apply changes
 				const handleApply = () => {
 					const valid = registerTrainsToGame();
 					if (valid) {
@@ -1941,7 +3012,8 @@
 					}
 					setIsOpen(false);
 				};
-
+				
+				// Render train item
 				const renderTrainItem = (trainId, train) => {
 					const isCustom = trainId.startsWith('custom-');
 					const isFixed = train.isFixed || false;
@@ -1953,8 +3025,7 @@
 						className: `px-4 py-3 bg-background/50 rounded border flex justify-between items-center ${isFixed ? '' : 'cursor-pointer hover:bg-accent/50'} transition-colors group relative`,
 						onClick: isFixed ? undefined : () => toggleTrain(trainId),
 						onMouseEnter: (e) => handleMouseEnter(trainId, train, e),
-						onMouseLeave: handleMouseLeave,
-						'data-train-id': trainId
+						onMouseLeave: handleMouseLeave
 					}, [
 						React.createElement('div', { key: 'info', className: 'flex-1' }, [
 							React.createElement('div', { 
@@ -1971,7 +3042,10 @@
 								}, 'Fixed'),
 								isCustom && !isFixed && React.createElement('span', {
 									className: 'px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full'
-								}, 'Custom')
+								}, 'Custom'),
+								train.location && React.createElement('span', {
+									className: 'px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded-full'
+								}, `${train.location.city}`)
 							]),
 							React.createElement('div', { 
 								className: 'text-sm text-muted-foreground line-clamp-2 mt-1' 
@@ -2013,94 +3087,343 @@
 						])
 					]);
 				};
-
-				const renderCategory = (categoryName, trains, description = '') => {
-					if (trains.length === 0) return null;
+				
+				// Render category section
+				const renderCategorySection = (categoryName, trains, description = '') => {
+					if (!trains || trains.length === 0) return null;
+					
+					const isExpanded = expandedCategories[categoryName];
 					
 					return React.createElement('div', { key: categoryName, className: 'space-y-2' }, [
-						React.createElement('h2', {
-							className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2'
+						// Category header
+						React.createElement('div', {
+							className: 'category-header px-4 py-3 bg-background/50 rounded border flex items-center cursor-pointer hover:bg-accent/20 transition-colors',
+							onClick: () => toggleCategory(categoryName)
 						}, [
-							categoryName,
-							React.createElement('span', { className: 'text-xs font-normal bg-muted px-2 py-0.5 rounded' }, 
-								`${trains.length} type${trains.length !== 1 ? 's' : ''}`
-							)
+							React.createElement('div', {
+								className: 'expand-toggle mr-2 w-6 h-6 flex items-center justify-center'
+							}, isExpanded ? '▼' : '▶'),
+							
+							React.createElement('div', { className: 'flex-1' }, [
+								React.createElement('h2', {
+									className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground flex items-center gap-2'
+								}, [
+									categoryName,
+									React.createElement('span', { className: 'text-xs font-normal bg-muted px-2 py-0.5 rounded' }, 
+										`${trains.length} type${trains.length !== 1 ? 's' : ''}`
+									)
+								]),
+								description && React.createElement('p', { 
+									className: 'text-sm text-muted-foreground mt-1' 
+								}, description)
+							])
 						]),
-						description && React.createElement('p', { 
-							className: 'text-sm text-muted-foreground -mt-1' 
-						}, description),
-						React.createElement('div', { className: 'space-y-2' },
-							trains.map(([trainId, train]) => renderTrainItem(trainId, train))
-						)
+						
+						// Category content (trains)
+						isExpanded && trains.length > 0 && React.createElement('div', { 
+							className: 'category-content space-y-2 mt-2'
+						}, trains.map(([trainId, train]) => 
+							renderTrainItem(trainId, train)
+						))
 					]);
 				};
-
+				
+				// Train Stats Popup Component
+				function TrainStatsPopup() {
+					if (!hoveredTrain) return null;
+					
+					const { trainId, train } = hoveredTrain;
+					const isCustom = trainId.startsWith('custom-');
+					const isFixed = train.isFixed || false;
+					const maxTrainLength = train.stats.carLength * train.stats.maxCars;
+					
+					return React.createElement('div', {
+						ref: popupRef,
+						className: 'fixed z-50 bg-popover text-popover-foreground rounded-lg border shadow-lg backdrop-blur-sm',
+						style: {
+							left: `${popupPosition.x}px`,
+							top: `${popupPosition.y}px`,
+							width: '360px',
+							maxHeight: '80vh',
+							overflowY: 'auto'
+						},
+						onMouseEnter: handlePopupMouseEnter,
+						onMouseLeave: handlePopupMouseLeave
+					}, [
+						React.createElement('div', {
+							key: 'header',
+							className: 'p-4 border-b flex items-center gap-3'
+						}, [
+							React.createElement('div', {
+								className: 'w-8 h-8 rounded-full',
+								style: { backgroundColor: train.appearance?.color || '#3b82f6' }
+							}),
+							React.createElement('div', { className: 'flex-1' }, [
+								React.createElement('h3', { 
+									className: 'font-bold text-lg'
+								}, train.name),
+								React.createElement('div', { 
+									className: 'flex gap-2 mt-1'
+								}, [
+									isFixed && React.createElement('span', {
+										className: 'px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full'
+									}, 'Fixed'),
+									isCustom && !isFixed && React.createElement('span', {
+										className: 'px-2 py-0.5 text-xs bg-primary/20 text-primary rounded-full'
+									}, 'Custom'),
+									train.location && React.createElement('span', {
+										className: 'px-2 py-0.5 text-xs bg-muted text-muted-foreground rounded-full'
+									}, `${train.location.city}, ${getCountryDisplayName(train.location.country)}`)
+								])
+							])
+						]),
+						
+						React.createElement('div', {
+							key: 'description',
+							className: 'p-4 border-b'
+						}, [
+							React.createElement('p', { 
+								className: 'text-sm text-muted-foreground'
+							}, train.description)
+						]),
+						
+						React.createElement('div', {
+							key: 'stats',
+							className: 'p-4 border-b'
+						}, [
+							React.createElement('h4', {
+								className: 'font-semibold mb-3 text-sm uppercase tracking-wider text-muted-foreground'
+							}, 'Performance Stats'),
+							
+							React.createElement('div', { className: 'grid grid-cols-2 gap-3' }, [
+								React.createElement('div', { key: 'col1', className: 'space-y-2' }, [
+									createStatItem('Max Speed', `${train.stats.maxSpeed} m/s`),
+									createStatItem('Station Speed', `${train.stats.maxSpeedLocalStation} m/s`),
+									createStatItem('Acceleration', `${train.stats.maxAcceleration} m/s²`),
+									createStatItem('Deceleration', `${train.stats.maxDeceleration} m/s²`),
+									createStatItem('Capacity per Car', train.stats.capacityPerCar),
+									createStatItem('Total Capacity', train.stats.capacityPerCar * train.stats.minCars)
+								]),
+								
+								React.createElement('div', { key: 'col2', className: 'space-y-2' }, [
+									createStatItem('Car Length', `${train.stats.carLength} m`),
+									createStatItem('Train Width', `${train.stats.trainWidth || 3.0} m`),
+									createStatItem('Max Train Length', `${maxTrainLength} m`),
+									createStatItem('Min Cars', train.stats.minCars),
+									createStatItem('Max Cars', train.stats.maxCars),
+									createStatItem('Cars per Set', train.stats.carsPerCarSet)
+								])
+							])
+						]),
+						
+						React.createElement('div', {
+							key: 'costs',
+							className: 'p-4 border-b'
+						}, [
+							React.createElement('h4', {
+								className: 'font-semibold mb-3 text-sm uppercase tracking-wider text-muted-foreground'
+							}, 'Costs'),
+							
+							React.createElement('div', { className: 'grid grid-cols-2 gap-3' }, [
+								createStatItem('Car Cost', `$${train.stats.carCost.toLocaleString()}`),
+								createStatItem('Track Cost/m', `$${train.stats.baseTrackCost.toLocaleString()}`),
+								createStatItem('Station Cost', `$${train.stats.baseStationCost.toLocaleString()}`),
+								createStatItem('Scissors Crossover', `$${train.stats.scissorsCrossoverCost.toLocaleString()}`),
+								createStatItem('Train Op. Cost/hr', `$${train.stats.trainOperationalCostPerHour}`),
+								createStatItem('Car Op. Cost/hr', `$${train.stats.carOperationalCostPerHour}`)
+							])
+						]),
+						
+						React.createElement('div', {
+							key: 'elevation',
+							className: 'p-4'
+						}, [
+							React.createElement('h4', {
+								className: 'font-semibold mb-3 text-sm uppercase tracking-wider text-muted-foreground'
+							}, 'Elevation Cost Multipliers'),
+							
+							React.createElement('div', { className: 'space-y-2' }, [
+								createMultiplierItem('Deep Bore', train.elevationMultipliers?.DEEP_BORE || 2.0),
+								createMultiplierItem('Standard Tunnel', train.elevationMultipliers?.STANDARD_TUNNEL || 1.5),
+								createMultiplierItem('Cut & Cover', train.elevationMultipliers?.CUT_AND_COVER || 1.2),
+								createMultiplierItem('At Grade', train.elevationMultipliers?.AT_GRADE || 1.0),
+								createMultiplierItem('Elevated', train.elevationMultipliers?.ELEVATED || 1.0)
+							])
+						])
+					]);
+					
+					function createStatItem(label, value) {
+						return React.createElement('div', { 
+							key: label,
+							className: 'flex justify-between items-center'
+						}, [
+							React.createElement('span', { 
+								className: 'text-sm text-muted-foreground'
+							}, label),
+							React.createElement('span', { 
+								className: 'text-sm font-medium font-mono'
+							}, value)
+						]);
+					}
+					
+					function createMultiplierItem(label, value) {
+						return React.createElement('div', { 
+							key: label,
+							className: 'flex justify-between items-center'
+						}, [
+							React.createElement('span', { 
+								className: 'text-sm text-muted-foreground'
+							}, label),
+							React.createElement('span', { 
+								className: 'text-sm font-medium font-mono bg-primary/10 text-primary px-2 py-1 rounded'
+							}, `${value.toFixed(1)}x`)
+						]);
+					}
+				}
+				
 				return React.createElement(FullscreenView, {
 					title: 'Enable / Disable Trains',
 					onBack: () => setActiveView(null)
 				}, React.createElement(React.Fragment, null, [
-					React.createElement('div', { key: 'main-content', className: 'grid grid-cols-1 md:grid-cols-2 gap-8' }, [
-						// Left column
-						React.createElement('div', { key: 'left', className: 'flex flex-col gap-6' }, [
-							// Fixed trains section
-							renderCategory(
-								"Fixed Standard Trains",
-								trainCategories["Fixed Standard Trains"],
-								"Always enabled, cannot be disabled"
-							),
-
-							// Heavy Metro Types
-							renderCategory(
-								"Heavy Metro Types",
-								trainCategories["Heavy Metro Types"],
-								"High capacity transit for urban corridors"
-							),
-
-							// Light Metro Types
-							renderCategory(
-								"Light Metro Types", 
-								trainCategories["Light Metro Types"],
-								"Lighter capacity for flexible urban transit"
-							)
+					// Location Filter Bar
+					React.createElement('div', {
+						key: 'filter-bar',
+						className: 'mb-6 p-4 bg-background/50 rounded border space-y-4'
+					}, [
+						React.createElement('div', {
+							className: 'flex items-center justify-between'
+						}, [
+							React.createElement('h3', {
+								className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+							}, 'Filter by Location'),
+							
+							(selectedLocation.continent || selectedLocation.country || selectedLocation.city) && 
+							React.createElement('button', {
+								onClick: clearLocationFilter,
+								className: 'text-xs text-muted-foreground hover:text-foreground'
+							}, 'Clear Filter')
 						]),
-
-						// Right column
-						React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
-							// Tram Types
-							renderCategory(
-								"Tram Types",
-								trainCategories["Tram Types"],
-								"Street-running and at-grade crossing capable"
-							),
-
-							// Regional Types
-							renderCategory(
-								"Regional Types",
-								trainCategories["Regional Types"],
-								"Commuter rail and regional services"
-							),
-
-							// Actions
-							React.createElement('div', {
-								key: 'actions',
-								className: 'space-y-2 mt-auto'
-							}, [
-								React.createElement('div', {
-									className: 'flex gap-2 pt-4 border-t'
+						
+						React.createElement('div', {
+							className: 'grid grid-cols-1 md:grid-cols-3 gap-3'
+						}, [
+							// Continent Selector
+							React.createElement('div', { key: 'continent' }, [
+								React.createElement('label', {
+									className: 'block text-xs font-medium mb-1 text-muted-foreground'
+								}, 'Continent'),
+								React.createElement('select', {
+									value: selectedLocation.continent || '',
+									onChange: (e) => handleContinentChange(e.target.value || null),
+									className: 'w-full p-2 border border-input bg-background rounded text-sm'
 								}, [
-									React.createElement(Button, {
-										onClick: () => setActiveView(null),
-										variant: 'secondary',
-										className: 'flex-1'
-									}, 'Back'),
-									React.createElement(Button, {
-										onClick: handleApply,
-										className: 'flex-1'
-									}, 'Apply Changes')
+									React.createElement('option', { key: 'all', value: '' }, 'All Continents'),
+									...continents.map(continent => 
+										React.createElement('option', { key: continent, value: continent }, continent)
+									)
+								])
+							]),
+							
+							// Country Selector
+							React.createElement('div', { key: 'country' }, [
+								React.createElement('label', {
+									className: 'block text-xs font-medium mb-1 text-muted-foreground'
+								}, 'Country'),
+								React.createElement('select', {
+									value: selectedLocation.country || '',
+									onChange: (e) => handleCountryChange(e.target.value || null),
+									disabled: !selectedLocation.continent,
+									className: `w-full p-2 border border-input rounded text-sm ${!selectedLocation.continent ? 'bg-muted cursor-not-allowed' : 'bg-background'}`
+								}, [
+									React.createElement('option', { key: 'all', value: '' }, 'All Countries'),
+									...countries.map(country => 
+										React.createElement('option', { key: country, value: country }, getCountryDisplayName(country))
+									)
+								])
+							]),
+							
+							// City Selector
+							React.createElement('div', { key: 'city' }, [
+								React.createElement('label', {
+									className: 'block text-xs font-medium mb-1 text-muted-foreground'
+								}, 'City'),
+								React.createElement('select', {
+									value: selectedLocation.city || '',
+									onChange: (e) => handleCityChange(e.target.value || null),
+									disabled: !selectedLocation.country,
+									className: `w-full p-2 border border-input rounded text-sm ${!selectedLocation.country ? 'bg-muted cursor-not-allowed' : 'bg-background'}`
+								}, [
+									React.createElement('option', { key: 'all', value: '' }, 'All Cities'),
+									...cities.map(city => 
+										React.createElement('option', { key: city, value: city }, city)
+									)
 								])
 							])
+						]),
+						
+						// Active filter display
+						(selectedLocation.continent || selectedLocation.country || selectedLocation.city) && 
+						React.createElement('div', {
+							className: 'text-xs text-muted-foreground p-2 bg-primary/5 rounded border border-primary/10'
+						}, [
+							React.createElement('span', { className: 'font-medium' }, 'Active Filter: '),
+							[
+								selectedLocation.continent,
+								selectedLocation.country && getCountryDisplayName(selectedLocation.country),
+								selectedLocation.city
+							].filter(Boolean).join(' → ')
 						])
 					]),
+					
+					// Main content - Categories with filtered trains
+					React.createElement('div', { key: 'main-content', className: 'space-y-6' }, [
+						renderCategorySection(
+							"Fixed Standard Trains",
+							categorizedTrains["Fixed Standard Trains"],
+							"Always enabled, cannot be disabled"
+						),
+						renderCategorySection(
+							"Heavy Metro Types",
+							categorizedTrains["Heavy Metro Types"],
+							"High capacity transit for urban corridors"
+						),
+						renderCategorySection(
+							"Light Metro Types",
+							categorizedTrains["Light Metro Types"],
+							"Lighter capacity for flexible urban transit"
+						),
+						renderCategorySection(
+							"Tram Types",
+							categorizedTrains["Tram Types"],
+							"Street-running and at-grade crossing capable"
+						),
+						renderCategorySection(
+							"Regional Types",
+							categorizedTrains["Regional Types"],
+							"Commuter rail and regional services"
+						)
+					]),
+					
+					// Actions
+					React.createElement('div', {
+						key: 'actions',
+						className: 'space-y-2 mt-6 pt-4 border-t'
+					}, [
+						React.createElement('div', {
+							className: 'flex gap-2'
+						}, [
+							React.createElement(Button, {
+								onClick: () => setActiveView(null),
+								variant: 'secondary',
+								className: 'flex-1'
+							}, 'Back'),
+							React.createElement(Button, {
+								onClick: handleApply,
+								className: 'flex-1'
+							}, 'Apply Changes')
+						])
+					]),
+					
 					// Train Stats Popup
 					React.createElement(TrainStatsPopup, { key: 'popup' })
 				]));
@@ -3569,174 +4892,232 @@
 
             // Main menu view (shown when no active view selected)
             function MainMenuView() {
-                const trainCategories = getTrainCategories();
-                const totalTrains = Object.values(trainCategories).reduce((sum, category) => sum + category.length, 0);
-                
-                return React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-8' }, [
-                    React.createElement('div', { key: 'left', className: 'flex flex-col gap-6' }, [
-                        React.createElement('div', { key: 'header', className: 'space-y-2' }, [
-                            React.createElement('h1', {
-                                className: 'text-2xl font-bold'
-                            }, 'Add Trains Manager'),
-                            React.createElement('p', {
-                                className: 'text-sm text-muted-foreground'
-                            }, 'Customize and manage your train types by mhmoeller')
-                        ]),
+				const trainCategories = getTrainCategories();
+				
+				// Calculate total trains by traversing the location tree
+				let totalTrains = 0;
+				let heavyMetroCount = 0;
+				let lightMetroCount = 0;
+				let tramCount = 0;
+				let regionalCount = 0;
+				let fixedCount = 0;
+				
+				// Helper function to traverse the tree and count trains
+				function countTrainsInNode(node) {
+					if (Array.isArray(node)) {
+						return node.length;
+					}
+					
+					let count = 0;
+					Object.values(node).forEach(child => {
+						count += countTrainsInNode(child);
+					});
+					return count;
+				}
+				
+				// Count trains in each continent
+				Object.values(trainCategories).forEach(continent => {
+					Object.values(continent).forEach(country => {
+						Object.values(country).forEach(city => {
+							Object.entries(city).forEach(([category, trains]) => {
+								const trainCount = trains.length;
+								totalTrains += trainCount;
+								
+								switch(category) {
+									case "Fixed Standard Trains":
+										fixedCount += trainCount;
+										break;
+									case "Heavy Metro Types":
+										heavyMetroCount += trainCount;
+										break;
+									case "Light Metro Types":
+										lightMetroCount += trainCount;
+										break;
+									case "Tram Types":
+										tramCount += trainCount;
+										break;
+									case "Regional Types":
+										regionalCount += trainCount;
+										break;
+								}
+							});
+						});
+					});
+				});
+				
+				// Get enabled trains count
+				const enabledTrainsCount = currentConfig.enabledTrains ? 
+					currentConfig.enabledTrains.filter(id => {
+						const train = REAL_TRAINS[id] || (currentConfig.customTrains && currentConfig.customTrains[id]);
+						return !train || !train.isFixed;
+					}).length : 0;
+				
+				return React.createElement('div', { className: 'grid grid-cols-1 md:grid-cols-2 gap-8' }, [
+					React.createElement('div', { key: 'left', className: 'flex flex-col gap-6' }, [
+						React.createElement('div', { key: 'header', className: 'space-y-2' }, [
+							React.createElement('h1', {
+								className: 'text-2xl font-bold'
+							}, 'Add Trains Manager'),
+							React.createElement('p', {
+								className: 'text-sm text-muted-foreground'
+							}, 'Customize and manage your train types by mhmoeller')
+						]),
 
-                        // Quick stats
-                        React.createElement(Card, { key: 'stats', className: 'p-4' }, [
-                            React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
-                                React.createElement('div', { className: 'space-y-1' }, [
-                                    React.createElement('div', { className: 'text-2xl font-bold' }, 
-                                        Object.keys(currentConfig.enabledTrains || []).length
-                                    ),
-                                    React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Enabled Trains')
-                                ]),
-                                React.createElement('div', { className: 'space-y-1' }, [
-                                    React.createElement('div', { className: 'text-2xl font-bold' }, 
-                                        totalTrains
-                                    ),
-                                    React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Total Train Types')
-                                ])
-                            ]),
-                            React.createElement('div', { className: 'mt-4 text-xs text-muted-foreground grid grid-cols-2 gap-2' }, [
-                                React.createElement('div', {}, `Heavy Metro: ${trainCategories["Heavy Metro Types"].length}`),
-                                React.createElement('div', {}, `Light Metro: ${trainCategories["Light Metro Types"].length}`),
-                                React.createElement('div', {}, `Tram Types: ${trainCategories["Tram Types"].length}`),
-                                React.createElement('div', {}, `Regional: ${trainCategories["Regional Types"].length}`)
-                            ])
-                        ])
-                    ]),
+						// Quick stats
+						React.createElement(Card, { key: 'stats', className: 'p-4' }, [
+							React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+								React.createElement('div', { className: 'space-y-1' }, [
+									React.createElement('div', { className: 'text-2xl font-bold' }, 
+										enabledTrainsCount
+									),
+									React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Enabled Trains')
+								]),
+								React.createElement('div', { className: 'space-y-1' }, [
+									React.createElement('div', { className: 'text-2xl font-bold' }, 
+										totalTrains
+									),
+									React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Total Train Types')
+								])
+							]),
+							React.createElement('div', { className: 'mt-4 text-xs text-muted-foreground grid grid-cols-2 gap-2' }, [
+								React.createElement('div', {}, `Heavy Metro: ${heavyMetroCount}`),
+								React.createElement('div', {}, `Light Metro: ${lightMetroCount}`),
+								React.createElement('div', {}, `Tram Types: ${tramCount}`),
+								React.createElement('div', {}, `Regional: ${regionalCount}`)
+							])
+						])
+					]),
 
-                    React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
-                        React.createElement('div', { key: 'options', className: 'space-y-2' }, [
-                            React.createElement('h2', {
-                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
-                            }, 'Management Options'),
+					// ... rest of the MainMenuView component remains the same ...
+					React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
+						React.createElement('div', { key: 'options', className: 'space-y-2' }, [
+							React.createElement('h2', {
+								className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+							}, 'Management Options'),
 
-                            React.createElement('button', {
-                                onClick: openEnableDisable,
-                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
-                            }, [
-                                React.createElement('div', { className: 'flex items-center gap-2' }, [
-                                    React.createElement('svg', {
-                                        xmlns: "http://www.w3.org/2000/svg",
-                                        width: "24",
-                                        height: "24",
-                                        viewBox: "0 0 24 24",
-                                        fill: "none",
-                                        stroke: "currentColor",
-                                        strokeWidth: "2",
-                                        strokeLinecap: "round",
-                                        strokeLinejoin: "round",
-                                        className: "lucide lucide-toggle-right h-4 w-4"
-                                    }, [
-                                        React.createElement('rect', { width: "20", height: "12", x: "2", y: "6", rx: "6", ry: "6" }),
-                                        React.createElement('circle', { cx: "16", cy: "12", r: "2" })
-                                    ]),
-                                    React.createElement('span', {}, 'Enable / Disable Trains')
-                                ]),
-                                React.createElement('svg', {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    width: "24",
-                                    height: "24",
-                                    viewBox: "0 0 24 24",
-                                    fill: "none",
-                                    stroke: "currentColor",
-                                    strokeWidth: "2",
-                                    strokeLinecap: "round",
-                                    strokeLinejoin: "round",
-                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
-                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
-                            ]),
+							React.createElement('button', {
+								onClick: openEnableDisable,
+								className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+							}, [
+								React.createElement('div', { className: 'flex items-center gap-2' }, [
+									React.createElement('svg', {
+										xmlns: "http://www.w3.org/2000/svg",
+										width: "24",
+										height: "24",
+										viewBox: "0 0 24 24",
+										fill: "none",
+										stroke: "currentColor",
+										strokeWidth: "2",
+										strokeLinecap: "round",
+										strokeLinejoin: "round",
+										className: "lucide lucide-toggle-right h-4 w-4"
+									}, [
+										React.createElement('rect', { width: "20", height: "12", x: "2", y: "6", rx: "6", ry: "6" }),
+										React.createElement('circle', { cx: "16", cy: "12", r: "2" })
+									]),
+									React.createElement('span', {}, 'Enable / Disable Trains')
+								]),
+								React.createElement('svg', {
+									xmlns: "http://www.w3.org/2000/svg",
+									width: "24",
+									height: "24",
+									viewBox: "0 0 24 24",
+									fill: "none",
+									stroke: "currentColor",
+									strokeWidth: "2",
+									strokeLinecap: "round",
+									strokeLinejoin: "round",
+									className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+								}, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+							]),
 
-                            React.createElement('button', {
-                                onClick: openEditTrain,
-                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
-                            }, [
-                                React.createElement('div', { className: 'flex items-center gap-2' }, [
-                                    React.createElement('svg', {
-                                        xmlns: "http://www.w3.org/2000/svg",
-                                        width: "24",
-                                        height: "24",
-                                        viewBox: "0 0 24 24",
-                                        fill: "none",
-                                        stroke: "currentColor",
-                                        strokeWidth: "2",
-                                        strokeLinecap: "round",
-                                        strokeLinejoin: "round",
-                                        className: "lucide lucide-settings h-4 w-4"
-                                    }, [
-                                        React.createElement('path', { d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" }),
-                                        React.createElement('circle', { cx: "12", cy: "12", r: "3" })
-                                    ]),
-                                    React.createElement('span', {}, 'Edit Train Statistics')
-                                ]),
-                                React.createElement('svg', {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    width: "24",
-                                    height: "24",
-                                    viewBox: "0 0 24 24",
-                                    fill: "none",
-                                    stroke: "currentColor",
-                                    strokeWidth: "2",
-                                    strokeLinecap: "round",
-                                    strokeLinejoin: "round",
-                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
-                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
-                            ]),
+							React.createElement('button', {
+								onClick: openEditTrain,
+								className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+							}, [
+								React.createElement('div', { className: 'flex items-center gap-2' }, [
+									React.createElement('svg', {
+										xmlns: "http://www.w3.org/2000/svg",
+										width: "24",
+										height: "24",
+										viewBox: "0 0 24 24",
+										fill: "none",
+										stroke: "currentColor",
+										strokeWidth: "2",
+										strokeLinecap: "round",
+										strokeLinejoin: "round",
+										className: "lucide lucide-settings h-4 w-4"
+									}, [
+										React.createElement('path', { d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" }),
+										React.createElement('circle', { cx: "12", cy: "12", r: "3" })
+									]),
+									React.createElement('span', {}, 'Edit Train Statistics')
+								]),
+								React.createElement('svg', {
+									xmlns: "http://www.w3.org/2000/svg",
+									width: "24",
+									height: "24",
+									viewBox: "0 0 24 24",
+									fill: "none",
+									stroke: "currentColor",
+									strokeWidth: "2",
+									strokeLinecap: "round",
+									strokeLinejoin: "round",
+									className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+								}, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+							]),
 
-                            React.createElement('button', {
-                                onClick: openCreateTrain,
-                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
-                            }, [
-                                React.createElement('div', { className: 'flex items-center gap-2' }, [
-                                    React.createElement('svg', {
-                                        xmlns: "http://www.w3.org/2000/svg",
-                                        width: "24",
-                                        height: "24",
-                                        viewBox: "0 0 24 24",
-                                        fill: "none",
-                                        stroke: "currentColor",
-                                        strokeWidth: "2",
-                                        strokeLinecap: "round",
-                                        strokeLinejoin: "round",
-                                        className: "lucide lucide-plus-circle h-4 w-4"
-                                    }, [
-                                        React.createElement('circle', { cx: "12", cy: "12", r: "10" }),
-                                        React.createElement('path', { d: "M8 12h8" }),
-                                        React.createElement('path', { d: "M12 8v8" })
-                                    ]),
-                                    React.createElement('span', {}, 'Create Custom Train')
-                                ]),
-                                React.createElement('svg', {
-                                    xmlns: "http://www.w3.org/2000/svg",
-                                    width: "24",
-                                    height: "24",
-                                    viewBox: "0 0 24 24",
-                                    fill: "none",
-                                    stroke: "currentColor",
-                                    strokeWidth: "2",
-                                    strokeLinecap: "round",
-                                    strokeLinejoin: "round",
-                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
-                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
-                            ])
-                        ]),
+							React.createElement('button', {
+								onClick: openCreateTrain,
+								className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+							}, [
+								React.createElement('div', { className: 'flex items-center gap-2' }, [
+									React.createElement('svg', {
+										xmlns: "http://www.w3.org/2000/svg",
+										width: "24",
+										height: "24",
+										viewBox: "0 0 24 24",
+										fill: "none",
+										stroke: "currentColor",
+										strokeWidth: "2",
+										strokeLinecap: "round",
+										strokeLinejoin: "round",
+										className: "lucide lucide-plus-circle h-4 w-4"
+									}, [
+										React.createElement('circle', { cx: "12", cy: "12", r: "10" }),
+										React.createElement('path', { d: "M8 12h8" }),
+										React.createElement('path', { d: "M12 8v8" })
+									]),
+									React.createElement('span', {}, 'Create Custom Train')
+								]),
+								React.createElement('svg', {
+									xmlns: "http://www.w3.org/2000/svg",
+									width: "24",
+									height: "24",
+									viewBox: "0 0 24 24",
+									fill: "none",
+									stroke: "currentColor",
+									strokeWidth: "2",
+									strokeLinecap: "round",
+									strokeLinejoin: "round",
+									className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+								}, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+							])
+						]),
 
-                        // Actions
-                        React.createElement('div', {
-                            key: 'actions',
-                            className: 'space-y-2 mt-auto'
-                        }, [
-                            React.createElement(Button, {
-                                onClick: registerTrainsToGame,
-                                className: 'w-full'
-                            }, 'Apply All Train Changes')
-                        ])
-                    ])
-                ]);
-            }
+						// Actions
+						React.createElement('div', {
+							key: 'actions',
+							className: 'space-y-2 mt-auto'
+						}, [
+							React.createElement(Button, {
+								onClick: registerTrainsToGame,
+								className: 'w-full'
+							}, 'Apply All Train Changes')
+						])
+					])
+				]);
+			}
 
             // Render appropriate view
             let content;
