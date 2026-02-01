@@ -113,7 +113,7 @@
         ELEVATED: 1.2
     };
 	
-     // --------------------------------------------------
+    // --------------------------------------------------
     // TRAIN TYPES WITH LOCATION DATA
     // --------------------------------------------------
     const REAL_TRAINS = {
@@ -141,7 +141,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["heavy-metro"],
@@ -178,7 +178,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["R188 (NYC)"],
@@ -215,7 +215,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["Tube 2024 (LDN)"],
@@ -252,7 +252,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["R179 (NYC)"],
@@ -289,7 +289,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["FE-10 (MXC)"],
@@ -326,7 +326,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 600,
                 "carOperationalCostPerHour": 60,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["NM-16 (MXC)"],
@@ -363,7 +363,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["Toronto Rocket"],
@@ -400,7 +400,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 600,
                 "carOperationalCostPerHour": 60,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["Azur (MTL)"],
@@ -437,7 +437,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["7000 Series (WSH)"],
@@ -476,7 +476,7 @@
                 "baseStationCost": 50000000,
                 "trainOperationalCostPerHour": 100,
                 "carOperationalCostPerHour": 10,
-                "scissorsCrossoverCost": 12000000,
+                "scissorsCrossoverCost": 12000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["light-metro"],
@@ -513,7 +513,7 @@
                 "baseStationCost": 50000000,
                 "trainOperationalCostPerHour": 100,
                 "carOperationalCostPerHour": 10,
-                "scissorsCrossoverCost": 12000000,
+                "scissorsCrossoverCost": 12000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["AnsaldoBreda (CPH)"],
@@ -550,7 +550,7 @@
                 "baseStationCost": 50000000,
                 "trainOperationalCostPerHour": 100,
                 "carOperationalCostPerHour": 10,
-                "scissorsCrossoverCost": 12000000,
+                "scissorsCrossoverCost": 12000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["Innovia Metro (VAN)"],
@@ -587,7 +587,7 @@
                 "baseStationCost": 50000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 12000000,
+                "scissorsCrossoverCost": 12000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["VAL 208 (FRA)"],
@@ -626,7 +626,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["S700 (MSP)"],
@@ -641,34 +641,34 @@
             }
         },
         "Avenio (CPH)": {
-            id: "Avenio (CPH)",
-            name: "Avenio (CPH)",
-            description: "City tram service modeled after Siemens Avenio.",
-            allowAtGradeRoadCrossing: true,
-            stats: {
-                maxAcceleration: 1.2,
-                maxDeceleration: 1.2,
-                maxSpeed: 22.22,
-                maxSpeedLocalStation: 8.0,
-                capacityPerCar: 200,
-                carLength: 30,
-                minCars: 1,
-                maxCars: 2,
-                carsPerCarSet: 1,
-                carCost: 1500000,
-                trainWidth: 2.65,
-                minStationLength: 62,
-                maxStationLength: 80,
-                baseTrackCost: 25000,
-                baseStationCost: 20000000,
-                trainOperationalCostPerHour: 200,
-                carOperationalCostPerHour: 20,
-                scissorsCrossoverCost: 5000000
+            "id": "Avenio (CPH)",
+            "name": "Avenio (CPH)",
+            "description": "City tram service modeled after Siemens Avenio.",
+            "allowAtGradeRoadCrossing": true,
+            "stats": {
+                "maxAcceleration": 1.2,
+                "maxDeceleration": 1.2,
+                "maxSpeed": 22.22,
+                "maxSpeedLocalStation": 8.0,
+                "capacityPerCar": 200,
+                "carLength": 30,
+                "minCars": 1,
+                "maxCars": 2,
+                "carsPerCarSet": 1,
+                "carCost": 1500000,
+                "trainWidth": 2.65,
+                "minStationLength": 62,
+                "maxStationLength": 80,
+                "baseTrackCost": 25000,
+                "baseStationCost": 20000000,
+                "trainOperationalCostPerHour": 200,
+                "carOperationalCostPerHour": 20,
+                "scissorsCrossoverCost": 5000000
             },
-            elevationMultipliers: TRAM_ELEVATION_MULTIPLIERS,
-            compatibleTrackTypes: ["Avenio (CPH)"],
-            appearance: { color: "#62b54e" },
-            isFixed: false,
+            "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
+            "compatibleTrackTypes": ["Avenio (CPH)"],
+            "appearance": { color: "#62b54e" },
+            "isFixed": false,
             location: {
                 "continent": "Europe",
                 "country": "Denmark",
@@ -698,7 +698,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["S70 (ATL)"],
@@ -735,7 +735,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["P3010 LRV (LA)"],
@@ -772,7 +772,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["S700-US (SD)"],
@@ -809,7 +809,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["S200-HF (CGY)"],
@@ -846,7 +846,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["S200-HF (SF)"],
@@ -883,7 +883,7 @@
                 "baseStationCost": 40000000,
                 "trainOperationalCostPerHour": 300,
                 "carOperationalCostPerHour": 30,
-                "scissorsCrossoverCost": 10000000,
+                "scissorsCrossoverCost": 10000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["GTW 2/6 (NJT)"],
@@ -920,7 +920,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["NJT Electric LRV"],
@@ -959,7 +959,7 @@
                 "baseStationCost": 65000000,
                 "trainOperationalCostPerHour": 300,
                 "carOperationalCostPerHour": 30,
-                "scissorsCrossoverCost": 10500000,
+                "scissorsCrossoverCost": 10500000
             },
             "elevationMultipliers": REGIONAL_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["M9 (LIRR)"],
@@ -974,34 +974,34 @@
             }
         },
         "IR4 (CPH)": {
-            id: "IR4 (CPH)",
-            name: "IR4 (CPH)",
-            description: "Fast long-distance train modeled after the Danish IR4.",
-            allowAtGradeRoadCrossing: false,
-            stats: {
-                maxAcceleration: 0.8,
-                maxDeceleration: 1.0,
-                maxSpeed: 50.0,
-                maxSpeedLocalStation: 15,
-                capacityPerCar: 130,
-                carLength: 26,
-                minCars: 2,
-                maxCars: 8,
-                carsPerCarSet: 2,
-                carCost: 4000000,
-                trainWidth: 3.1,
-                minStationLength: 210,
-                maxStationLength: 275,
-                baseTrackCost: 60000,
-                baseStationCost: 90000000,
-                trainOperationalCostPerHour: 700,
-                carOperationalCostPerHour: 70,
-                scissorsCrossoverCost: 20000000
+            "id": "IR4 (CPH)",
+            "name": "IR4 (CPH)",
+            "description": "Fast long-distance train modeled after the Danish IR4.",
+            "allowAtGradeRoadCrossing": false,
+            "stats": {
+                "maxAcceleration": 0.8,
+                "maxDeceleration": 1.0,
+                "maxSpeed": 50.0,
+                "maxSpeedLocalStation": 15,
+                "capacityPerCar": 130,
+                "carLength": 26,
+                "minCars": 2,
+                "maxCars": 8,
+                "carsPerCarSet": 2,
+                "carCost": 4000000,
+                "trainWidth": 3.1,
+                "minStationLength": 210,
+                "maxStationLength": 275,
+                "baseTrackCost": 60000,
+                "baseStationCost": 90000000,
+                "trainOperationalCostPerHour": 700,
+                "carOperationalCostPerHour": 70,
+                "scissorsCrossoverCost": 20000000
             },
-            elevationMultipliers: BASE_ELEVATION_MULTIPLIERS,
-            compatibleTrackTypes: ["IR4 (CPH)"],
-            appearance: { color: "#222222" },
-            isFixed: false,
+            "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
+            "compatibleTrackTypes": ["IR4 (CPH)"],
+            "appearance": { color: "#222222" },
+            "isFixed": false,
             location: {
                 "continent": "Europe",
                 "country": "Denmark",
@@ -1009,34 +1009,34 @@
             }
         },
         "LINT 41 (CPH)": {
-            id: "LINT 41 (CPH)",
-            name: "LINT 41 (CPH)",
-            description: "Regional diesel/electric unit for local services. Modelled after the LINT 41",
-            allowAtGradeRoadCrossing: true,
-            stats: {
-                maxAcceleration: 0.6,
-                maxDeceleration: 0.9,
-                maxSpeed: 33.3,
-                maxSpeedLocalStation: 12,
-                capacityPerCar: 100,
-                carLength: 20,
-                minCars: 2,
-                maxCars: 4,
-                carsPerCarSet: 2,
-                carCost: 2000000,
-                trainWidth: 2.75,
-                minStationLength: 82,
-                maxStationLength: 120,
-                baseTrackCost: 40000,
-                baseStationCost: 60000000,
-                trainOperationalCostPerHour: 300,
-                carOperationalCostPerHour: 30,
-                scissorsCrossoverCost: 10000000
+            "id": "LINT 41 (CPH)",
+            "name": "LINT 41 (CPH)",
+            "description": "Regional diesel/electric unit for local services. Modelled after the LINT 41",
+            "allowAtGradeRoadCrossing": true,
+            "stats": {
+                "maxAcceleration": 0.6,
+                "maxDeceleration": 0.9,
+                "maxSpeed": 33.3,
+                "maxSpeedLocalStation": 12,
+                "capacityPerCar": 100,
+                "carLength": 20,
+                "minCars": 2,
+                "maxCars": 4,
+                "carsPerCarSet": 2,
+                "carCost": 2000000,
+                "trainWidth": 2.75,
+                "minStationLength": 82,
+                "maxStationLength": 120,
+                "baseTrackCost": 40000,
+                "baseStationCost": 60000000,
+                "trainOperationalCostPerHour": 300,
+                "carOperationalCostPerHour": 30,
+                "scissorsCrossoverCost": 10000000
             },
-            elevationMultipliers: REGIONAL_ELEVATION_MULTIPLIERS,
-            compatibleTrackTypes: ["LINT 41 (CPH)"],
-            appearance: { color: "#ebd768" },
-            isFixed: false,
+            "elevationMultipliers": REGIONAL_ELEVATION_MULTIPLIERS,
+            "compatibleTrackTypes": ["LINT 41 (CPH)"],
+            "appearance": { color: "#ebd768" },
+            "isFixed": false,
             location: {
                 "continent": "Europe",
                 "country": "Denmark",
@@ -1066,7 +1066,7 @@
                 "baseStationCost": 60000000,
                 "trainOperationalCostPerHour": 800,
                 "carOperationalCostPerHour": 40,
-                "scissorsCrossoverCost": 10000000,
+                "scissorsCrossoverCost": 10000000
             },
             "elevationMultipliers": REGIONAL_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["DM30-C3 (LIRR)"],
@@ -1103,7 +1103,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 25,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["Litra SA (CPH)"],
@@ -1140,7 +1140,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["Desiro CJ (VIE)"],
@@ -1177,7 +1177,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["DBAG 483 (BER)"],
@@ -1214,7 +1214,7 @@
                 "baseStationCost": 75000000,
                 "trainOperationalCostPerHour": 500,
                 "carOperationalCostPerHour": 50,
-                "scissorsCrossoverCost": 15000000,
+                "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["R211A (NYC)"],
@@ -1251,7 +1251,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["S70 (ATL) (SA)"],
@@ -1288,7 +1288,7 @@
                 "baseStationCost": 20000000,
                 "trainOperationalCostPerHour": 200,
                 "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000,
+                "scissorsCrossoverCost": 5000000
             },
             "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
             "compatibleTrackTypes": ["S700-US (SD) (SA)"],
@@ -1305,7 +1305,7 @@
     };
 
 
-    // --------------------------------------------------
+	// --------------------------------------------------
     // HYBRID LOCATION + CATEGORY CATEGORIZATION
     // --------------------------------------------------
     function getTrainCategories() {
@@ -1339,7 +1339,7 @@
                 return "Light Metro Types";
             }
         }
-
+        
         // Process all trains (REAL_TRAINS + custom + datapack)
         const allTrains = { 
             ...REAL_TRAINS, 
@@ -1348,7 +1348,7 @@
         };
         
         Object.entries(allTrains).forEach(([trainId, trainDef]) => {
-            // Get location from train data (auto-generated from your REAL_TRAINS objects)
+            // Get location from train data (auto-generated from REAL_TRAINS objects)
             const location = trainDef.location || {
                 continent: "Uncategorized",
                 country: "Unknown",
@@ -1357,19 +1357,32 @@
             
             const category = getTrainCategory(trainDef);
             
-            // Build hierarchy: continent → country → city → category → trains
+            // Handle arrays for country and city
+            const countries = Array.isArray(location.country) ? location.country : [location.country || "Unknown"];
+            const cities = Array.isArray(location.city) ? location.city : [location.city || "Unknown"];
+            
+            // Only add train to the tree ONCE - under the FIRST country/city combination
+            // The filtering logic will handle showing it when other countries/cities are selected
+            const firstCountry = countries[0];
+            const firstCity = cities[0];
+            
             if (!locationTree[location.continent]) locationTree[location.continent] = {};
-            if (!locationTree[location.continent][location.country]) locationTree[location.continent][location.country] = {};
-            if (!locationTree[location.continent][location.country][location.city]) {
-                locationTree[location.continent][location.country][location.city] = {};
+            if (!locationTree[location.continent][firstCountry]) locationTree[location.continent][firstCountry] = {};
+            if (!locationTree[location.continent][firstCountry][firstCity]) {
+                locationTree[location.continent][firstCountry][firstCity] = {};
             }
-            if (!locationTree[location.continent][location.country][location.city][category]) {
-                locationTree[location.continent][location.country][location.city][category] = [];
+            if (!locationTree[location.continent][firstCountry][firstCity][category]) {
+                locationTree[location.continent][firstCountry][firstCity][category] = [];
             }
             
-            locationTree[location.continent][location.country][location.city][category].push([trainId, trainDef]);
+            // Check for duplicates in this specific location
+            const existingTrain = locationTree[location.continent][firstCountry][firstCity][category]
+                .find(([id]) => id === trainId);
+            if (!existingTrain) {
+                locationTree[location.continent][firstCountry][firstCity][category].push([trainId, trainDef]);
+            }
         });
-
+        
         return locationTree;
     }
 
@@ -1474,13 +1487,6 @@
                         }
                         
                         currentConfig.dataPackTrains[trainId] = trainData;
-                    });
-                    
-                    // Add DataPack trains to enabled list if not already
-                    Object.keys(currentConfig.dataPackTrains).forEach(trainId => {
-                        if (!currentConfig.enabledTrains.includes(trainId)) {
-                            currentConfig.enabledTrains.push(trainId);
-                        }
                     });
                     
                     saveConfig(currentConfig);
@@ -1841,7 +1847,11 @@
                     'Unknown': 'Unknown',
                     'US': 'United States',
                     'User Created': 'User Created'
-                };
+                }
+				if (countryCode.includes(',')) {
+					const codes = countryCode.split(',').map(c => c.trim());
+					return codes.map(c => countryNames[c] || c).join(', ');
+				};
                 return countryNames[countryCode] || countryCode;
             }
 
@@ -2720,14 +2730,38 @@
 				// Get country display name
 				const getCountryDisplayName = (countryCode) => {
 					const countryNames = {
-						'AT': 'Austria', 'AU': 'Australia', 'CA': 'Canada', 'CH': 'Switzerland',
-						'CN': 'China', 'CZ': 'Czechia', 'DE': 'Germany', 'DK': 'Denmark',
-						'ES': 'Spain', 'FR': 'France', 'Generic': 'Generic Types', 'HU': 'Hungary',
-						'IE': 'Ireland', 'Imported': 'Imported', 'IN': 'India', 'IT': 'Italy',
-						'MX': 'Mexico', 'NL': 'Netherlands', 'NZ': 'New Zealand', 'TR': 'Turkey',
-						'UA': 'Ukraine', 'UK': 'United Kingdom', 'Unknown': 'Unknown',
-						'US': 'United States', 'User Created': 'User Created'
+						'AT': 'Austria',
+						'AU': 'Australia',
+						'CA': 'Canada',
+						'CH': 'Switzerland',
+						'CN': 'China',
+						'CZ': 'Czechia',
+						'DE': 'Germany',
+						'DK': 'Denmark',
+						'ES': 'Spain',
+						'FR': 'France',
+						'Generic': 'Generic Types',
+						'HU': 'Hungary',
+						'IE': 'Ireland',
+						'Imported': 'Imported',
+						'IN': 'India',
+						'IT': 'Italy',
+						'MX': 'Mexico',
+						'NL': 'Netherlands',
+						'NZ': 'New Zealand',
+						'TR': 'Turkey',
+						'UA': 'Ukraine',
+						'UK': 'United Kingdom',
+						'Unknown': 'Unknown',
+						'US': 'United States',
+						'User Created': 'User Created'
 					};
+					
+					if (countryCode.includes(',')) {
+						const codes = countryCode.split(',').map(c => c.trim());
+						return codes.map(c => countryNames[c] || c).join(', ');
+					}
+					
 					return countryNames[countryCode] || countryCode;
 				};
 				
@@ -2755,76 +2789,110 @@
 						delete allTrains[key];
 					});
 					
-					// Helper function to traverse location tree
-					function traverseNode(node, currentLocation = {}) {
+					// Helper function to traverse location tree and collect ALL trains
+					function collectAllTrains(node, collected = new Map()) {
 						if (Array.isArray(node)) {
 							// This is a list of trains
 							node.forEach(([trainId, train]) => {
-								// Check if train matches selected location filter
-								const matchesContinent = !selectedLocation.continent || 
-									train.location?.continent === selectedLocation.continent;
-								const matchesCountry = !selectedLocation.country || 
-									train.location?.country === selectedLocation.country;
-								const matchesCity = !selectedLocation.city || 
-									train.location?.city === selectedLocation.city;
-								
-								if (matchesContinent && matchesCountry && matchesCity) {
-									// Add to allTrains for quick access
-									allTrains[trainId] = train;
-									
-									// Categorize the train
-									const totalCapacityAtMinCars = train.stats?.capacityPerCar * train.stats?.minCars || 0;
-									const description = (train.description || "").toLowerCase();
-									
-									let category = "Heavy Metro Types";
-									
-									if (train.isFixed) {
-										category = "Fixed Standard Trains";
-									} else if (train.allowAtGradeRoadCrossing) {
-										if (!description.includes("regional") && 
-											!description.includes("commuter") &&
-											!description.includes("long-distance") &&
-											!description.includes("s-bahn")) {
-											category = "Tram Types";
-										} else {
-											category = "Regional Types";
-										}
-									} else if (description.includes("regional") || 
-											   description.includes("commuter") ||
-											   description.includes("long-distance") ||
-											   description.includes("s-bahn")) {
-										category = "Regional Types";
-									} else if (totalCapacityAtMinCars >= 700) {
-										category = "Heavy Metro Types";
-									} else {
-										category = "Light Metro Types";
-									}
-									
-									categorizedTrains[category].push([trainId, train]);
+								// Use Map to avoid duplicates (same train ID)
+								if (!collected.has(trainId)) {
+									collected.set(trainId, train);
 								}
 							});
-							return;
+							return collected;
 						}
 						
-						// This is a location node (continent/country/city/category)
-						Object.entries(node).forEach(([key, child]) => {
-							// Update current location based on node type
-							const newLocation = { ...currentLocation };
-							if (!currentLocation.continent && continents.includes(key)) {
-								newLocation.continent = key;
-							} else if (!currentLocation.country && countries.includes(key)) {
-								newLocation.country = key;
-							} else if (!currentLocation.city && cities.includes(key)) {
-								newLocation.city = key;
-							}
-							
-							traverseNode(child, newLocation);
+						// This is a location node, recurse through all children
+						Object.values(node).forEach(child => {
+							collectAllTrains(child, collected);
 						});
+						
+						return collected;
 					}
 					
-					// Start traversal from continents
-					Object.values(locationTree).forEach(continentNode => {
-						traverseNode(continentNode);
+					// Collect all trains from the entire tree
+					const allTrainsMap = collectAllTrains(locationTree);
+					
+					// Now filter the collected trains based on selected location
+					allTrainsMap.forEach((train, trainId) => {
+						// Check if train matches selected location filter
+						const matchesContinent = !selectedLocation.continent || 
+							train.location?.continent === selectedLocation.continent;
+
+						// Check country match - handle both arrays and single values, and both codes and full names
+						let matchesCountry = !selectedLocation.country;
+						if (selectedLocation.country) {
+							const trainCountries = Array.isArray(train.location?.country) 
+								? train.location.country 
+								: [train.location?.country || "Unknown"];
+							
+							// Country mapping for matching both codes and full names
+							const countryMap = {
+								'US': 'United States',
+								'CA': 'Canada',
+								'UK': 'United Kingdom',
+								'MX': 'Mexico'
+							};
+							
+							// Check if selected country matches any train country (by code or name)
+							matchesCountry = trainCountries.some(trainCountry => {
+								// Direct match
+								if (trainCountry === selectedLocation.country) return true;
+								
+								// Check if selected is a code and train has full name
+								if (countryMap[selectedLocation.country] === trainCountry) return true;
+								
+								// Check if selected is full name and train has code
+								const selectedCode = Object.keys(countryMap).find(code => countryMap[code] === selectedLocation.country);
+								if (selectedCode === trainCountry) return true;
+								
+								return false;
+							});
+						}
+
+						// Check city match - handle both arrays and single values
+						let matchesCity = !selectedLocation.city;
+						if (selectedLocation.city) {
+							const trainCities = Array.isArray(train.location?.city)  
+								? train.location.city
+								: [train.location?.city || "Unknown"];
+							matchesCity = trainCities.includes(selectedLocation.city);
+						}
+						
+						if (matchesContinent && matchesCountry && matchesCity) {
+							// Add to allTrains for quick access
+							allTrains[trainId] = train;
+							
+							// Categorize the train
+							const totalCapacityAtMinCars = train.stats?.capacityPerCar * train.stats?.minCars || 0;
+							const description = (train.description || "").toLowerCase();
+							
+							let category = "Heavy Metro Types";
+							
+							if (train.isFixed) {
+								category = "Fixed Standard Trains";
+							} else if (train.allowAtGradeRoadCrossing) {
+								if (!description.includes("regional") && 
+									!description.includes("commuter") &&
+									!description.includes("long-distance") &&
+									!description.includes("s-bahn")) {
+									category = "Tram Types";
+								} else {
+									category = "Regional Types";
+								}
+							} else if (description.includes("regional") || 
+									   description.includes("commuter") ||
+									   description.includes("long-distance") ||
+									   description.includes("s-bahn")) {
+								category = "Regional Types";
+							} else if (totalCapacityAtMinCars >= 700) {
+								category = "Heavy Metro Types";
+							} else {
+								category = "Light Metro Types";
+							}
+							
+							categorizedTrains[category].push([trainId, train]);
+						}
 					});
 				}
 				
@@ -4962,162 +5030,161 @@
 								className: 'text-sm text-muted-foreground'
 							}, 'Customize and manage your train types by mhmoeller')
 						]),
-
+						
 						// Quick stats
-						React.createElement(Card, { key: 'stats', className: 'p-4' }, [
-							React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
-								React.createElement('div', { className: 'space-y-1' }, [
-									React.createElement('div', { className: 'text-2xl font-bold' }, 
-										enabledTrainsCount
-									),
-									React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Enabled Trains')
-								]),
-								React.createElement('div', { className: 'space-y-1' }, [
-									React.createElement('div', { className: 'text-2xl font-bold' }, 
-										totalTrains
-									),
-									React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Total Train Types')
-								])
-							]),
-							React.createElement('div', { className: 'mt-4 text-xs text-muted-foreground grid grid-cols-2 gap-2' }, [
+                        React.createElement(Card, { key: 'stats', className: 'p-4' }, [
+                            React.createElement('div', { className: 'grid grid-cols-2 gap-4' }, [
+                                React.createElement('div', { className: 'space-y-1' }, [
+                                    React.createElement('div', { className: 'text-2xl font-bold' }, 
+                                        Object.keys(currentConfig.enabledTrains || []).length
+                                    ),
+                                    React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Enabled Trains')
+                                ]),
+                                React.createElement('div', { className: 'space-y-1' }, [
+                                    React.createElement('div', { className: 'text-2xl font-bold' }, 
+                                        totalTrains
+                                    ),
+                                    React.createElement('div', { className: 'text-xs text-muted-foreground' }, 'Total Train Types')
+                                ])
+                            ]),
+                            React.createElement('div', { className: 'mt-4 text-xs text-muted-foreground grid grid-cols-2 gap-2' }, [
 								React.createElement('div', {}, `Heavy Metro: ${heavyMetroCount}`),
 								React.createElement('div', {}, `Light Metro: ${lightMetroCount}`),
 								React.createElement('div', {}, `Tram Types: ${tramCount}`),
 								React.createElement('div', {}, `Regional: ${regionalCount}`)
 							])
-						])
-					]),
+                        ])
+                    ]),
 
-					// ... rest of the MainMenuView component remains the same ...
-					React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
-						React.createElement('div', { key: 'options', className: 'space-y-2' }, [
-							React.createElement('h2', {
-								className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
-							}, 'Management Options'),
+                    React.createElement('div', { key: 'right', className: 'flex flex-col gap-6' }, [
+                        React.createElement('div', { key: 'options', className: 'space-y-2' }, [
+                            React.createElement('h2', {
+                                className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
+                            }, 'Management Options'),
 
-							React.createElement('button', {
-								onClick: openEnableDisable,
-								className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
-							}, [
-								React.createElement('div', { className: 'flex items-center gap-2' }, [
-									React.createElement('svg', {
-										xmlns: "http://www.w3.org/2000/svg",
-										width: "24",
-										height: "24",
-										viewBox: "0 0 24 24",
-										fill: "none",
-										stroke: "currentColor",
-										strokeWidth: "2",
-										strokeLinecap: "round",
-										strokeLinejoin: "round",
-										className: "lucide lucide-toggle-right h-4 w-4"
-									}, [
-										React.createElement('rect', { width: "20", height: "12", x: "2", y: "6", rx: "6", ry: "6" }),
-										React.createElement('circle', { cx: "16", cy: "12", r: "2" })
-									]),
-									React.createElement('span', {}, 'Enable / Disable Trains')
-								]),
-								React.createElement('svg', {
-									xmlns: "http://www.w3.org/2000/svg",
-									width: "24",
-									height: "24",
-									viewBox: "0 0 24 24",
-									fill: "none",
-									stroke: "currentColor",
-									strokeWidth: "2",
-									strokeLinecap: "round",
-									strokeLinejoin: "round",
-									className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
-								}, React.createElement('path', { d: "m9 18 6-6-6-6" }))
-							]),
+                            React.createElement('button', {
+                                onClick: openEnableDisable,
+                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+                            }, [
+                                React.createElement('div', { className: 'flex items-center gap-2' }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-toggle-right h-4 w-4"
+                                    }, [
+                                        React.createElement('rect', { width: "20", height: "12", x: "2", y: "6", rx: "6", ry: "6" }),
+                                        React.createElement('circle', { cx: "16", cy: "12", r: "2" })
+                                    ]),
+                                    React.createElement('span', {}, 'Enable / Disable Trains')
+                                ]),
+                                React.createElement('svg', {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "24",
+                                    height: "24",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    strokeWidth: "2",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+                            ]),
 
-							React.createElement('button', {
-								onClick: openEditTrain,
-								className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
-							}, [
-								React.createElement('div', { className: 'flex items-center gap-2' }, [
-									React.createElement('svg', {
-										xmlns: "http://www.w3.org/2000/svg",
-										width: "24",
-										height: "24",
-										viewBox: "0 0 24 24",
-										fill: "none",
-										stroke: "currentColor",
-										strokeWidth: "2",
-										strokeLinecap: "round",
-										strokeLinejoin: "round",
-										className: "lucide lucide-settings h-4 w-4"
-									}, [
-										React.createElement('path', { d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" }),
-										React.createElement('circle', { cx: "12", cy: "12", r: "3" })
-									]),
-									React.createElement('span', {}, 'Edit Train Statistics')
-								]),
-								React.createElement('svg', {
-									xmlns: "http://www.w3.org/2000/svg",
-									width: "24",
-									height: "24",
-									viewBox: "0 0 24 24",
-									fill: "none",
-									stroke: "currentColor",
-									strokeWidth: "2",
-									strokeLinecap: "round",
-									strokeLinejoin: "round",
-									className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
-								}, React.createElement('path', { d: "m9 18 6-6-6-6" }))
-							]),
+                            React.createElement('button', {
+                                onClick: openEditTrain,
+                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+                            }, [
+                                React.createElement('div', { className: 'flex items-center gap-2' }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-settings h-4 w-4"
+                                    }, [
+                                        React.createElement('path', { d: "M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z" }),
+                                        React.createElement('circle', { cx: "12", cy: "12", r: "3" })
+                                    ]),
+                                    React.createElement('span', {}, 'Edit Train Statistics')
+                                ]),
+                                React.createElement('svg', {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "24",
+                                    height: "24",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    strokeWidth: "2",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+                            ]),
 
-							React.createElement('button', {
-								onClick: openCreateTrain,
-								className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
-							}, [
-								React.createElement('div', { className: 'flex items-center gap-2' }, [
-									React.createElement('svg', {
-										xmlns: "http://www.w3.org/2000/svg",
-										width: "24",
-										height: "24",
-										viewBox: "0 0 24 24",
-										fill: "none",
-										stroke: "currentColor",
-										strokeWidth: "2",
-										strokeLinecap: "round",
-										strokeLinejoin: "round",
-										className: "lucide lucide-plus-circle h-4 w-4"
-									}, [
-										React.createElement('circle', { cx: "12", cy: "12", r: "10" }),
-										React.createElement('path', { d: "M8 12h8" }),
-										React.createElement('path', { d: "M12 8v8" })
-									]),
-									React.createElement('span', {}, 'Create Custom Train')
-								]),
-								React.createElement('svg', {
-									xmlns: "http://www.w3.org/2000/svg",
-									width: "24",
-									height: "24",
-									viewBox: "0 0 24 24",
-									fill: "none",
-									stroke: "currentColor",
-									strokeWidth: "2",
-									strokeLinecap: "round",
-									strokeLinejoin: "round",
-									className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
-								}, React.createElement('path', { d: "m9 18 6-6-6-6" }))
-							])
-						]),
+                            React.createElement('button', {
+                                onClick: openCreateTrain,
+                                className: 'inline-flex items-center whitespace-nowrap text-sm font-medium transition-colors focus-visible:outline-none disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-full rounded-sm justify-between gap-2'
+                            }, [
+                                React.createElement('div', { className: 'flex items-center gap-2' }, [
+                                    React.createElement('svg', {
+                                        xmlns: "http://www.w3.org/2000/svg",
+                                        width: "24",
+                                        height: "24",
+                                        viewBox: "0 0 24 24",
+                                        fill: "none",
+                                        stroke: "currentColor",
+                                        strokeWidth: "2",
+                                        strokeLinecap: "round",
+                                        strokeLinejoin: "round",
+                                        className: "lucide lucide-plus-circle h-4 w-4"
+                                    }, [
+                                        React.createElement('circle', { cx: "12", cy: "12", r: "10" }),
+                                        React.createElement('path', { d: "M8 12h8" }),
+                                        React.createElement('path', { d: "M12 8v8" })
+                                    ]),
+                                    React.createElement('span', {}, 'Create Custom Train')
+                                ]),
+                                React.createElement('svg', {
+                                    xmlns: "http://www.w3.org/2000/svg",
+                                    width: "24",
+                                    height: "24",
+                                    viewBox: "0 0 24 24",
+                                    fill: "none",
+                                    stroke: "currentColor",
+                                    strokeWidth: "2",
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    className: "lucide lucide-chevron-right h-4 w-4 text-muted-foreground"
+                                }, React.createElement('path', { d: "m9 18 6-6-6-6" }))
+                            ])
+                        ]),
 
-						// Actions
-						React.createElement('div', {
-							key: 'actions',
-							className: 'space-y-2 mt-auto'
-						}, [
-							React.createElement(Button, {
-								onClick: registerTrainsToGame,
-								className: 'w-full'
-							}, 'Apply All Train Changes')
-						])
-					])
-				]);
-			}
+                        // Actions
+                        React.createElement('div', {
+                            key: 'actions',
+                            className: 'space-y-2 mt-auto'
+                        }, [
+                            React.createElement(Button, {
+                                onClick: registerTrainsToGame,
+                                className: 'w-full'
+                            }, 'Apply All Train Changes')
+                        ])
+                    ])
+                ]);
+            }
 
             // Render appropriate view
             let content;
