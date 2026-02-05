@@ -123,6 +123,7 @@
             "name": "heavy-metro",
             "description": "For higher capacity routes. The R211 is a subway EMU built by Kawasaki for the NYC Subway's B Division that entered service in 2023.",
             "allowAtGradeRoadCrossing": false,
+            "manufacturer": "Kawasaki",
             "stats": {
                 "maxSpeed": 24.7,
                 "maxSpeedLocalStation": 13,
@@ -160,6 +161,7 @@
             "name": "R188 (NYC)",
             "description": "For higher capacity routes. The R188 is a subway EMU built by Kawasaki for the NYC Subway's A Division that entered service in 2013.",
             "allowAtGradeRoadCrossing": false,
+            "manufacturer": "Kawasaki",
             "stats": {
                 "maxSpeed": 24.7,
                 "maxSpeedLocalStation": 13,
@@ -197,6 +199,7 @@
             "name": "Tube 2024 (LDN)",
             "description": "For higher capacity routes. The 2024 Tube Stock is a subway EMU built by Siemens Mobility as part of their Inspiro family. It will enter service around mid-2026 on the Picadilly Line.",
             "allowAtGradeRoadCrossing": false,
+            "manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 27.5,
                 "maxSpeedLocalStation": 13,
@@ -234,6 +237,7 @@
             "name": "R179 (NYC)",
             "description": "For separating the NYC subway into A and B Division Routes. The R179 is a subway EMU built by Bombardier (now Alstom) for the NYC Subway's B Division that entered service in 2019.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Bombardier",
             "stats": {
                 "maxSpeed": 24.7,
                 "maxSpeedLocalStation": 13,
@@ -271,6 +275,7 @@
             "name": "FE-10 (MXC)",
             "description": "For higher capacity routes. The FE-10 is a steel-wheeled model of electrical multiple units used on the Mexico City Metro, first used in 2012.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "CAF",
             "stats": {
                 "maxSpeed": 25.0,
                 "maxSpeedLocalStation": 13,
@@ -308,6 +313,7 @@
             "name": "NM-16 (MXC)",
             "description": "These are heavy metro systems which use rubber wheels instead of steel. Operational costs are higher, but so is acceleration. The NM-16 is a rubber-tyred model of electrical multiple units used on the Mexico City Metro",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "CAF",
             "stats": {
                 "maxSpeed": 19.4,
                 "maxSpeedLocalStation": 13,
@@ -345,6 +351,7 @@
             "name": "Toronto Rocket",
             "description": "For higher capacity routes. The Toronto Rocket is an EMU built by Bombardier for the Toronto Subway that entered service in 2021.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Bombardier",
             "stats": {
                 "maxSpeed": 20.8,
                 "maxSpeedLocalStation": 13,
@@ -382,6 +389,7 @@
             "name": "Azur (MTL)",
             "description": "These are heavy metro systems which use rubber wheels instead of steel. Operational costs are higher, but so is acceleration. The MPM-10 (Azur) is a rubber-tire vehicle built by Bombardier and Alstom for the Montreal Metro that entered service in 2016.",
             "allowAtGradeRoadCrossing": false,
+            "manufacturer": ["Bombardier","Alstom"],
             "stats": {
                 "maxSpeed": 20.1,
                 "maxSpeedLocalStation": 13,
@@ -419,6 +427,7 @@
             "name": "7000 Series (WSH)",
             "description": "For higher capacity routes. The 7000-series is a subway EMU built by Kawasaki for Washington DC's Subway that entered service in 2015.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Kawasaki",
             "stats": {
                 "maxSpeed": 33.6,
                 "maxSpeedLocalStation": 13,
@@ -458,6 +467,7 @@
             "name": "light-metro",
             "description": "Lighter, more flexible transit for moderate capacity routes. The Alstom Metropolis is a series of metro EMUs in service across the world since 1993. The Saint-Laurent is an autonomous light metro variant built for the Réseau express métropolitain in Montreal that entered service in 2023.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Alstom",
             "stats": {
                 "maxSpeed": 27.8,
                 "maxSpeedLocalStation": 13,
@@ -495,6 +505,7 @@
             "name": "AnsaldoBreda (CPH)",
             "description": "Lighter, more flexible transit for moderate capacity routes. The Hitachi Rail Italy Driverless Metro (formerly AnsaldoBreda) is a fully autonomous EMU family used across the globe. This specific model is based on those used by Copenhagen's Metro since 2002.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Hitachi",
             "stats": {
                 "maxSpeed": 25.0,
                 "maxSpeedLocalStation": 13,
@@ -532,6 +543,7 @@
             "name": "Innovia Metro (VAN)",
             "description": "Lighter, more flexible transit for moderate capacity routes. The Innovia Metro is an automated rapid transit system family built by Alstom that have been in service across North America since 1985. This specific model is based on the Mark V used in Vancouver since 2025. Acceleration and decceleration are guesstimates.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Alstom",
             "stats": {
                 "maxSpeed": 22.2,
                 "maxSpeedLocalStation": 13,
@@ -569,6 +581,7 @@
             "name": "VAL 208 (FRA)",
             "description": "These are light metro systems which use rubber wheels instead of steel. Operational costs are higher, but so is acceleration. The VAL 208 is an autonomous, rubber-tire EMU made by Siemens primarily used in France (Lille, Renne, Toulouse) and has been in service since 2001.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 22.2,
                 "maxSpeedLocalStation": 13,
@@ -608,6 +621,7 @@
             "name": "S700 (MSP)",
             "description": "Light rail is a form of urban transit that uses rolling stock derived from tram technology while also having some features from heavy rapid transit. The S700 series are articulated low-floor light-rail vehicles built by Siemens Mobility that have been in service across North America since 2004. This specific model is based on those recieved in 2020 by Metro Transit in Minnesota.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 24.4,
                 "maxSpeedLocalStation": 6.7,
@@ -645,6 +659,7 @@
             "name": "Avenio (CPH)",
             "description": "City tram service modeled after Siemens Avenio.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxAcceleration": 1.2,
                 "maxDeceleration": 1.2,
@@ -680,6 +695,7 @@
             "name": "S70 (ATL)",
             "description": "City tram service. The S700 Streetcar is an articulated low-floor streetcar built by Siemens Mobility that have been in service across North America since 2004. This specific model is based on the streetcar model ordered by OC Streetcar.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 20.0,
                 "maxSpeedLocalStation": 6.7,
@@ -717,6 +733,7 @@
             "name": "P3010 LRV (LA)",
             "description": "Light rail is a form of urban transit that uses rolling stock derived from tram technology while also having some features from heavy rapid transit. The P3010 is an articulated low-floor light-rail vehicle built by Kinki Sharyo that has been in service in LA since 2016.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Kinki-Sharyo",
             "stats": {
                 "maxSpeed": 28.9,
                 "maxSpeedLocalStation": 6.7,
@@ -754,6 +771,7 @@
             "name": "S700-US (SD)",
             "description": "City tram service. The S700 series are articulated low-floor light-rail vehicles built by Siemens Mobility that have been in service across North America since 2004. This specific model is based on the ultra-short model used in San Diego since 2024.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 24.6,
                 "maxSpeedLocalStation": 6.7,
@@ -791,6 +809,7 @@
             "name": "S200-HF (CGY)",
             "description": "Light rail is a form of urban transit that uses rolling stock derived from tram technology while also having some features from heavy rapid transit. The S200 series are articulated high-floor light-rail vehicles built by Siemens Mobility that have been in service across North America since 2016. This specific model is based on the model used in Calgary since 2019.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 22.4,
                 "maxSpeedLocalStation": 6.7,
@@ -828,6 +847,7 @@
             "name": "S200-HF (SF)",
             "description": "Light rail is a form of urban transit that uses rolling stock derived from tram technology while also having some features from heavy rapid transit. The S200 series are articulated high-floor light-rail vehicles built by Siemens Mobility that have been in service across North America since 2016. This specific model is based on the model used in San Francisco since 2017.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 22.4,
                 "maxSpeedLocalStation": 6.7,
@@ -865,6 +885,7 @@
             "name": "GTW 2/6 (NJT)",
             "description": "The diesel light metro is a rare form of transit that is generally used when existing rail can be used but there is no electrification, and heavy rail is not justified. This is a variant of the Stadler GTW 2/6 which is one of the rare and bizarre light rail DMUs and is exclusively in service on NJT's River Line. Details are scarce so the acceleration and braking are guesstimates.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Stadler",
             "stats": {
                 "maxSpeed": 30.6,
                 "maxSpeedLocalStation": 10,
@@ -902,6 +923,7 @@
             "name": "NJT Electric LRV",
             "description": "Light rail is a form of urban transit that uses rolling stock derived from tram technology while also having some features from heavy rapid transit. This is an unnamed articulated low-floor light-rail vehicle built by Kinki-Sharyo for New Jersey Transit, specifically Hudson-Bergen Light Rail and Newark Light Rail. It has been in service since 2000.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Kinki-Sharyo",
             "stats": {
                 "maxSpeed": 24.4,
                 "maxSpeedLocalStation": 6.7,
@@ -941,6 +963,7 @@
             "name": "M9 (LIRR)",
             "description": "Regional rail is a public rail transport service that operates between towns and cities. In North America, regional rail is often a synonym for commuter rail. The M9 is a commuter rail EMU built by Kawasaki for the Long Island Railroad that entered service in 2009.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Kawasaki",
             "stats": {
                 "maxSpeed": 40.0,
                 "maxSpeedLocalStation": 12,
@@ -976,8 +999,9 @@
         "IR4 (CPH)": {
             "id": "IR4 (CPH)",
             "name": "IR4 (CPH)",
-            "description": "Fast long-distance train modeled after the Danish IR4.",
+            "description": "Fast long-distance fully electric train modeled after the Danish IR4. Also known as Litra ER. Built by ABB Scandia in the city of Randers in the years from 1993-1997",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "ABB Scandia",
             "stats": {
                 "maxAcceleration": 0.8,
                 "maxDeceleration": 1.0,
@@ -1008,11 +1032,12 @@
                 "city": "Copenhagen"
             }
         },
-        "LINT 41 (CPH)": {
-            "id": "LINT 41 (CPH)",
-            "name": "LINT 41 (CPH)",
+        "LINT 41": {
+            "id": "LINT 41",
+            "name": "LINT 41",
             "description": "Regional diesel/electric unit for local services. Modelled after the LINT 41",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Alstom",
             "stats": {
                 "maxAcceleration": 0.6,
                 "maxDeceleration": 0.9,
@@ -1034,13 +1059,13 @@
                 "scissorsCrossoverCost": 10000000
             },
             "elevationMultipliers": REGIONAL_ELEVATION_MULTIPLIERS,
-            "compatibleTrackTypes": ["LINT 41 (CPH)"],
+            "compatibleTrackTypes": ["LINT 41"],
             "appearance": { color: "#ebd768" },
             "isFixed": false,
             location: {
-                "continent": "Europe",
-                "country": "Denmark",
-                "city": "Copenhagen"
+                "continent": ["Europe","North America"],
+                "country": ["Denmark","Germany","Canada"],
+                "city": ["Copenhagen","Mainz","Frankfurt am Main","Ottawa"]
             }
         },
         "DM30-C3 (LIRR)": {
@@ -1048,6 +1073,7 @@
             "name": "DM30-C3 (LIRR)",
             "description": "Regional rail is a public rail transport service that operates between towns and cities. In North America, regional rail is often a synonym for commuter rail. The DM30AC-C3 is a commuter rail Diesel train that entered service in 1993, with coach cars manufacured by Kawasaki powered by an EMD manufactured Diesel locomotive.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Kawasaki",
             "stats": {
                 "maxSpeed": 42.0,
                 "maxSpeedLocalStation": 12,
@@ -1085,6 +1111,7 @@
             "name": "Litra SA (CPH)",
             "description": "An S-Bahn is a type of hybrid commuter rail and rapid transit service that links suburbs with the city centre at moderate speeds, while continuing across the urban core over a central high-frequency corridor where multiple lines converge, where they provide a rapid means of travel across the city. The Litra SA is an EMU produced by Alstom and Siemens for the Copenhagen S-Tog system which entered service in 1996.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": ["Siemens","Alstom"],
             "stats": {
                 "maxSpeed": 33.3,
                 "maxSpeedLocalStation": 13,
@@ -1122,6 +1149,7 @@
             "name": "Desiro CJ (VIE)",
             "description": "An S-Bahn is a type of hybrid commuter rail and rapid transit service that links suburbs with the city centre at moderate speeds, while continuing across the urban core over a central high-frequency corridor where multiple lines converge, where they provide a rapid means of travel across the city. The Siemens Desiro is a family of DMUs and EMUs in service across the world made by Siemens and formerly Ural Locomotives. This specific model is based on Mainline model 'Urban' Varient in service since 2012 on Vienna's S-Bahn.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 44.4,
                 "maxSpeedLocalStation": 13,
@@ -1159,6 +1187,7 @@
             "name": "DBAG 483 (BER)",
             "description": "An S-Bahn is a type of hybrid commuter rail and rapid transit service that links suburbs with the city centre at moderate speeds, while continuing across the urban core over a central high-frequency corridor where multiple lines converge, where they provide a rapid means of travel across the city. The DB Class 483 is an EMU built by Stadler and Siemens for the Berlin S-Bahn that entered service in 2021.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": ["Siemens","Stadler"],
             "stats": {
                 "maxSpeed": 27.8,
                 "maxSpeedLocalStation": 13,
@@ -1196,6 +1225,7 @@
             "name": "R211A (NYC)",
             "description": "For separating the NYC subway into A and B Division Routes. The R211 is a subway EMU built by Kawasaki for the NYC Subway's B Division that entered service in 2023.",
             "allowAtGradeRoadCrossing": false,
+			"manufacturer": "Kawasaki",
             "stats": {
                 "maxSpeed": 24.7,
                 "maxSpeedLocalStation": 13,
@@ -1233,6 +1263,7 @@
             "name": "S70 (ATL) (SA)",
             "description": "City tram and LRT service, adjusted for street running speeds. The S700 Streetcar is an articulated low-floor streetcar built by Siemens Mobility that have been in service across North America since 2004. This specific model is based on the streetcar model ordered by OC Streetcar.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 10.0,
                 "maxSpeedLocalStation": 6.7,
@@ -1270,6 +1301,7 @@
             "name": "S700-US (SD) (SA)",
             "description": "City tram and LRT service, adjusted for street running speeds. The S700 series are articulated low-floor light-rail vehicles built by Siemens Mobility that have been in service across North America since 2004. This specific model is based on the ultra-short model used in San Diego since 2024.",
             "allowAtGradeRoadCrossing": true,
+			"manufacturer": "Siemens",
             "stats": {
                 "maxSpeed": 10.0,
                 "maxSpeedLocalStation": 6.7,
@@ -1357,29 +1389,50 @@
             
             const category = getTrainCategory(trainDef);
             
-            // Handle arrays for country and city
+            // NEW LOCATION STRUCTURE:
+            // continent can be array or string
+            // country and city should be paired: country[0] goes with city[0], country[1] with city[1], etc.
+            // This prevents issues like Frankfurt appearing under Denmark
+            
+            const continents = Array.isArray(location.continent) ? location.continent : [location.continent || "Uncategorized"];
             const countries = Array.isArray(location.country) ? location.country : [location.country || "Unknown"];
             const cities = Array.isArray(location.city) ? location.city : [location.city || "Unknown"];
             
-            // Only add train to the tree ONCE - under the FIRST country/city combination
-            // The filtering logic will handle showing it when other countries/cities are selected
-            const firstCountry = countries[0];
-            const firstCity = cities[0];
+            // Use the first continent for the tree location (train appears once)
+            const firstContinent = continents[0];
             
-            if (!locationTree[location.continent]) locationTree[location.continent] = {};
-            if (!locationTree[location.continent][firstCountry]) locationTree[location.continent][firstCountry] = {};
-            if (!locationTree[location.continent][firstCountry][firstCity]) {
-                locationTree[location.continent][firstCountry][firstCity] = {};
+            // Ensure countries and cities have same length by pairing them correctly
+            // If cities array is shorter, repeat the last city
+            // If cities array is longer, use only as many as there are countries
+            const maxLocations = countries.length;
+            const pairedLocations = [];
+            
+            for (let i = 0; i < maxLocations; i++) {
+                pairedLocations.push({
+                    country: countries[i],
+                    city: cities[Math.min(i, cities.length - 1)] // Use corresponding city, or last city if array is shorter
+                });
             }
-            if (!locationTree[location.continent][firstCountry][firstCity][category]) {
-                locationTree[location.continent][firstCountry][firstCity][category] = [];
+            
+            // Only add train to tree once - under first continent and first country/city pair
+            const firstLocation = pairedLocations[0];
+            const firstCountry = firstLocation.country;
+            const firstCity = firstLocation.city;
+            
+            if (!locationTree[firstContinent]) locationTree[firstContinent] = {};
+            if (!locationTree[firstContinent][firstCountry]) locationTree[firstContinent][firstCountry] = {};
+            if (!locationTree[firstContinent][firstCountry][firstCity]) {
+                locationTree[firstContinent][firstCountry][firstCity] = {};
+            }
+            if (!locationTree[firstContinent][firstCountry][firstCity][category]) {
+                locationTree[firstContinent][firstCountry][firstCity][category] = [];
             }
             
             // Check for duplicates in this specific location
-            const existingTrain = locationTree[location.continent][firstCountry][firstCity][category]
+            const existingTrain = locationTree[firstContinent][firstCountry][firstCity][category]
                 .find(([id]) => id === trainId);
             if (!existingTrain) {
-                locationTree[location.continent][firstCountry][firstCity][category].push([trainId, trainDef]);
+                locationTree[firstContinent][firstCountry][firstCity][category].push([trainId, trainDef]);
             }
         });
         
@@ -2708,7 +2761,8 @@
 				const [selectedLocation, setSelectedLocation] = React.useState({
 					continent: null,
 					country: null,
-					city: null
+					city: null,
+					manufacturer: null
 				});
 				
 				const [hoveredTrain, setHoveredTrain] = React.useState(null);
@@ -2726,6 +2780,22 @@
 					Object.keys(locationTree[selectedLocation.continent] || {}) : [];
 				const cities = selectedLocation.continent && selectedLocation.country ? 
 					Object.keys(locationTree[selectedLocation.continent]?.[selectedLocation.country] || {}) : [];
+				
+				// Build list of all manufacturers from all trains
+				const manufacturers = React.useMemo(() => {
+					const manufacturerSet = new Set();
+					const allTrainsData = { 
+						...REAL_TRAINS, 
+						...(currentConfig.customTrains || {}), 
+						...(currentConfig.dataPackTrains || {}) 
+					};
+					Object.values(allTrainsData).forEach(train => {
+						if (train.manufacturer) {
+							manufacturerSet.add(train.manufacturer);
+						}
+					});
+					return Array.from(manufacturerSet).sort();
+				}, [currentConfig]);
 				
 				// Get country display name
 				const getCountryDisplayName = (countryCode) => {
@@ -2815,9 +2885,14 @@
 					
 					// Now filter the collected trains based on selected location
 					allTrainsMap.forEach((train, trainId) => {
-						// Check if train matches selected location filter
-						const matchesContinent = !selectedLocation.continent || 
-							train.location?.continent === selectedLocation.continent;
+						// Check continent match - handle both arrays and single values
+						let matchesContinent = !selectedLocation.continent;
+						if (selectedLocation.continent) {
+							const trainContinents = Array.isArray(train.location?.continent)
+								? train.location.continent
+								: [train.location?.continent || "Uncategorized"];
+							matchesContinent = trainContinents.includes(selectedLocation.continent);
+						}
 
 						// Check country match - handle both arrays and single values, and both codes and full names
 						let matchesCountry = !selectedLocation.country;
@@ -2859,7 +2934,16 @@
 							matchesCity = trainCities.includes(selectedLocation.city);
 						}
 						
-						if (matchesContinent && matchesCountry && matchesCity) {
+						// Check manufacturer match - handle both arrays and single values
+						let matchesManufacturer = !selectedLocation.manufacturer;
+						if (selectedLocation.manufacturer) {
+							const trainManufacturers = Array.isArray(train.manufacturer)
+								? train.manufacturer
+								: [train.manufacturer];
+							matchesManufacturer = trainManufacturers.includes(selectedLocation.manufacturer);
+						}
+						
+						if (matchesContinent && matchesCountry && matchesCity && matchesManufacturer) {
 							// Add to allTrains for quick access
 							allTrains[trainId] = train;
 							
@@ -3042,11 +3126,12 @@
 				
 				// Handle location selection
 				const handleContinentChange = (continent) => {
-					setSelectedLocation({
+					setSelectedLocation(prev => ({
 						continent: continent || null,
 						country: null,
-						city: null
-					});
+						city: null,
+						manufacturer: prev.manufacturer // Preserve manufacturer filter
+					}));
 				};
 				
 				const handleCountryChange = (country) => {
@@ -3068,7 +3153,8 @@
 					setSelectedLocation({
 						continent: null,
 						country: null,
-						city: null
+						city: null,
+						manufacturer: null
 					});
 				};
 				
@@ -3365,7 +3451,7 @@
 								className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
 							}, 'Filter by Location'),
 							
-							(selectedLocation.continent || selectedLocation.country || selectedLocation.city) && 
+							(selectedLocation.continent || selectedLocation.country || selectedLocation.city || selectedLocation.manufacturer) && 
 							React.createElement('button', {
 								onClick: clearLocationFilter,
 								className: 'text-xs text-muted-foreground hover:text-foreground'
@@ -3373,7 +3459,7 @@
 						]),
 						
 						React.createElement('div', {
-							className: 'grid grid-cols-1 md:grid-cols-3 gap-3'
+							className: 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3'
 						}, [
 							// Continent Selector
 							React.createElement('div', { key: 'continent' }, [
@@ -3426,11 +3512,28 @@
 										React.createElement('option', { key: city, value: city }, city)
 									)
 								])
+							]),
+							
+							// Manufacturer Selector
+							React.createElement('div', { key: 'manufacturer' }, [
+								React.createElement('label', {
+									className: 'block text-xs font-medium mb-1 text-muted-foreground'
+								}, 'Manufacturer'),
+								React.createElement('select', {
+									value: selectedLocation.manufacturer || '',
+									onChange: (e) => setSelectedLocation({ ...selectedLocation, manufacturer: e.target.value || null }),
+									className: 'w-full p-2 border border-input bg-background rounded text-sm'
+								}, [
+									React.createElement('option', { key: 'all', value: '' }, 'All Manufacturers'),
+									...manufacturers.map(manufacturer => 
+										React.createElement('option', { key: manufacturer, value: manufacturer }, manufacturer)
+									)
+								])
 							])
 						]),
 						
 						// Active filter display
-						(selectedLocation.continent || selectedLocation.country || selectedLocation.city) && 
+						(selectedLocation.continent || selectedLocation.country || selectedLocation.city || selectedLocation.manufacturer) && 
 						React.createElement('div', {
 							className: 'text-xs text-muted-foreground p-2 bg-primary/5 rounded border border-primary/10'
 						}, [
@@ -3438,7 +3541,8 @@
 							[
 								selectedLocation.continent,
 								selectedLocation.country && getCountryDisplayName(selectedLocation.country),
-								selectedLocation.city
+								selectedLocation.city,
+								selectedLocation.manufacturer && `(${selectedLocation.manufacturer})`
 							].filter(Boolean).join(' → ')
 						])
 					]),
