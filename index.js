@@ -1346,7 +1346,7 @@
         
         // Helper to get category for a train
         function getTrainCategory(trainDef) {
-            const totalCapacityAtMinCars = trainDef.stats?.capacityPerCar * trainDef.stats?.minCars || 0;
+            const totalCapacityAtMaxCars = trainDef.stats?.capacityPerCar * trainDef.stats?.maxCars || 0;
             const description = (trainDef.description || "").toLowerCase();
             
             if (trainDef.isFixed) {
@@ -1365,7 +1365,7 @@
                        description.includes("long-distance") ||
                        description.includes("s-bahn")) {
                 return "Regional Types";
-            } else if (totalCapacityAtMinCars >= 700) {
+            } else if (totalCapacityAtMaxCars >= 700) {
                 return "Heavy Metro Types";
             } else {
                 return "Light Metro Types";
@@ -1482,71 +1482,136 @@
         return defaultConfig;
     }
 
-    // Load data from DataPack mod if available
-    function loadDataFromDataPack() {
+    // Load data from ALL DataPack mods (supports multiple datapacks)
+    function loadDataFromDataPacks() {
         try {
-            const dataPackData = localStorage.getItem(DATAPACK_STORAGE_KEY);
-            if (dataPackData) {
-                debugLogMessage("log", "Found DataPack data");
-                const parsed = JSON.parse(dataPackData);
-                
-                // Merge DataPack trains into our config
-                if (parsed.trains && currentConfig) {
-                    if (!currentConfig.dataPackTrains) {
-                        currentConfig.dataPackTrains = {};
-                    }
-                    
-                    Object.entries(parsed.trains).forEach(([trainId, trainData]) => {
-                        // Ensure location data exists for DataPack trains
-                        if (!trainData.location) {
-                            // Try to extract location from ID or description
-                            if (trainId.includes('(NYC)') || trainId.includes('NYC')) {
-                                trainData.location = { continent: "North America", country: "US", city: "New York City" };
-                            } else if (trainId.includes('(LDN)') || trainId.includes('LDN')) {
-                                trainData.location = { continent: "Europe", country: "UK", city: "London" };
-                            } else if (trainId.includes('(CPH)')) {
-                                trainData.location = { continent: "Europe", country: "Denmark", city: "Copenhagen" };
-                            } else if (trainId.includes('(MXC)')) {
-                                trainData.location = { continent: "North America", country: "Mexico", city: "Mexico City" };
-                            } else if (trainId.includes('(TOR)')) {
-                                trainData.location = { continent: "North America", country: "Canada", city: "Toronto" };
-                            } else if (trainId.includes('(MTL)')) {
-                                trainData.location = { continent: "North America", country: "Canada", city: "Montreal" };
-                            } else if (trainId.includes('(WSH)')) {
-                                trainData.location = { continent: "North America", country: "US", city: "Washington DC" };
-                            } else if (trainId.includes('(LA)')) {
-                                trainData.location = { continent: "North America", country: "US", city: "Los Angeles" };
-                            } else if (trainId.includes('(SD)')) {
-                                trainData.location = { continent: "North America", country: "US", city: "San Diego" };
-                            } else if (trainId.includes('(MSP)')) {
-                                trainData.location = { continent: "North America", country: "US", city: "Minneapolis" };
-                            } else if (trainId.includes('(ATL)')) {
-                                trainData.location = { continent: "North America", country: "US", city: "Atlanta" };
-                            } else if (trainId.includes('(SF)')) {
-                                trainData.location = { continent: "North America", country: "US", city: "San Francisco" };
-                            } else if (trainId.includes('(CGY)')) {
-                                trainData.location = { continent: "North America", country: "Canada", city: "Calgary" };
-                            } else if (trainId.includes('(VIE)')) {
-                                trainData.location = { continent: "Europe", country: "Austria", city: "Vienna" };
-                            } else if (trainId.includes('(BER)')) {
-                                trainData.location = { continent: "Europe", country: "Germany", city: "Berlin" };
-                            } else if (trainId.includes('(FRA)')) {
-                                trainData.location = { continent: "Europe", country: "France", city: "Lille" };
-                            } else if (trainId.includes('(VAN)')) {
-                                trainData.location = { continent: "North America", country: "Canada", city: "Vancouver" };
-                            } else {
-                                trainData.location = { continent: "DataPack", country: "Imported", city: "From DataPack" };
-                            }
-                        }
-                        
-                        currentConfig.dataPackTrains[trainId] = trainData;
-                    });
-                    
-                    saveConfig(currentConfig);
-                    debugLogMessage("log", `Loaded ${Object.keys(currentConfig.dataPackTrains).length} trains from DataPack`);
+            const allDataPackTrains = {};
+            const datapackKeys = [];
+            
+            // Find all datapack keys in localStorage (support multiple datapacks)
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                if (key && key.startsWith('datapacktrains_')) {
+                    datapackKeys.push(key);
                 }
-                return parsed;
             }
+            
+            if (datapackKeys.length === 0) {
+                debugLogMessage("log", "No DataPack data found");
+                
+                // Purge all datapack trains if no datapacks exist
+                if (currentConfig.dataPackTrains && Object.keys(currentConfig.dataPackTrains).length > 0) {
+                    const purgedCount = Object.keys(currentConfig.dataPackTrains).length;
+                    const purgedTrains = Object.keys(currentConfig.dataPackTrains);
+                    
+                    // Remove from enabled trains
+                    currentConfig.enabledTrains = currentConfig.enabledTrains.filter(
+                        id => !purgedTrains.includes(id)
+                    );
+                    
+                    currentConfig.dataPackTrains = {};
+                    saveConfig(currentConfig);
+                    
+                    debugLogMessage("log", `Purged ${purgedCount} trains - all datapacks removed`);
+                    showNotification(`Removed ${purgedCount} trains (datapacks uninstalled)`, 'info');
+                }
+                
+                return null;
+            }
+            
+            debugLogMessage("log", `Found ${datapackKeys.length} datapack(s): ${datapackKeys.join(', ')}`);
+            
+            // Load from each datapack
+            datapackKeys.forEach(key => {
+                const dataPackData = localStorage.getItem(key);
+                if (dataPackData) {
+                    try {
+                        const parsed = JSON.parse(dataPackData);
+                        
+                        if (parsed.trains) {
+                            Object.entries(parsed.trains).forEach(([trainId, trainData]) => {
+                                // Ensure location data exists for DataPack trains
+                                if (!trainData.location) {
+                                    // Try to extract location from ID or description
+                                    if (trainId.includes('(NYC)') || trainId.includes('NYC')) {
+                                        trainData.location = { continent: "North America", country: "US", city: "New York City" };
+                                    } else if (trainId.includes('(LDN)') || trainId.includes('LDN')) {
+                                        trainData.location = { continent: "Europe", country: "UK", city: "London" };
+                                    } else if (trainId.includes('(CPH)')) {
+                                        trainData.location = { continent: "Europe", country: "Denmark", city: "Copenhagen" };
+                                    } else if (trainId.includes('(MXC)')) {
+                                        trainData.location = { continent: "North America", country: "Mexico", city: "Mexico City" };
+                                    } else if (trainId.includes('(TOR)')) {
+                                        trainData.location = { continent: "North America", country: "Canada", city: "Toronto" };
+                                    } else if (trainId.includes('(MTL)')) {
+                                        trainData.location = { continent: "North America", country: "Canada", city: "Montreal" };
+                                    } else if (trainId.includes('(WSH)')) {
+                                        trainData.location = { continent: "North America", country: "US", city: "Washington DC" };
+                                    } else if (trainId.includes('(LA)')) {
+                                        trainData.location = { continent: "North America", country: "US", city: "Los Angeles" };
+                                    } else if (trainId.includes('(SD)')) {
+                                        trainData.location = { continent: "North America", country: "US", city: "San Diego" };
+                                    } else if (trainId.includes('(MSP)')) {
+                                        trainData.location = { continent: "North America", country: "US", city: "Minneapolis" };
+                                    } else if (trainId.includes('(ATL)')) {
+                                        trainData.location = { continent: "North America", country: "US", city: "Atlanta" };
+                                    } else if (trainId.includes('(SF)')) {
+                                        trainData.location = { continent: "North America", country: "US", city: "San Francisco" };
+                                    } else if (trainId.includes('(CGY)')) {
+                                        trainData.location = { continent: "North America", country: "Canada", city: "Calgary" };
+                                    } else if (trainId.includes('(VIE)')) {
+                                        trainData.location = { continent: "Europe", country: "Austria", city: "Vienna" };
+                                    } else if (trainId.includes('(BER)')) {
+                                        trainData.location = { continent: "Europe", country: "Germany", city: "Berlin" };
+                                    } else if (trainId.includes('(FRA)')) {
+                                        trainData.location = { continent: "Europe", country: "France", city: "Lille" };
+                                    } else if (trainId.includes('(VAN)')) {
+                                        trainData.location = { continent: "North America", country: "Canada", city: "Vancouver" };
+                                    } else {
+                                        trainData.location = { continent: "DataPack", country: "Imported", city: "From DataPack" };
+                                    }
+                                }
+                                
+                                // Store which datapack this train came from
+                                trainData._datapackSource = key;
+                                allDataPackTrains[trainId] = trainData;
+                            });
+                            
+                            debugLogMessage("log", `Loaded ${Object.keys(parsed.trains).length} trains from ${key}`);
+                        }
+                    } catch (parseError) {
+                        debugLogMessage("error", `Failed to parse datapack ${key}`, parseError);
+                    }
+                }
+            });
+            
+            // Purge trains that are no longer in any datapack
+            if (currentConfig.dataPackTrains) {
+                const oldTrains = Object.keys(currentConfig.dataPackTrains);
+                const newTrains = Object.keys(allDataPackTrains);
+                const removedTrains = oldTrains.filter(id => !newTrains.includes(id));
+                
+                if (removedTrains.length > 0) {
+                    // Remove from enabled trains
+                    currentConfig.enabledTrains = currentConfig.enabledTrains.filter(
+                        id => !removedTrains.includes(id)
+                    );
+                    
+                    debugLogMessage("log", `Purged ${removedTrains.length} removed trains: ${removedTrains.join(', ')}`);
+                    showNotification(
+                        `Removed ${removedTrains.length} train(s) no longer in datapacks`,
+                        'info'
+                    );
+                }
+            }
+            
+            // Update config
+            currentConfig.dataPackTrains = allDataPackTrains;
+            saveConfig(currentConfig);
+            
+            debugLogMessage("log", `Total loaded: ${Object.keys(allDataPackTrains).length} trains from ${datapackKeys.length} datapack(s)`);
+            
+            return { trains: allDataPackTrains, sources: datapackKeys };
         } catch (e) {
             debugLogMessage("error", "Could not load DataPack data", e);
         }
@@ -1557,8 +1622,76 @@
     
     // Try to load DataPack data on init
     setTimeout(() => {
-        loadDataFromDataPack();
+        loadDataFromDataPacks();
     }, 500);
+
+    // --------------------------------------------------
+    // TRACK COMPATIBILITY VALIDATION
+    // --------------------------------------------------
+    function validateTrackCompatibility(trains) {
+        // Group trains by compatibleTrackTypes
+        const trackGroups = {};
+        
+        Object.entries(trains).forEach(([trainId, train]) => {
+            if (!train.compatibleTrackTypes || !train.stats) return;
+            
+            train.compatibleTrackTypes.forEach(trackType => {
+                if (!trackGroups[trackType]) {
+                    trackGroups[trackType] = [];
+                }
+                trackGroups[trackType].push({ id: trainId, name: train.name, train });
+            });
+        });
+        
+        // Check each track type group for compatibility
+        const warnings = [];
+        Object.entries(trackGroups).forEach(([trackType, trainsInGroup]) => {
+            if (trainsInGroup.length > 1) {
+                // Find the maximum requirements
+                const minStations = trainsInGroup.map(t => t.train.stats.minStationLength || 0);
+                const maxStations = trainsInGroup.map(t => t.train.stats.maxStationLength || 0);
+                
+                const requiredMin = Math.max(...minStations);
+                const requiredMax = Math.max(...maxStations);
+                
+                // Check if all trains are compatible
+                const incompatible = trainsInGroup.filter(({ train }) => 
+                    (train.stats.minStationLength || 0) < requiredMin || 
+                    (train.stats.maxStationLength || 0) < requiredMax
+                );
+                
+                if (incompatible.length > 0) {
+                    warnings.push({
+                        trackType,
+                        requiredMin,
+                        requiredMax,
+                        incompatible: incompatible.map(t => t.name || t.id),
+                        allTrains: trainsInGroup.map(t => t.name || t.id)
+                    });
+                }
+            }
+        });
+        
+        // Show warnings
+        if (warnings.length > 0) {
+            warnings.forEach(w => {
+                showNotification(
+                    `⚠️ Track "${w.trackType}" needs stations ${w.requiredMin}-${w.requiredMax}m. ` +
+                    `Incompatible: ${w.incompatible.join(', ')}`,
+                    'warning',
+                    8000  // Show for 8 seconds
+                );
+            });
+            
+            debugLogMessage("warn", `Track compatibility warnings: ${warnings.length}`);
+            warnings.forEach(w => {
+                debugLogMessage("warn", `  ${w.trackType}: requires ${w.requiredMin}-${w.requiredMax}m, ` +
+                    `incompatible trains: ${w.incompatible.join(', ')}`);
+            });
+        }
+        
+        return warnings;
+    }
 
     // --------------------------------------------------
     // GET TRAINS FOR REGISTRATION
@@ -1628,6 +1761,12 @@
 
         const trainsApi = api.trains;
         const trains = getTrainsForRegistration();
+        
+        // Validate track compatibility BEFORE registering
+        const trackWarnings = validateTrackCompatibility(trains);
+        if (trackWarnings.length > 0) {
+            debugLogMessage("warn", `Found ${trackWarnings.length} track compatibility issue(s)`);
+        }
         
         let successCount = 0;
         let failCount = 0;
@@ -2008,7 +2147,7 @@
                 saveConfig(currentConfig);
             }
 
-            // Train item component (your existing style)
+            // Train item component
             function TrainItem({ trainId, train, isEnabled, onToggle }) {
                 const totalCapacity = train.stats?.capacityPerCar * train.stats?.minCars || 0;
                 const isFixed = train.isFixed || false;
@@ -2436,6 +2575,12 @@
         const trainsApi = api.trains;
         const trains = getTrainsForRegistration();
         
+        // Validate track compatibility BEFORE registering
+        const trackWarnings = validateTrackCompatibility(trains);
+        if (trackWarnings.length > 0) {
+            debugLogMessage("warn", `Found ${trackWarnings.length} track compatibility issue(s)`);
+        }
+        
         let successCount = 0;
         let failCount = 0;
         let validationFailed = false;
@@ -2623,6 +2768,7 @@
         function MainMenuButton() {
             const [isOpen, setIsOpen] = React.useState(false);
             const [activeView, setActiveView] = React.useState(null); // 'enable', 'edit', 'create'
+            const [selectedTrainForEdit, setSelectedTrainForEdit] = React.useState(null); // Train ID to edit
 			const [hoveredTrain, setHoveredTrain] = React.useState(null);
             const [popupPosition, setPopupPosition] = React.useState({ x: 0, y: 0 });
 
@@ -2791,7 +2937,15 @@
 					};
 					Object.values(allTrainsData).forEach(train => {
 						if (train.manufacturer) {
-							manufacturerSet.add(train.manufacturer);
+							// Handle both single manufacturer and array of manufacturers
+							const trainManufacturers = Array.isArray(train.manufacturer) 
+								? train.manufacturer 
+								: [train.manufacturer];
+							trainManufacturers.forEach(manufacturer => {
+								if (manufacturer) {
+									manufacturerSet.add(manufacturer);
+								}
+							});
 						}
 					});
 					return Array.from(manufacturerSet).sort();
@@ -3039,7 +3193,7 @@
 						if (hoveredTrainRef.current) {
 							setHoveredTrain(hoveredTrainRef.current);
 						}
-					}, 1000);
+					}, 1500); // Increased from 1000ms to 1500ms to make edit button easier to click
 					
 					setHoverTimer(timer);
 				};
@@ -3107,8 +3261,24 @@
 					
 					const next = new Set(enabledTrains);
 					if (next.has(trainId)) {
+						// Disabling - always allowed
 						next.delete(trainId);
 					} else {
+						// Enabling - check 20 trains limit (excluding fixed trains)
+						const nonFixedEnabled = Array.from(next).filter(id => {
+							// Get train from all sources
+							const t = allTrains[id] || 
+								REAL_TRAINS[id] || 
+								(currentConfig.customTrains && currentConfig.customTrains[id]) ||
+								(currentConfig.dataPackTrains && currentConfig.dataPackTrains[id]);
+							return t && !t.isFixed;
+						});
+						
+						if (nonFixedEnabled.length >= 20) {
+							showNotification('Maximum 20 train types can be enabled (excluding fixed trains)', 'error');
+							return;
+						}
+						
 						next.add(trainId);
 					}
 					setEnabledTrains(next);
@@ -3122,6 +3292,12 @@
 						...prev,
 						[category]: !prev[category]
 					}));
+				};
+				
+				// Handle edit train - open edit view with selected train
+				const handleEditTrain = (trainId) => {
+					setSelectedTrainForEdit(trainId);
+					setActiveView('edit');
 				};
 				
 				// Handle location selection
@@ -3213,6 +3389,17 @@
 							])
 						]),
 						React.createElement('div', { className: 'flex items-center gap-2' }, [
+							// Edit button - always visible on hover
+							React.createElement('button', {
+								onClick: (e) => {
+									e.stopPropagation();
+									handleEditTrain(trainId);
+								},
+								className: 'px-2 py-1 text-xs text-muted-foreground hover:text-primary hover:bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity rounded border border-input hover:border-primary',
+								title: 'Edit train'
+							}, '✏️ Edit'),
+							
+							// Delete button - only for custom trains
 							isCustom && !isFixed && React.createElement('button', {
 								onClick: (e) => {
 									e.stopPropagation();
@@ -3221,6 +3408,8 @@
 								className: 'p-1 text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity',
 								title: 'Delete train'
 							}, '🗑️'),
+							
+							// Enable/disable toggle
 							React.createElement('label', {
 								className: `relative inline-flex items-center ${isFixed ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'}`
 							}, [
@@ -3603,10 +3792,26 @@
 
             // Edit Train View Component
             function EditTrainView() {
-                const [selectedTrainId, setSelectedTrainId] = React.useState(Object.keys(REAL_TRAINS)[0]);
+                // Get all available trains including datapacks
+                const allAvailableTrains = { 
+                    ...REAL_TRAINS, 
+                    ...(currentConfig.customTrains || {}),
+                    ...(currentConfig.dataPackTrains || {})
+                };
+                
+                // Initialize with selectedTrainForEdit if provided
+                const initialTrainId = selectedTrainForEdit || Object.keys(allAvailableTrains)[0];
+                const [selectedTrainId, setSelectedTrainId] = React.useState(initialTrainId);
                 const [trainData, setTrainData] = React.useState({});
                 const [showApply, setShowApply] = React.useState(true);
                 const [isCustomTrain, setIsCustomTrain] = React.useState(false);
+                
+                // Clear selectedTrainForEdit after using it
+                React.useEffect(() => {
+                    if (selectedTrainForEdit) {
+                        setSelectedTrainForEdit(null);
+                    }
+                }, []);
                 
                 const handleDelete = () => {
                     if (confirm(`Are you sure you want to delete "${trainData.name}"? This action cannot be undone.`)) {
@@ -3622,10 +3827,10 @@
                         saveConfig(currentConfig);
                         
                         // Reset to first available train
-                        const availableTrains = Object.keys({ ...REAL_TRAINS, ...currentConfig.customTrains });
+                        const availableTrains = Object.keys(allAvailableTrains);
                         if (availableTrains.length > 0) {
                             setSelectedTrainId(availableTrains[0]);
-                            const nextTrain = currentConfig.customTrains?.[availableTrains[0]] || REAL_TRAINS[availableTrains[0]];
+                            const nextTrain = allAvailableTrains[availableTrains[0]];
                             setTrainData(deepClone(nextTrain));
                             setIsCustomTrain(availableTrains[0].startsWith('custom-'));
                         } else {
@@ -3650,7 +3855,8 @@
 				}, [hoveredTrain]);
 				
                 React.useEffect(() => {
-                    const train = currentConfig.customTrains?.[selectedTrainId] || REAL_TRAINS[selectedTrainId];
+                    // Load train from all sources including datapacks
+                    const train = allAvailableTrains[selectedTrainId];
                     if (train) {
                         setTrainData(deepClone(train));
                         setIsCustomTrain(selectedTrainId.startsWith('custom-'));
@@ -3840,8 +4046,7 @@
                     ]);
                 };
 
-                // Get all available trains including custom ones
-                const allAvailableTrains = { ...REAL_TRAINS, ...currentConfig.customTrains };
+                // allAvailableTrains already declared at top of EditTrainView function
 
                 return React.createElement(FullscreenView, {
                     title: 'Edit Train Statistics',
