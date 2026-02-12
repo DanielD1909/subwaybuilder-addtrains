@@ -1346,6 +1346,12 @@
         
         // Helper to get category for a train
         function getTrainCategory(trainDef) {
+            // FIRST: Check for explicit tag (from datapacks)
+            if (trainDef.tag && Array.isArray(trainDef.tag) && trainDef.tag.length > 0) {
+                return trainDef.tag[0]; // Use first tag as category
+            }
+            
+            // FALLBACK: Stats-based categorization
             const totalCapacityAtMaxCars = trainDef.stats?.capacityPerCar * trainDef.stats?.maxCars || 0;
             const description = (trainDef.description || "").toLowerCase();
             
@@ -1622,7 +1628,44 @@
     
     // Try to load DataPack data on init
     setTimeout(() => {
-        loadDataFromDataPacks();
+        const datapackResult = loadDataFromDataPacks();
+        
+        // Validate datapack trains after loading
+        if (datapackResult && datapackResult.trains) {
+            const invalidTrains = [];
+            
+            Object.entries(datapackResult.trains).forEach(([trainId, train]) => {
+                if (train.stats) {
+                    const maxTrainLength = train.stats.carLength * train.stats.maxCars;
+                    const minRequired = train.stats.minStationLength;
+                    
+                    if (maxTrainLength > (minRequired - 2)) {
+                        invalidTrains.push({
+                            id: trainId,
+                            name: train.name || trainId,
+                            maxLength: maxTrainLength,
+                            minStation: minRequired,
+                            issue: `Train too long: ${maxTrainLength.toFixed(1)}m > ${(minRequired - 2).toFixed(1)}m`
+                        });
+                    }
+                }
+            });
+            
+            if (invalidTrains.length > 0) {
+                showNotification(
+                    `⚠️ ${invalidTrains.length} datapack train(s) have validation errors. Check console for details.`,
+                    'warning',
+                    15000
+                );
+                
+                debugLogMessage("warn", `DataPack Validation Errors (${invalidTrains.length} trains):`);
+                invalidTrains.forEach(t => {
+                    debugLogMessage("warn", `  ${t.name}: ${t.issue}`);
+                });
+            } else {
+                debugLogMessage("log", "All datapack trains validated successfully");
+            }
+        }
     }, 500);
 
     // --------------------------------------------------
@@ -1691,6 +1734,66 @@
         }
         
         return warnings;
+    }
+    
+    // Auto-fix incompatible track station lengths
+    function autoFixTrackCompatibility(trains) {
+        const trackGroups = {};
+        
+        Object.entries(trains).forEach(([id, train]) => {
+            if (!train.compatibleTrackTypes || !train.stats) return;
+            
+            train.compatibleTrackTypes.forEach(trackType => {
+                if (!trackGroups[trackType]) trackGroups[trackType] = [];
+                trackGroups[trackType].push({ id, train });
+            });
+        });
+        
+        const fixed = [];
+        
+        Object.entries(trackGroups).forEach(([trackType, group]) => {
+            if (group.length <= 1) return;
+            
+            // Find maximum requirements
+            const maxMin = Math.max(...group.map(t => t.train.stats.minStationLength || 0));
+            const maxMax = Math.max(...group.map(t => t.train.stats.maxStationLength || 0));
+            
+            // Fix incompatible trains
+            group.forEach(({ id, train }) => {
+                const oldMin = train.stats.minStationLength;
+                const oldMax = train.stats.maxStationLength;
+                
+                if (oldMin < maxMin || oldMax < maxMax) {
+                    train.stats.minStationLength = maxMin;
+                    train.stats.maxStationLength = maxMax;
+                    
+                    fixed.push({
+                        id,
+                        name: train.name,
+                        trackType,
+                        oldMin,
+                        oldMax,
+                        newMin: maxMin,
+                        newMax: maxMax
+                    });
+                }
+            });
+        });
+        
+        if (fixed.length > 0) {
+            showNotification(
+                `Auto-fixed ${fixed.length} train(s) for track compatibility. Check console for details.`,
+                'info',
+                10000
+            );
+            
+            debugLogMessage("log", `Auto-fixed ${fixed.length} trains for track compatibility:`);
+            fixed.forEach(f => {
+                debugLogMessage("log", `  ${f.name} (${f.trackType}): ${f.oldMin}-${f.oldMax}m → ${f.newMin}-${f.newMax}m`);
+            });
+        }
+        
+        return fixed;
     }
 
     // --------------------------------------------------
@@ -1761,6 +1864,11 @@
 
         const trainsApi = api.trains;
         const trains = getTrainsForRegistration();
+        
+        // Auto-fix track compatibility FIRST
+        autoFixTrackCompatibility(trains);
+        
+        // Then validate track compatibility
         
         // Validate track compatibility BEFORE registering
         const trackWarnings = validateTrackCompatibility(trains);
@@ -2575,6 +2683,11 @@
         const trainsApi = api.trains;
         const trains = getTrainsForRegistration();
         
+        // Auto-fix track compatibility FIRST
+        autoFixTrackCompatibility(trains);
+        
+        // Then validate track compatibility
+        
         // Validate track compatibility BEFORE registering
         const trackWarnings = validateTrackCompatibility(trains);
         if (trackWarnings.length > 0) {
@@ -2896,13 +3009,43 @@
 					return enabledSet;
 				});
 				
-				const [expandedCategories, setExpandedCategories] = React.useState({
-					"Fixed Standard Trains": true,
-					"Heavy Metro Types": true,
-					"Light Metro Types": true,
-					"Tram Types": true,
-					"Regional Types": true
-				});
+				// Build initial categories dynamically from all trains (including datapack tags)
+				const buildInitialCategories = () => {
+					const categories = { "Fixed Standard Trains": true }; // Always include fixed
+					
+					const allTrainsData = { 
+						...REAL_TRAINS, 
+						...(currentConfig.customTrains || {}),
+						...(currentConfig.dataPackTrains || {})
+					};
+					
+					// Get categories from all trains
+					Object.values(allTrainsData).forEach(train => {
+						// Use tag if present, otherwise fallback to stats-based
+						let category;
+						if (train.tag && Array.isArray(train.tag) && train.tag.length > 0) {
+							category = train.tag[0];
+						} else {
+							// Simplified fallback logic
+							if (train.isFixed) {
+								category = "Fixed Standard Trains";
+							} else if (train.allowAtGradeRoadCrossing) {
+								category = "Tram Types";
+							} else {
+								const capacity = (train.stats?.capacityPerCar || 0) * (train.stats?.maxCars || 1);
+								category = capacity >= 700 ? "Heavy Metro Types" : "Light Metro Types";
+							}
+						}
+						
+						if (category) {
+							categories[category] = true;
+						}
+					});
+					
+					return categories;
+				};
+				
+				const [expandedCategories, setExpandedCategories] = React.useState(buildInitialCategories());
 				
 				const [selectedLocation, setSelectedLocation] = React.useState({
 					continent: null,
@@ -2927,6 +3070,40 @@
 				const cities = selectedLocation.continent && selectedLocation.country ? 
 					Object.keys(locationTree[selectedLocation.continent]?.[selectedLocation.country] || {}) : [];
 				
+				// Normalize manufacturer names to avoid duplicates
+				const normalizeManufacturer = (name) => {
+					if (!name) return name;
+					
+					// Trim whitespace
+					let normalized = name.trim();
+					
+					// Standardize known manufacturers
+					const caseMap = {
+						'abb': 'ABB',
+						'bombardier': 'Bombardier',
+						'siemens': 'Siemens',
+						'kawasaki': 'Kawasaki',
+						'alstom': 'Alstom',
+						'kinki-sharyo': 'Kinki Sharyo',
+						'kinki sharyo': 'Kinki Sharyo',
+						'nippon sharyo': 'Nippon Sharyo',
+						'nippon-sharyo': 'Nippon Sharyo'
+					};
+					
+					const lower = normalized.toLowerCase();
+					if (caseMap[lower]) {
+						return caseMap[lower];
+					}
+					
+					// Replace hyphens with spaces for consistency
+					normalized = normalized.replace(/-/g, ' ');
+					
+					// Collapse multiple spaces to single space
+					normalized = normalized.replace(/\s+/g, ' ');
+					
+					return normalized;
+				};
+				
 				// Build list of all manufacturers from all trains
 				const manufacturers = React.useMemo(() => {
 					const manufacturerSet = new Set();
@@ -2943,7 +3120,9 @@
 								: [train.manufacturer];
 							trainManufacturers.forEach(manufacturer => {
 								if (manufacturer) {
-									manufacturerSet.add(manufacturer);
+									// Normalize before adding to set
+									const normalized = normalizeManufacturer(manufacturer);
+									manufacturerSet.add(normalized);
 								}
 							});
 						}
@@ -3265,17 +3444,24 @@
 						next.delete(trainId);
 					} else {
 						// Enabling - check 20 trains limit (excluding fixed trains)
+						// Build complete train data source
+						const allTrainsData = { 
+							...REAL_TRAINS, 
+							...(currentConfig.customTrains || {}),
+							...(currentConfig.dataPackTrains || {})
+						};
+						
 						const nonFixedEnabled = Array.from(next).filter(id => {
-							// Get train from all sources
-							const t = allTrains[id] || 
-								REAL_TRAINS[id] || 
-								(currentConfig.customTrains && currentConfig.customTrains[id]) ||
-								(currentConfig.dataPackTrains && currentConfig.dataPackTrains[id]);
+							const t = allTrainsData[id];
 							return t && !t.isFixed;
 						});
 						
+						// Debug logging
+						debugLogMessage("log", `Non-fixed enabled: ${nonFixedEnabled.length}/20`);
+						
 						if (nonFixedEnabled.length >= 20) {
 							showNotification('Maximum 20 train types can be enabled (excluding fixed trains)', 'error');
+							debugLogMessage("warn", `Limit reached. Current non-fixed trains: ${nonFixedEnabled.map(id => allTrainsData[id]?.name || id).join(', ')}`);
 							return;
 						}
 						
@@ -3394,6 +3580,17 @@
 								onClick: (e) => {
 									e.stopPropagation();
 									handleEditTrain(trainId);
+								},
+								onMouseEnter: (e) => {
+									e.stopPropagation();
+									// Cancel any pending hover timer to prevent popup
+									if (hoverTimer) {
+										clearTimeout(hoverTimer);
+										setHoverTimer(null);
+									}
+								},
+								onMouseLeave: (e) => {
+									e.stopPropagation();
 								},
 								className: 'px-2 py-1 text-xs text-muted-foreground hover:text-primary hover:bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity rounded border border-input hover:border-primary',
 								title: 'Edit train'
@@ -3640,11 +3837,40 @@
 								className: 'text-sm font-semibold uppercase tracking-wider text-muted-foreground'
 							}, 'Filter by Location'),
 							
-							(selectedLocation.continent || selectedLocation.country || selectedLocation.city || selectedLocation.manufacturer) && 
-							React.createElement('button', {
-								onClick: clearLocationFilter,
-								className: 'text-xs text-muted-foreground hover:text-foreground'
-							}, 'Clear Filter')
+							React.createElement('div', { className: 'flex items-center gap-3' }, [
+								(selectedLocation.continent || selectedLocation.country || selectedLocation.city || selectedLocation.manufacturer) && 
+								React.createElement('button', {
+									onClick: clearLocationFilter,
+									className: 'text-xs text-muted-foreground hover:text-foreground'
+								}, 'Clear Filter'),
+								
+								// Disable All button
+								React.createElement('button', {
+									onClick: () => {
+										const allTrainsData = { 
+											...REAL_TRAINS, 
+											...(currentConfig.customTrains || {}),
+											...(currentConfig.dataPackTrains || {})
+										};
+										
+										// Keep only fixed trains
+										const fixedOnly = new Set();
+										Object.entries(allTrainsData).forEach(([id, train]) => {
+											if (train.isFixed) {
+												fixedOnly.add(id);
+											}
+										});
+										
+										setEnabledTrains(fixedOnly);
+										currentConfig.enabledTrains = Array.from(fixedOnly);
+										saveConfig(currentConfig);
+										
+										showNotification('Disabled all non-fixed trains', 'success');
+										debugLogMessage("log", "Disabled all non-fixed trains");
+									},
+									className: 'text-xs text-destructive hover:text-destructive/80 underline'
+								}, 'Disable All')
+							])
 						]),
 						
 						React.createElement('div', {
@@ -3806,11 +4032,20 @@
                 const [showApply, setShowApply] = React.useState(true);
                 const [isCustomTrain, setIsCustomTrain] = React.useState(false);
                 
-                // Clear selectedTrainForEdit after using it
+                // Update selectedTrainId when selectedTrainForEdit changes
                 React.useEffect(() => {
-                    if (selectedTrainForEdit) {
-                        setSelectedTrainForEdit(null);
+                    if (selectedTrainForEdit && selectedTrainForEdit !== selectedTrainId) {
+                        setSelectedTrainId(selectedTrainForEdit);
                     }
+                }, [selectedTrainForEdit]);
+                
+                // Clear selectedTrainForEdit on unmount
+                React.useEffect(() => {
+                    return () => {
+                        if (selectedTrainForEdit) {
+                            setSelectedTrainForEdit(null);
+                        }
+                    };
                 }, []);
                 
                 const handleDelete = () => {
