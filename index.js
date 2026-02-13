@@ -2614,46 +2614,46 @@
     // --------------------------------------------------
     // GET TRAINS FOR REGISTRATION
     // --------------------------------------------------
-    function getTrainsForRegistration() {
-        const config = currentConfig || loadConfig();
-        const trains = {};
+    // function getTrainsForRegistration() {
+    //     const config = currentConfig || loadConfig();
+    //     const trains = {};
         
-        // Always include fixed trains
-        Object.entries(REAL_TRAINS).forEach(([trainId, trainDef]) => {
-            if (trainDef.isFixed) {
-                // Use custom version if exists, otherwise default
-                if (config.customTrains && config.customTrains[trainId]) {
-                    trains[trainId] = deepClone(config.customTrains[trainId]);
-                } else {
-                    trains[trainId] = deepClone(trainDef);
-                }
-            }
-        });
+    //     // Always include fixed trains
+    //     Object.entries(REAL_TRAINS).forEach(([trainId, trainDef]) => {
+    //         if (trainDef.isFixed) {
+    //             // Use custom version if exists, otherwise default
+    //             if (config.customTrains && config.customTrains[trainId]) {
+    //                 trains[trainId] = deepClone(config.customTrains[trainId]);
+    //             } else {
+    //                 trains[trainId] = deepClone(trainDef);
+    //             }
+    //         }
+    //     });
         
-        // Include enabled extra trains
-        (config.enabledTrains || []).forEach(trainId => {
-            if (REAL_TRAINS[trainId] && !REAL_TRAINS[trainId].isFixed) {
-                // Use custom version if exists, otherwise default
-                if (config.customTrains && config.customTrains[trainId]) {
-                    trains[trainId] = deepClone(config.customTrains[trainId]);
-                } else {
-                    trains[trainId] = deepClone(REAL_TRAINS[trainId]);
-                }
-            }
-        });
+    //     // Include enabled extra trains
+    //     (config.enabledTrains || []).forEach(trainId => {
+    //         if (REAL_TRAINS[trainId] && !REAL_TRAINS[trainId].isFixed) {
+    //             // Use custom version if exists, otherwise default
+    //             if (config.customTrains && config.customTrains[trainId]) {
+    //                 trains[trainId] = deepClone(config.customTrains[trainId]);
+    //             } else {
+    //                 trains[trainId] = deepClone(REAL_TRAINS[trainId]);
+    //             }
+    //         }
+    //     });
         
-        // Include custom trains
-        if (config.customTrains) {
-            Object.entries(config.customTrains).forEach(([trainId, trainDef]) => {
-                if (trainId.startsWith('custom-') && config.enabledTrains?.includes(trainId)) {
-                    trains[trainId] = deepClone(trainDef);
-                }
-            });
-        }
+    //     // Include custom trains
+    //     if (config.customTrains) {
+    //         Object.entries(config.customTrains).forEach(([trainId, trainDef]) => {
+    //             if (trainId.startsWith('custom-') && config.enabledTrains?.includes(trainId)) {
+    //                 trains[trainId] = deepClone(trainDef);
+    //             }
+    //         });
+    //     }
         
-        debugLogMessage("log", `Preparing ${Object.keys(trains).length} trains for registration`);
-        return trains;
-    }
+    //     debugLogMessage("log", `Preparing ${Object.keys(trains).length} trains for registration`);
+    //     return trains;
+    // }
 
     // --------------------------------------------------
     // TRAIN REGISTRATION WITH VALIDATION
