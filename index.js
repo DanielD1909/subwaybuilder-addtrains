@@ -194,9 +194,9 @@
                 "city": "New York City"
             }
         },
-        "Tube 2024 (LDN)": {
-            "id": "Tube 2024 (LDN)",
-            "name": "Tube 2024 (LDN)",
+        "2024 Stock (LDN)": {
+            "id": "2024 Stock (LDN)",
+            "name": "2024 Stock (LDN)",
             "description": "For higher capacity routes. The 2024 Tube Stock is a subway EMU built by Siemens Mobility as part of their Inspiro family. It will enter service around mid-2026 on the Picadilly Line.",
             "allowAtGradeRoadCrossing": false,
             "manufacturer": "Siemens",
