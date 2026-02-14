@@ -1220,9 +1220,9 @@
                 "city": "Berlin"
             }
         },
-        "R211A (NYC)": {
-            "id": "R211A (NYC)",
-            "name": "R211A (NYC)",
+        "R211 (NYC)": {
+            "id": "R211 (NYC)",
+            "name": "R211 (NYC)",
             "description": "For separating the NYC subway into A and B Division Routes. The R211 is a subway EMU built by Kawasaki for the NYC Subway's B Division that entered service in 2023.",
             "allowAtGradeRoadCrossing": false,
 			"manufacturer": "Kawasaki",
@@ -1247,7 +1247,7 @@
                 "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
-            "compatibleTrackTypes": ["R211A (NYC)"],
+            "compatibleTrackTypes": ["R211 (NYC)"],
             "appearance": {
                 "color": "#007EC6"
             },
