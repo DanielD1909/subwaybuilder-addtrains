@@ -120,8 +120,8 @@
         // Heavy Metro Types (capacity over 700 at minCars)
         "heavy-metro": {
             "id": "heavy-metro",
-            "name": "heavy-metro",
-            "description": "For higher capacity routes. The R211 is a subway EMU built by Kawasaki for the NYC Subway's B Division that entered service in 2023.",
+            "name": "Heavy Metro",
+            "description": "For higher capacity routes. Modeled after NYC's R211s",
             "allowAtGradeRoadCrossing": false,
             "manufacturer": "Kawasaki",
             "stats": {
@@ -130,13 +130,13 @@
                 "maxAcceleration": 1.1,
                 "maxDeceleration": 1.3,
                 "capacityPerCar": 240.0,
-                "carLength": 18.35,
+                "carLength": 15,
                 "minCars": 5.0,
                 "maxCars": 10.0,
                 "carsPerCarSet": 5.0,
                 "carCost": 2700931,
                 "trainWidth": 3.05,
-                "minStationLength": 186,
+                "minStationLength": 160,
                 "maxStationLength": 227,
                 "baseTrackCost": 50000,
                 "baseStationCost": 75000000,
@@ -464,8 +464,8 @@
         // Light Metro Types (capacity under 700 at minCars)
         "light-metro": {
             "id": "light-metro",
-            "name": "light-metro",
-            "description": "Lighter, more flexible transit for moderate capacity routes. The Alstom Metropolis is a series of metro EMUs in service across the world since 1993. The Saint-Laurent is an autonomous light metro variant built for the Réseau express métropolitain in Montreal that entered service in 2023.",
+            "name": "Light Metro",
+            "description": "Lighter, more flexible transit for moderate capacity routes. Modeled after Montreal's Alstom Metropolis Saint-Laurent",
             "allowAtGradeRoadCrossing": false,
 			"manufacturer": "Alstom",
             "stats": {
@@ -473,19 +473,19 @@
                 "maxSpeedLocalStation": 13,
                 "maxAcceleration": 1.1,
                 "maxDeceleration": 1.3,
-                "capacityPerCar": 150.0,
+                "capacityPerCar": 200.0,
                 "carLength": 19.05,
                 "minCars": 2.0,
                 "maxCars": 4.0,
                 "carsPerCarSet": 2.0,
                 "carCost": 2500000,
-                "trainWidth": 2.65,
+                "trainWidth": 2.9,
                 "minStationLength": 80,
-                "maxStationLength": 120,
-                "baseTrackCost": 30000,
+                "maxStationLength": 160,
+                "baseTrackCost": 35000,
                 "baseStationCost": 50000000,
-                "trainOperationalCostPerHour": 100,
-                "carOperationalCostPerHour": 10,
+                "trainOperationalCostPerHour": 400,
+                "carOperationalCostPerHour": 40,
                 "scissorsCrossoverCost": 12000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
@@ -5731,6 +5731,8 @@
 
         return MainMenuButton;
     }
+
+    
 	
     // --------------------------------------------------
     // INITIALIZATION
@@ -5762,6 +5764,10 @@
                 if (ReactComponent) {
                     api.ui.registerComponent("main-menu", {
                         id: 'add-trains-button',
+                        component: ReactComponent
+                    });
+                    api.ui.registerComponent("settings-menu", {
+                        id: 'add-trains-button-2',
                         component: ReactComponent
                     });
                     debugLogMessage("log", "React component registered successfully");
