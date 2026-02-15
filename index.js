@@ -120,8 +120,8 @@
         // Heavy Metro Types (capacity over 700 at minCars)
         "heavy-metro": {
             "id": "heavy-metro",
-            "name": "heavy-metro",
-            "description": "For higher capacity routes. The R211 is a subway EMU built by Kawasaki for the NYC Subway's B Division that entered service in 2023.",
+            "name": "Heavy Metro",
+            "description": "For higher capacity routes. Modeled after NYC's R211s",
             "allowAtGradeRoadCrossing": false,
             "manufacturer": "Kawasaki",
             "stats": {
@@ -130,13 +130,13 @@
                 "maxAcceleration": 1.1,
                 "maxDeceleration": 1.3,
                 "capacityPerCar": 240.0,
-                "carLength": 18.35,
+                "carLength": 15,
                 "minCars": 5.0,
                 "maxCars": 10.0,
                 "carsPerCarSet": 5.0,
                 "carCost": 2700931,
                 "trainWidth": 3.05,
-                "minStationLength": 186,
+                "minStationLength": 160,
                 "maxStationLength": 227,
                 "baseTrackCost": 50000,
                 "baseStationCost": 75000000,
@@ -194,9 +194,9 @@
                 "city": "New York City"
             }
         },
-        "Tube 2024 (LDN)": {
-            "id": "Tube 2024 (LDN)",
-            "name": "Tube 2024 (LDN)",
+        "2024 Stock (LDN)": {
+            "id": "2024 Stock (LDN)",
+            "name": "2024 Stock (LDN)",
             "description": "For higher capacity routes. The 2024 Tube Stock is a subway EMU built by Siemens Mobility as part of their Inspiro family. It will enter service around mid-2026 on the Picadilly Line.",
             "allowAtGradeRoadCrossing": false,
             "manufacturer": "Siemens",
@@ -464,8 +464,8 @@
         // Light Metro Types (capacity under 700 at minCars)
         "light-metro": {
             "id": "light-metro",
-            "name": "light-metro",
-            "description": "Lighter, more flexible transit for moderate capacity routes. The Alstom Metropolis is a series of metro EMUs in service across the world since 1993. The Saint-Laurent is an autonomous light metro variant built for the Réseau express métropolitain in Montreal that entered service in 2023.",
+            "name": "Light Metro",
+            "description": "Lighter, more flexible transit for moderate capacity routes. Modeled after Montreal's Alstom Metropolis Saint-Laurent",
             "allowAtGradeRoadCrossing": false,
 			"manufacturer": "Alstom",
             "stats": {
@@ -473,19 +473,19 @@
                 "maxSpeedLocalStation": 13,
                 "maxAcceleration": 1.1,
                 "maxDeceleration": 1.3,
-                "capacityPerCar": 150.0,
+                "capacityPerCar": 200.0,
                 "carLength": 19.05,
                 "minCars": 2.0,
                 "maxCars": 4.0,
                 "carsPerCarSet": 2.0,
                 "carCost": 2500000,
-                "trainWidth": 2.65,
+                "trainWidth": 2.9,
                 "minStationLength": 80,
-                "maxStationLength": 120,
-                "baseTrackCost": 30000,
+                "maxStationLength": 160,
+                "baseTrackCost": 35000,
                 "baseStationCost": 50000000,
-                "trainOperationalCostPerHour": 100,
-                "carOperationalCostPerHour": 10,
+                "trainOperationalCostPerHour": 400,
+                "carOperationalCostPerHour": 40,
                 "scissorsCrossoverCost": 12000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
@@ -587,7 +587,7 @@
                 "maxSpeedLocalStation": 13,
                 "maxAcceleration": 1.3,
                 "maxDeceleration": 1.3,
-                "capacityPerCar": 80.0,
+                "capacityPerCar": 100.0,
                 "carLength": 13.07,
                 "minCars": 2.0,
                 "maxCars": 4.0,
@@ -701,7 +701,7 @@
                 "maxSpeedLocalStation": 6.7,
                 "maxAcceleration": 1.34,
                 "maxDeceleration": 1.34,
-                "capacityPerCar": 165.0,
+                "capacityPerCar": 200.0,
                 "carLength": 27.5,
                 "minCars": 1.0,
                 "maxCars": 1.0,
@@ -741,7 +741,7 @@
                 "maxDeceleration": 1.56,
                 "capacityPerCar": 175.0,
                 "carLength": 27.13,
-                "minCars": 1.0,
+                "minCars": 2.0,
                 "maxCars": 3.0,
                 "carsPerCarSet": 1.0,
                 "carCost": 2500000,
@@ -779,7 +779,7 @@
                 "maxDeceleration": 1.34,
                 "capacityPerCar": 145.0,
                 "carLength": 24.8,
-                "minCars": 1.0,
+                "minCars": 2.0,
                 "maxCars": 4.0,
                 "carsPerCarSet": 1.0,
                 "carCost": 2185000,
@@ -815,7 +815,7 @@
                 "maxSpeedLocalStation": 6.7,
                 "maxAcceleration": 0.95,
                 "maxDeceleration": 1.32,
-                "capacityPerCar": 180.0,
+                "capacityPerCar": 200.0,
                 "carLength": 25.8,
                 "minCars": 1.0,
                 "maxCars": 3.0,
@@ -855,7 +855,7 @@
                 "maxDeceleration": 1.34,
                 "capacityPerCar": 150.0,
                 "carLength": 22.86,
-                "minCars": 1.0,
+                "minCars": 2.0,
                 "maxCars": 3.0,
                 "carsPerCarSet": 1.0,
                 "carCost": 2185000,
@@ -891,7 +891,7 @@
                 "maxSpeedLocalStation": 10,
                 "maxAcceleration": 1.3,
                 "maxDeceleration": 1.3,
-                "capacityPerCar": 180.0,
+                "capacityPerCar": 200.0,
                 "carLength": 31.2,
                 "minCars": 1.0,
                 "maxCars": 2.0,
@@ -929,7 +929,7 @@
                 "maxSpeedLocalStation": 6.7,
                 "maxAcceleration": 1.34,
                 "maxDeceleration": 1.34,
-                "capacityPerCar": 190.0,
+                "capacityPerCar": 200.0,
                 "carLength": 27.43,
                 "minCars": 1.0,
                 "maxCars": 1.0,
@@ -1220,9 +1220,9 @@
                 "city": "Berlin"
             }
         },
-        "R211A (NYC)": {
-            "id": "R211A (NYC)",
-            "name": "R211A (NYC)",
+        "R211 (NYC)": {
+            "id": "R211 (NYC)",
+            "name": "R211 (NYC)",
             "description": "For separating the NYC subway into A and B Division Routes. The R211 is a subway EMU built by Kawasaki for the NYC Subway's B Division that entered service in 2023.",
             "allowAtGradeRoadCrossing": false,
 			"manufacturer": "Kawasaki",
@@ -1247,7 +1247,7 @@
                 "scissorsCrossoverCost": 15000000
             },
             "elevationMultipliers": BASE_ELEVATION_MULTIPLIERS,
-            "compatibleTrackTypes": ["R211A (NYC)"],
+            "compatibleTrackTypes": ["R211 (NYC)"],
             "appearance": {
                 "color": "#007EC6"
             },
@@ -1256,82 +1256,6 @@
                 "continent": "North America",
                 "country": "US",
                 "city": "New York City"
-            }
-        },
-        "S70 (ATL) (SA)": {
-            "id": "S70 (ATL) (SA)",
-            "name": "S70 (ATL) (SA)",
-            "description": "City tram and LRT service, adjusted for street running speeds. The S700 Streetcar is an articulated low-floor streetcar built by Siemens Mobility that have been in service across North America since 2004. This specific model is based on the streetcar model ordered by OC Streetcar.",
-            "allowAtGradeRoadCrossing": true,
-			"manufacturer": "Siemens",
-            "stats": {
-                "maxSpeed": 10.0,
-                "maxSpeedLocalStation": 6.7,
-                "maxAcceleration": 1.34,
-                "maxDeceleration": 1.34,
-                "capacityPerCar": 165.0,
-                "carLength": 27.5,
-                "minCars": 1.0,
-                "maxCars": 1.0,
-                "carsPerCarSet": 1.0,
-                "carCost": 2185000,
-                "trainWidth": 2.65,
-                "minStationLength": 62,
-                "maxStationLength": 80,
-                "baseTrackCost": 25000,
-                "baseStationCost": 20000000,
-                "trainOperationalCostPerHour": 200,
-                "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000
-            },
-            "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
-            "compatibleTrackTypes": ["S70 (ATL) (SA)"],
-            "appearance": {
-                "color": "#01235E"
-            },
-            "isFixed": false,
-            "location": {
-                "continent": "North America",
-                "country": "US",
-                "city": "Atlanta"
-            }
-        },
-        "S700-US (SD) (SA)": {
-            "id": "S700-US (SD) (SA)",
-            "name": "S700-US (SD) (SA)",
-            "description": "City tram and LRT service, adjusted for street running speeds. The S700 series are articulated low-floor light-rail vehicles built by Siemens Mobility that have been in service across North America since 2004. This specific model is based on the ultra-short model used in San Diego since 2024.",
-            "allowAtGradeRoadCrossing": true,
-			"manufacturer": "Siemens",
-            "stats": {
-                "maxSpeed": 10.0,
-                "maxSpeedLocalStation": 6.7,
-                "maxAcceleration": 1.34,
-                "maxDeceleration": 1.34,
-                "capacityPerCar": 145.0,
-                "carLength": 24.8,
-                "minCars": 1.0,
-                "maxCars": 4.0,
-                "carsPerCarSet": 1.0,
-                "carCost": 2185000,
-                "trainWidth": 2.65,
-                "minStationLength": 102,
-                "maxStationLength": 140,
-                "baseTrackCost": 25000,
-                "baseStationCost": 20000000,
-                "trainOperationalCostPerHour": 200,
-                "carOperationalCostPerHour": 20,
-                "scissorsCrossoverCost": 5000000
-            },
-            "elevationMultipliers": TRAM_ELEVATION_MULTIPLIERS,
-            "compatibleTrackTypes": ["S700-US (SD) (SA)"],
-            "appearance": {
-                "color": "#000000"
-            },
-            "isFixed": false,
-            "location": {
-                "continent": "North America",
-                "country": "US",
-                "city": "San Diego"
             }
         }
     };
@@ -5807,6 +5731,8 @@
 
         return MainMenuButton;
     }
+
+    
 	
     // --------------------------------------------------
     // INITIALIZATION
@@ -5838,6 +5764,10 @@
                 if (ReactComponent) {
                     api.ui.registerComponent("main-menu", {
                         id: 'add-trains-button',
+                        component: ReactComponent
+                    });
+                    api.ui.registerComponent("settings-menu", {
+                        id: 'add-trains-button-2',
                         component: ReactComponent
                     });
                     debugLogMessage("log", "React component registered successfully");
