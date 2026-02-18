@@ -2882,7 +2882,13 @@
                         "Standard Commuter": true,
                         "Diesel Commuter": true,
                         "Standard S-Bahn": true,
-                        "Automated S-Bahn": true
+                        "Automated S-Bahn": true,
+                        "Rubber Metro": true,
+                        "Automated Rubber Metro": true,
+                        "Rubber LRT": true,
+                        "People Mover": true,
+                        "Dual-Mode Commuter": true,
+                        "Hydrogen Commuter": true,
                     };
 					
 					return categories;
@@ -3014,7 +3020,14 @@
 					"Standard Commuter": [],
 					"Diesel Commuter": [],
 					"Standard S-Bahn": [],
-					"Automated S-Bahn": []
+					"Automated S-Bahn": [],
+                    "Rubber Metro": [],
+                    "Automated Rubber Metro": [],
+                    "Rubber LRT": [],
+                    "People Mover": [],
+                    "Dual-Mode Commuter": [],
+                    "Hydrogen Commuter": [],
+
 				};
 				
 				// Collect all trains for quick access
@@ -3767,6 +3780,16 @@
 							categorizedTrains["Automated Metro"],
 							"Driverless metro systems (GoA4)"
 						),
+                        renderCategorySection(
+							"Rubber Metro",
+							categorizedTrains["Rubber Metro"],
+							"Conventional metro systems with rubber tyres"
+						),
+                        renderCategorySection(
+							"Automated Rubber Metro",
+							categorizedTrains["Automated Rubber Metro"],
+							"Driverless rubber tyre metro systems (GoA4)"
+						),
 						renderCategorySection(
 							"Standard LRT",
 							categorizedTrains["Standard LRT"],
@@ -3777,12 +3800,32 @@
 							categorizedTrains["Diesel LRT"],
 							"Diesel-powered light rail vehicles"
 						),
+                        renderCategorySection(
+							"Rubber LRT",
+							categorizedTrains["Rubber LRT"],
+							"Light rail and tram systems with rubber tyres"
+						),
 						renderCategorySection(
 							"Standard Commuter",
 							categorizedTrains["Standard Commuter"],
 							"Electric commuter and regional rail"
 						),
 						renderCategorySection(
+							"People Mover",
+							categorizedTrains["People Mover"],
+							"Automated People Movers like in airports"
+						),
+                        renderCategorySection(
+							"Dual-Mode Commuter",
+							categorizedTrains["Dual-Mode Commuter"],
+							"Dual-Mode (Diesel and Electric) commuter trains"
+						),
+                        renderCategorySection(
+							"Hydrogen Commuter",
+							categorizedTrains["Hydrogen Commuter"],
+							"Hydrogen-powered commuter trains"
+						),
+                        renderCategorySection(
 							"Diesel Commuter",
 							categorizedTrains["Diesel Commuter"],
 							"Diesel-powered commuter trains"
@@ -5324,6 +5367,12 @@
 				let dieselCommuterCount = 0;
 				let standardSBahnCount = 0;
 				let automatedSBahnCount = 0;
+                let RubberMetroCount = 0;
+                let AutomatedRubberMetroCount = 0;
+                let RubberLRTCount = 0;
+                let PeopleMoverCount = 0;
+                let DualModeCommuterCount = 0;
+                let HydrogenCommuterCount = 0;
 				let fixedCount = 0;
 				
 				// Helper function to traverse the tree and count trains
@@ -5375,6 +5424,24 @@
 									case "Automated S-Bahn":
 										automatedSBahnCount += trainCount;
 										break;
+                                    case "Rubber Metro":
+                                        RubberMetroCount += trainCount;
+                                        break;
+                                    case "Automated Rubber Metro": 
+                                        AutomatedRubberMetroCount += trainCount;
+                                        break;
+                                    case "Rubber LRT": 
+                                        RubberLRTCount += trainCount;
+                                        break;
+                                    case "People Mover": 
+                                        PeopleMoverCount += trainCount;
+                                        break;
+                                    case "Dual-Mode Commuter": 
+                                        DualModeCommuterCount += trainCount;
+                                        break;
+                                    case "Hydrogen Commuter": 
+                                        HydrogenCommuterCount += trainCount;
+                                        break;
 								}
 							});
 						});
@@ -5423,7 +5490,13 @@
 								React.createElement('div', {}, `Standard Commuter: ${standardCommuterCount}`),
 								React.createElement('div', {}, `Diesel Commuter: ${dieselCommuterCount}`),
 								React.createElement('div', {}, `Standard S-Bahn: ${standardSBahnCount}`),
-								React.createElement('div', {}, `Automated S-Bahn: ${automatedSBahnCount}`)
+								React.createElement('div', {}, `Automated S-Bahn: ${automatedSBahnCount}`),
+                                React.createElement('div', {}, `Rubber Metro: ${RubberMetroCount}`),
+                                React.createElement('div', {}, `Automated Rubber Metro: ${AutomatedRubberMetroCount}`),
+                                React.createElement('div', {}, `Rubber LRT: ${RubberLRTCount}`),
+                                React.createElement('div', {}, `People Mover: ${PeopleMoverCount}`),
+                                React.createElement('div', {}, `Dual-Mode Commuter: ${DualModeCommuterCount}`),
+                                React.createElement('div', {}, `Hydrogen Commuter: ${HydrogenCommuterCount}`)
 							])
                         ]),
 
