@@ -5514,7 +5514,7 @@
                                             min: 100,
                                             max: 10000,
                                             step: '10',
-                                            value: trainData.stats?.minTurnRadius || 200,
+                                            value: trainData.stats?.minStationTurnRadius || 200,
                                             onChange: (e) => updateStat('minStationTurnRadius', parseInt(e.target.value)),
                                             className: 'w-full p-2 border border-input bg-background rounded text-sm'
                                         })
@@ -5529,7 +5529,7 @@
                                             min: 1,
                                             max: 15,
                                             step: '0.1',
-                                            value: trainData.stats?.minTurnRadius || 6,
+                                            value: trainData.stats?.maxSlopePercentage || 6,
                                             onChange: (e) => updateStat('maxSlopePercentage', parseInt(e.target.value)),
                                             className: 'w-full p-2 border border-input bg-background rounded text-sm'
                                         })
