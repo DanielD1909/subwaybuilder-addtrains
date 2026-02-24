@@ -2904,7 +2904,7 @@
 				const buildInitialCategories = () => {
 					const categories = { 
                         "Fixed Standard Trains": true,
-                        "Standard Metro": true,
+                        "Metro": true,
                         "Automated Metro": true,
                         "Standard LRT": true,
                         "Diesel LRT": true,
@@ -5652,25 +5652,25 @@
 									case "Fixed Standard Trains":
 										fixedCount += trainCount;
 										break;
-									case "Standard Metro":
+									case "Metro":
 										standardMetroCount += trainCount;
 										break;
 									case "Automated Metro":
 										automatedMetroCount += trainCount;
 										break;
-									case "Standard LRT":
+									case "LRT":
 										standardLRTCount += trainCount;
 										break;
 									case "Diesel LRT":
 										dieselLRTCount += trainCount;
 										break;
-									case "Standard Commuter":
+									case "Commuter":
 										standardCommuterCount += trainCount;
 										break;
 									case "Diesel Commuter":
 										dieselCommuterCount += trainCount;
 										break;
-									case "Standard S-Bahn":
+									case "S-Bahn":
 										standardSBahnCount += trainCount;
 										break;
 									case "Automated S-Bahn":
@@ -5685,7 +5685,7 @@
                                     case "Rubber LRT": 
                                         RubberLRTCount += trainCount;
                                         break;
-                                    case "People Mover": 
+                                    case "Automated People Mover": 
                                         PeopleMoverCount += trainCount;
                                         break;
                                     case "Dual-Mode Commuter": 
