@@ -124,7 +124,7 @@
             "description": "For higher capacity routes. Modeled after NYC's R211s",
             "allowAtGradeRoadCrossing": false,
             "manufacturer": "Kawasaki",
-            "tag": ["Standard Metro"],
+            "tag": ["Metro"],
             "stats": {
                 "maxSpeed": 24.7,
                 "maxSpeedLocalStation": 13,
@@ -1354,7 +1354,7 @@
                        description.includes("s-bahn")) {
                 return "Standard Commuter";
             } else if (totalCapacityAtMaxCars >= 700) {
-                return "Standard Metro";
+                return "Metro";
             } else {
                 return "Automated Metro";
             }
@@ -2010,7 +2010,7 @@
             name: name,
             description: description || "Custom train type",
             allowAtGradeRoadCrossing: false,
-            tag: ["Standard Metro"],
+            tag: ["Metro"],
             stats: {
                 maxAcceleration: 1.0,
                 maxDeceleration: 1.0,
@@ -3042,7 +3042,7 @@
 				// Build categorized trains filtered by selected location
 				const categorizedTrains = {
 					"Fixed Standard Trains": [],
-					"Standard Metro": [],
+					"Metro": [],
 					"Automated Metro": [],
 					"Standard LRT": [],
 					"Diesel LRT": [],
@@ -3145,7 +3145,7 @@
 							allTrains[trainId] = train;
 							
 							// Categorize the train based on tag
-							let category = "Standard Metro";
+							let category = "Metro";
 							
 							if (train.isFixed) {
 								category = "Fixed Standard Trains";
