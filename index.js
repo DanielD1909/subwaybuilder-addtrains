@@ -3808,7 +3808,7 @@
 						),
 						renderCategorySection(
 							"Standard Metro",
-							categorizedTrains["Standard Metro"],
+							categorizedTrains["Metro"],
 							"Conventional metro systems with steel wheels"
 						),
 						renderCategorySection(
