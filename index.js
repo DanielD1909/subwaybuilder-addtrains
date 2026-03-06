@@ -1041,7 +1041,7 @@
             "description": "Regional rail is a public rail transport service that operates between towns and cities. In North America, regional rail is often a synonym for commuter rail. The M9 is a commuter rail EMU built by Kawasaki for the Long Island Railroad that entered service in 2009.",
             "allowAtGradeRoadCrossing": true,
 			"manufacturer": "Kawasaki",
-            "tag": ["Standard Commuter"],
+            "tag": ["Commuter"],
             "stats": {
                 "maxSpeed": 40.0,
                 "maxSpeedLocalStation": 12,
@@ -1344,15 +1344,15 @@
                     !description.includes("commuter") &&
                     !description.includes("long-distance") &&
                     !description.includes("s-bahn")) {
-                    return "Standard LRT";
+                    return "LRT";
                 } else {
-                    return "Standard Commuter";
+                    return "Commuter";
                 }
             } else if (description.includes("regional") || 
                        description.includes("commuter") ||
                        description.includes("long-distance") ||
                        description.includes("s-bahn")) {
-                return "Standard Commuter";
+                return "Commuter";
             } else if (totalCapacityAtMaxCars >= 700) {
                 return "Metro";
             } else {
@@ -2906,11 +2906,11 @@
                         "Fixed Standard Trains": true,
                         "Metro": true,
                         "Automated Metro": true,
-                        "Standard LRT": true,
+                        "LRT": true,
                         "Diesel LRT": true,
-                        "Standard Commuter": true,
+                        "Commuter": true,
                         "Diesel Commuter": true,
-                        "Standard S-Bahn": true,
+                        "S-Bahn": true,
                         "Automated S-Bahn": true,
                         "Rubber Metro": true,
                         "Automated Rubber Metro": true,
@@ -3044,11 +3044,11 @@
 					"Fixed Standard Trains": [],
 					"Metro": [],
 					"Automated Metro": [],
-					"Standard LRT": [],
+					"LRT": [],
 					"Diesel LRT": [],
-					"Standard Commuter": [],
+					"Commuter": [],
 					"Diesel Commuter": [],
-					"Standard S-Bahn": [],
+					"S-Bahn": [],
 					"Automated S-Bahn": [],
                     "Rubber Metro": [],
                     "Automated Rubber Metro": [],
@@ -3828,7 +3828,7 @@
 						),
 						renderCategorySection(
 							"Standard LRT",
-							categorizedTrains["Standard LRT"],
+							categorizedTrains["LRT"],
 							"Light rail and tram systems"
 						),
 						renderCategorySection(
@@ -3843,7 +3843,7 @@
 						),
 						renderCategorySection(
 							"Standard Commuter",
-							categorizedTrains["Standard Commuter"],
+							categorizedTrains["Commuter"],
 							"Electric commuter and regional rail"
 						),
 						renderCategorySection(
@@ -3868,7 +3868,7 @@
 						),
 						renderCategorySection(
 							"Standard S-Bahn",
-							categorizedTrains["Standard S-Bahn"],
+							categorizedTrains["S-Bahn"],
 							"S-Bahn / hybrid commuter-rapid transit"
 						),
 						renderCategorySection(
